@@ -1,0 +1,13 @@
+{
+  "name": "tileflowuk-website",
+  "version": "1.0.0",
+  "description": "TileFlowUK - Professional Tiles and Design Inspiration",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server",
+    "build": "echo 'Static site - no build needed'"
+  },
+  "keywords": ["tiles", "design", "professional"],
+  "author": "TileFlowUK",
+  "license": "MIT"
+}
