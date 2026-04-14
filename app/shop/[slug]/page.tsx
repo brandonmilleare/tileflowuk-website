@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
+import Script from 'next/script'
 import { Star, CheckCircle2, XCircle, ExternalLink, ChevronLeft } from 'lucide-react'
 import { getProductBySlug, getRelatedProducts, products } from '@/data/products'
 import { Badge } from '@/components/ui/badge'
@@ -42,8 +43,37 @@ export default async function ProductPage({ params }: PageProps) {
     ? `£${product.price.toLocaleString('en-GB')} (${product.priceNote})`
     : `£${product.price.toLocaleString('en-GB')}`
 
+  const productSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    description: product.description,
+    image: `https://tileflowuk.com${product.image}`,
+    brand: { '@type': 'Brand', name: product.name.split(' ')[0] },
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'GBP',
+      price: product.price,
+      availability: 'https://schema.org/InStock',
+      url: product.affiliateUrl,
+      seller: { '@type': 'Organization', name: 'Amazon UK' },
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: product.rating,
+      reviewCount: product.reviewCount,
+      bestRating: 5,
+      worstRating: 1,
+    },
+  }
+
   return (
     <div className="min-h-screen pt-16 bg-white">
+      <Script
+        id="product-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <nav className="flex items-center gap-2 text-sm text-stone-400">
