@@ -40,10 +40,10 @@ export default function Hero() {
             10+ Years Professional Experience
           </motion.div>
 
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-[#111827]">
-            TileFlow<span className="text-[var(--tf-primary)]">UK</span>
-            <span className="block text-[#111827] mt-1">Built on Style.</span>
-            <span className="block text-[#374151]">Backed by Skill.</span>
+          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-black">
+            TileFlowUK
+            <span className="block mt-1">Built on Style.</span>
+            <span className="block">Backed by Skill.</span>
           </h1>
 
           <motion.p

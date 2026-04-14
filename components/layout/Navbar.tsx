@@ -48,9 +48,9 @@ export default function Navbar() {
             <Image
               src="/logo.svg"
               alt="TileFlow UK"
-              width={180}
-              height={46}
-              className="h-11 w-auto"
+              width={220}
+              height={56}
+              className="h-14 w-auto"
               priority
             />
           </Link>
