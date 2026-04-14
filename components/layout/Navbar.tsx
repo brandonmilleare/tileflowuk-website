@@ -48,9 +48,9 @@ export default function Navbar() {
             <Image
               src="/logo.svg"
               alt="TileFlow UK"
-              width={140}
-              height={36}
-              className="h-8 w-auto"
+              width={180}
+              height={46}
+              className="h-11 w-auto"
               priority
             />
           </Link>
@@ -91,7 +91,7 @@ export default function Navbar() {
               href="/shop"
               className={`hidden sm:flex items-center gap-1.5 px-4 py-2 text-sm font-semibold rounded-full transition-all duration-200 ${
                 scrolled || !isHome
-                  ? 'bg-[var(--tf-primary)] text-white hover:bg-blue-700'
+                  ? 'bg-[var(--tf-primary)] text-white hover:bg-[var(--tf-primary-hover)]'
                   : 'bg-white/15 backdrop-blur-sm text-white border border-white/30 hover:bg-white/25'
               }`}
             >
@@ -169,7 +169,7 @@ export default function Navbar() {
               <div className="px-4 py-5 border-t border-stone-100">
                 <Link
                   href="/shop"
-                  className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-[var(--tf-primary)] text-white font-semibold rounded-full text-sm hover:bg-blue-700 transition-colors"
+                  className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-[var(--tf-primary)] text-white font-semibold rounded-full text-sm hover:bg-[var(--tf-primary-hover)] transition-colors"
                 >
                   <ShoppingBag className="w-4 h-4" />
                   Browse All Tools

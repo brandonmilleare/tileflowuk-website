@@ -102,7 +102,7 @@ export default function DigitalProductsPage() {
                       ) : (
                         <a
                           href="#"
-                          className="inline-flex items-center gap-2 px-6 py-2.5 bg-[var(--tf-primary)] text-white text-sm font-semibold rounded-full hover:bg-blue-700 transition-colors"
+                          className="inline-flex items-center gap-2 px-6 py-2.5 bg-[var(--tf-primary)] text-white text-sm font-semibold rounded-full hover:bg-[var(--tf-primary-hover)] transition-colors"
                         >
                           <Download className="w-4 h-4" />
                           Buy Now — {price}

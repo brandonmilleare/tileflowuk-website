@@ -39,7 +39,7 @@ function CountUp({ target, suffix }: { target: number; suffix: string }) {
 
 export default function StatsBar() {
   return (
-    <section className="bg-[var(--tf-primary)] text-white">
+    <section className="bg-[var(--tf-trust)] text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <dl className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 lg:divide-x lg:divide-white/20">
           {stats.map(({ value, suffix, label }) => (
@@ -47,7 +47,7 @@ export default function StatsBar() {
               <dt className="text-4xl font-bold font-display mb-1">
                 <CountUp target={value} suffix={suffix} />
               </dt>
-              <dd className="text-sm text-blue-200 font-medium">{label}</dd>
+              <dd className="text-sm text-blue-100 font-medium">{label}</dd>
             </div>
           ))}
         </dl>

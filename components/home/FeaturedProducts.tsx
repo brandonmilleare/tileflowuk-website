@@ -33,7 +33,7 @@ export default function FeaturedProducts() {
         <div className="mt-8 text-center sm:hidden">
           <Link
             href="/shop"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[var(--tf-primary)] text-white text-sm font-semibold rounded-full hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[var(--tf-primary)] text-white text-sm font-semibold rounded-full hover:bg-[var(--tf-primary-hover)] transition-colors"
           >
             See All Tools <ArrowRight className="w-4 h-4" />
           </Link>

@@ -99,7 +99,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={state === 'loading'}
-        className="inline-flex items-center gap-2 px-7 py-3 bg-[var(--tf-primary)] text-white font-semibold rounded-full hover:bg-blue-700 transition-colors disabled:opacity-70 text-sm"
+        className="inline-flex items-center gap-2 px-7 py-3 bg-[var(--tf-primary)] text-white font-semibold rounded-full hover:bg-[var(--tf-primary-hover)] transition-colors disabled:opacity-70 text-sm"
       >
         {state === 'loading' ? 'Sending…' : (<>Send message <Send className="w-3.5 h-3.5" /></>)}
       </button>

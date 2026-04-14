@@ -51,8 +51,10 @@
 
 :root {
   /* TileFlow UK brand tokens */
-  --tf-primary: #1e40af;
-  --tf-primary-hover: #1d3a9e;
+  --tf-primary: #4d7c66;
+  --tf-primary-hover: #3d6b56;
+  --tf-trust: #4a6e8c;
+  --tf-trust-hover: #3b5c78;
   --tf-accent: #ea580c;
   --tf-accent-hover: #dc4a00;
   --tf-fg: #1f2937;

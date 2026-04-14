@@ -44,7 +44,7 @@ export default function Newsletter() {
             <button
               type="submit"
               disabled={state === 'loading'}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[var(--tf-primary)] text-white text-sm font-semibold rounded-full hover:bg-blue-700 transition-colors disabled:opacity-70 shrink-0"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[var(--tf-primary)] text-white text-sm font-semibold rounded-full hover:bg-[var(--tf-primary-hover)] transition-colors disabled:opacity-70 shrink-0"
             >
               {state === 'loading' ? 'Subscribing…' : (
                 <>Subscribe <Send className="w-3.5 h-3.5" /></>
