@@ -29,13 +29,15 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
           <span className="absolute top-3 left-3">
             <Badge
               className={`text-xs font-semibold px-2.5 py-1 ${
-                product.badge === 'Best Overall'
+                product.badge === 'Best Seller'
                   ? 'bg-amber-500 text-white border-0'
                   : product.badge === 'Best Value'
                     ? 'bg-green-600 text-white border-0'
-                    : product.badge === 'Pro Pick'
+                    : product.badge === "Editor's Pick"
                       ? 'bg-[var(--tf-primary)] text-white border-0'
-                      : 'bg-orange-500 text-white border-0'
+                      : product.badge === 'Pro Choice'
+                        ? 'bg-purple-600 text-white border-0'
+                        : 'bg-orange-500 text-white border-0'
               }`}
             >
               {product.badge}
@@ -75,10 +77,9 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
         {/* Price + CTA */}
         <div className="flex items-center justify-between mt-auto pt-3 border-t border-stone-100">
           <div>
-            <span className="font-bold text-[var(--tf-fg)]">{product.price}</span>
-            {product.priceNote && (
-              <span className="text-xs text-stone-400 ml-1">{product.priceNote}</span>
-            )}
+            <span className="font-bold text-[var(--tf-fg)]">
+              {product.priceNote ? product.priceNote : `£${product.price.toLocaleString('en-GB')}`}
+            </span>
           </div>
           <a
             href={product.affiliateUrl}

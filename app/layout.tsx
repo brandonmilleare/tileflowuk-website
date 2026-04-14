@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Playfair_Display, Montserrat } from 'next/font/google'
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import './globals.css'
@@ -54,11 +55,13 @@ export default function RootLayout({
       className={`${playfair.variable} ${montserrat.variable}`}
     >
       <body className="min-h-screen flex flex-col bg-white text-[#1f2937]">
-        <Navbar />
-        <main className="flex-1">
-          {children}
-        </main>
-        <Footer />
+        <NuqsAdapter>
+          <Navbar />
+          <main className="flex-1">
+            {children}
+          </main>
+          <Footer />
+        </NuqsAdapter>
       </body>
     </html>
   )
