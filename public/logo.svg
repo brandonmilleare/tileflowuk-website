@@ -20,14 +20,14 @@
   <rect x="236" y="104" width="8" height="8" fill="#b0aba0" style="fill:rgb(160, 152, 136);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
 
   <!-- Brand name -->
-  <text x="340" y="155" text-anchor="start" style="fill:rgb(240, 237, 232);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Cormorant Garamond&quot;, Georgia, serif;font-size:52px;font-weight:300;text-anchor:start;dominant-baseline:auto">TileFlow</text>
+  <text x="340" y="155" text-anchor="start" style="fill:rgb(0,0,0);stroke:none;font-family:&quot;Cormorant Garamond&quot;, Georgia, serif;font-size:52px;font-weight:300;text-anchor:start;dominant-baseline:auto">TileFlow</text>
 
   <!-- UK superscript-style -->
-  <text x="591" y="127" text-anchor="start" font-family="'Raleway', sans-serif" font-weight="300" font-size="15" fill="#888880" letter-spacing="2" style="letter-spacing:3px;fill:rgb(154, 152, 144);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Raleway, sans-serif;font-size:12px;font-weight:200;text-anchor:start;dominant-baseline:auto">UK</text>
+  <text x="591" y="127" text-anchor="start" font-family="'Raleway', sans-serif" font-weight="400" font-size="15" fill="#000000" letter-spacing="2" style="letter-spacing:3px;fill:rgb(0,0,0);stroke:none;font-family:Raleway, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">UK</text>
 
   <!-- Thin rule -->
-  <line x1="340" y1="172" x2="634" y2="172" stroke="#d4d0c8" stroke-width="0.6" style="fill:rgb(0, 0, 0);stroke:rgb(74, 72, 69);color:rgb(255, 255, 255);stroke-width:0.6px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <line x1="340" y1="172" x2="634" y2="172" stroke="#1a1a1a" stroke-width="0.6" style="fill:none;stroke:rgb(26,26,26);stroke-width:0.6px;"/>
 
   <!-- Tagline -->
-  <text x="487" y="188" text-anchor="middle" style="fill:rgb(122, 120, 112);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Raleway, sans-serif;font-size:10px;font-weight:200;text-anchor:middle;dominant-baseline:auto">ELEVATE EVERY SURFACE</text>
+  <text x="487" y="188" text-anchor="middle" style="fill:rgb(60,60,60);stroke:none;font-family:Raleway, sans-serif;font-size:10px;font-weight:300;text-anchor:middle;dominant-baseline:auto">ELEVATE EVERY SURFACE</text>
 </svg>

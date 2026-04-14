@@ -50,7 +50,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.7 }}
-            className="text-base text-[#374151] leading-relaxed mb-8 max-w-xl font-medium"
+            className="text-base text-black leading-relaxed mb-8 max-w-xl font-semibold"
           >
             Honest reviews and buying guides from a UK professional tiler. No sponsored fluff — only the tools I actually use on the job.
           </motion.p>
