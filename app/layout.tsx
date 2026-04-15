@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
 import { Playfair_Display, Montserrat } from 'next/font/google'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
+import Script from 'next/script'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
+import CookieBanner from '@/components/layout/CookieBanner'
 import './globals.css'
 
 const playfair = Playfair_Display({
@@ -42,6 +44,11 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  manifest: '/manifest.json',
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
 }
 
 export default function RootLayout({
@@ -54,6 +61,22 @@ export default function RootLayout({
       lang="en-GB"
       className={`${playfair.variable} ${montserrat.variable}`}
     >
+      {process.env.NEXT_PUBLIC_GA_ID && (
+        <>
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+            strategy="afterInteractive"
+          />
+          <Script id="ga4-init" strategy="afterInteractive">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
+            `}
+          </Script>
+        </>
+      )}
       <body className="min-h-screen flex flex-col bg-white text-[#1f2937]">
         <NuqsAdapter>
           <Navbar />
@@ -61,6 +84,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <CookieBanner />
         </NuqsAdapter>
       </body>
     </html>

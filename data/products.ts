@@ -149,7 +149,7 @@ export const products: Product[] = [
       'Scoring wheel not as long-lasting as Sigma',
     ],
     badge: 'Best Value',
-    affiliateUrl: affiliateLinks.rubiRdxa35,
+    affiliateUrl: affiliateLinks.rubiSlimG2,
     featured: false,
   },
   {

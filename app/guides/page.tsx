@@ -3,9 +3,9 @@ import Link from 'next/link'
 import { BookOpen, ArrowRight } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Buying Guides — Tiling Tools Explained',
+  title: 'Buying Guides — Tiling Tools & Materials Explained',
   description:
-    'Complete buying guides for every tiling tool. Learn what specs actually matter, which features are marketing fluff, and how to avoid expensive mistakes.',
+    'Complete buying guides for tiling tools and materials. Learn what specs actually matter, which features are marketing fluff, and how to avoid expensive mistakes on site.',
 }
 
 const guides = [
@@ -15,6 +15,27 @@ const guides = [
     excerpt: 'Everything you need to know before spending money on a tile cutter — scoring wheels, frame quality, max thickness, and why cheap ones fail.',
     level: 'Beginner',
     readTime: '12 min',
+  },
+  {
+    slug: 'tile-adhesive-buying-guide',
+    title: 'Best Tile Adhesive for Every Job',
+    excerpt: 'The EN 12004 classification system explained, plus exactly which adhesive to use on timber floors, wet rooms, large format tiles, and underfloor heating.',
+    level: 'Beginner',
+    readTime: '10 min',
+  },
+  {
+    slug: 'how-to-choose-tile-grout',
+    title: 'How to Choose Tile Grout',
+    excerpt: 'Cement, epoxy, sanded, unsanded — here\'s the grout decision tree. Which type for which application, and what happens when you use the wrong one.',
+    level: 'Beginner',
+    readTime: '9 min',
+  },
+  {
+    slug: 'subfloor-prep-before-tiling',
+    title: 'Subfloor Prep Before Tiling',
+    excerpt: '90% of failed floor tiles trace back to poor subfloor prep. How to prepare concrete, timber, and existing tiled floors for a long-lasting tile installation.',
+    level: 'Intermediate',
+    readTime: '11 min',
   },
   {
     slug: 'angle-grinder-tiling-guide',

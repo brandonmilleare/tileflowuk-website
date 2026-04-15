@@ -1,0 +1,20 @@
+{
+  "name": "TileFlow UK",
+  "short_name": "TileFlow",
+  "description": "Professional tiling tools, buying guides, and real inspiration from a UK professional tiler.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1e3a2b",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ],
+  "categories": ["shopping", "lifestyle", "utilities"],
+  "lang": "en-GB",
+  "scope": "/"
+}

@@ -10,18 +10,39 @@ export const metadata: Metadata = {
 
 const lists = [
   {
+    slug: 'best-budget-tiling-tools-uk',
+    title: 'Best Budget Tiling Tools UK 2026',
+    subtitle: 'Quality tools without the pro price tag',
+    tools: ['RUBI EASY-60', 'Huepar 602CG Laser', 'STANLEY FatMax Level'],
+    category: 'Starter Kits',
+  },
+  {
+    slug: 'best-tools-large-format-tiles',
+    title: 'Best Tools for Large Format Tiles',
+    subtitle: '600mm+ tiles demand specialist equipment',
+    tools: ['Sigma 4DN 95cm', 'DEWALT DCLE34035B', 'Raimondi Lippage Clips'],
+    category: 'Large Format',
+  },
+  {
+    slug: 'best-professional-tiling-starter-kit',
+    title: 'Best Professional Tiling Starter Kit',
+    subtitle: "The kit I'd buy starting out today",
+    tools: ['Sigma 4BU 70cm', 'DEWALT DCLE34035B', 'Bosch GWX 18V-7'],
+    category: 'Starter Kits',
+  },
+  {
+    slug: 'best-wet-saw-for-tiling',
+    title: 'Best Wet Saw for Tiling UK 2026',
+    subtitle: 'For large format and complex cuts',
+    tools: ['Raimondi RTC Battipav 1200', 'Sigma SM3', 'Battipav Super Pro 900'],
+    category: 'Wet Saws',
+  },
+  {
     slug: 'best-tile-cutters',
-    title: 'Best Tile Cutters 2025',
+    title: 'Best Tile Cutters 2026',
     subtitle: 'Manual & Electric — All Budgets',
     tools: ['Sigma 4BU 70cm', 'RUBI RDXA35', 'Sigma 4EN 125cm'],
     category: 'Tile Cutters',
-  },
-  {
-    slug: 'best-angle-grinders-tiling',
-    title: 'Best Angle Grinders for Tiling',
-    subtitle: 'Cordless & Corded Options',
-    tools: ['DEWALT DCG460 FLEXVOLT', 'Bosch GWX 18V-7', 'Makita DGA463Z'],
-    category: 'Angle Grinders',
   },
   {
     slug: 'best-laser-levels-tiling',
@@ -29,13 +50,6 @@ const lists = [
     subtitle: 'Self-Levelling & Line Lasers',
     tools: ['DEWALT DCLE34035B', 'Huepar Pro 4×360', 'Bosch GLL 12V'],
     category: 'Laser Levels',
-  },
-  {
-    slug: 'best-spirit-levels',
-    title: 'Best Spirit Levels for Tiling',
-    subtitle: 'Box Levels, Sets & Digital',
-    tools: ['STABILA 196-2 Set', 'OX Pro Level Bag'],
-    category: 'Spirit Levels',
   },
 ]
 
