@@ -16,10 +16,25 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params
   const doc = getGuideDoc(slug)
   if (!doc) return {}
+  const image = doc.heroImage ?? `/og/guides/${slug}`
   return {
     title: doc.title,
     description: doc.excerpt,
-    openGraph: { title: doc.title, description: doc.excerpt, type: 'article' },
+    alternates: { canonical: `/guides/${slug}` },
+    openGraph: {
+      title: doc.title,
+      description: doc.excerpt,
+      type: 'article',
+      url: `/guides/${slug}`,
+      publishedTime: doc.date,
+      images: [{ url: image, width: 1200, height: 630, alt: doc.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: doc.title,
+      description: doc.excerpt,
+      images: [image],
+    },
   }
 }
 
@@ -45,6 +60,9 @@ export default async function GuideDetailPage({ params }: PageProps) {
     datePublished: doc.date,
     dateModified: doc.date,
     mainEntityOfPage: `https://tileflowuk.com/guides/${slug}`,
+    image: doc.heroImage
+      ? (doc.heroImage.startsWith('http') ? doc.heroImage : `https://tileflowuk.com${doc.heroImage}`)
+      : `https://tileflowuk.com/og/guides/${slug}`,
   }
 
   const breadcrumbSchema = {

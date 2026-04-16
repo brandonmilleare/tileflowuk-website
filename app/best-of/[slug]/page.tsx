@@ -16,10 +16,25 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params
   const doc = getBestOfDoc(slug)
   if (!doc) return {}
+  const image = doc.heroImage ?? `/og/best-of/${slug}`
   return {
     title: doc.title,
     description: doc.excerpt,
-    openGraph: { title: doc.title, description: doc.excerpt, type: 'article' },
+    alternates: { canonical: `/best-of/${slug}` },
+    openGraph: {
+      title: doc.title,
+      description: doc.excerpt,
+      type: 'article',
+      url: `/best-of/${slug}`,
+      publishedTime: doc.date,
+      images: [{ url: image, width: 1200, height: 630, alt: doc.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: doc.title,
+      description: doc.excerpt,
+      images: [image],
+    },
   }
 }
 
@@ -45,6 +60,9 @@ export default async function BestOfDetailPage({ params }: PageProps) {
     datePublished: doc.date,
     dateModified: doc.date,
     mainEntityOfPage: `https://tileflowuk.com/best-of/${slug}`,
+    image: doc.heroImage
+      ? (doc.heroImage.startsWith('http') ? doc.heroImage : `https://tileflowuk.com${doc.heroImage}`)
+      : `https://tileflowuk.com/og/best-of/${slug}`,
   }
 
   const breadcrumbSchema = {
