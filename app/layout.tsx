@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Playfair_Display, Montserrat } from 'next/font/google'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
-import Script from 'next/script'
+import { GoogleTagManager } from '@next/third-parties/google'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import CookieBanner from '@/components/layout/CookieBanner'
@@ -61,23 +61,8 @@ export default function RootLayout({
       lang="en-GB"
       className={`${playfair.variable} ${montserrat.variable}`}
     >
-      {process.env.NEXT_PUBLIC_GA_ID && (
-        <>
-          <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
-            strategy="afterInteractive"
-          />
-          <Script id="ga4-init" strategy="afterInteractive">
-            {`
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
-            `}
-          </Script>
-        </>
-      )}
       <body className="min-h-screen flex flex-col bg-white text-[#1f2937]">
+        <GoogleTagManager gtmId="GTM-WMPBDV7D" />
         <NuqsAdapter>
           <Navbar />
           <main className="flex-1">
