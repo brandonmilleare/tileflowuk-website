@@ -19,6 +19,7 @@ const SvgFacebook = () => (
 )
 
 const shopLinks = [
+  { href: '/tiles', label: 'Tiles (Coming Soon)' },
   { href: '/shop', label: 'All Tools' },
   { href: '/shop?category=Tile+Cutters', label: 'Tile Cutters' },
   { href: '/shop?category=Angle+Grinders', label: 'Angle Grinders' },
