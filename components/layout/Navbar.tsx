@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'motion/react'
 import { Menu, X, ShoppingBag } from 'lucide-react'
 
 const navLinks = [
+  { href: '/tiles', label: 'Tiles' },
   { href: '/shop', label: 'Shop' },
   { href: '/best-of', label: 'Best Of' },
   { href: '/guides', label: 'Guides' },
