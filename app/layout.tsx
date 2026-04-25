@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Playfair_Display, Montserrat } from 'next/font/google'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { GoogleTagManager } from '@next/third-parties/google'
+import { Analytics } from '@vercel/analytics/next'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import CookieBanner from '@/components/layout/CookieBanner'
@@ -71,6 +72,7 @@ export default function RootLayout({
           <Footer />
           <CookieBanner />
         </NuqsAdapter>
+        <Analytics />
       </body>
     </html>
   )
