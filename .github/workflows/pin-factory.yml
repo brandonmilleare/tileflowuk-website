@@ -1,0 +1,216 @@
+# TileFlow UK — Pin Factory
+#
+# Posts pins to Pinterest on a schedule by reading data/pinterest/pin-queue.csv
+# and using scripts/pinterest/post-pin.mjs (direct Pinterest API v5).
+#
+# The cron only runs from the default branch. workflow_dispatch can run from any branch.
+# First runs should always be dry-run (live=false) to verify before going live.
+#
+# Required GitHub repo secrets:
+#   PINTEREST_ACCESS_TOKEN   — write-scope token from scripts/pinterest/oauth.mjs
+
+name: Pin Factory
+
+on:
+  # schedule:  # disabled until manual verification — re-enable after first successful live run
+    # 4 pins/day. Cron is UTC.
+    #   BST (Mar–Oct): 07:00 / 11:00 / 15:00 / 19:00 UTC = 08:00 / 12:00 / 16:00 / 20:00 UK
+    #   GMT (Oct–Mar): manually shift to 08:00 / 12:00 / 16:00 / 20:00 UTC
+    # - cron: '0 7,11,15,19 * * *'
+  workflow_dispatch:
+    inputs:
+      live:
+        description: 'Live mode? (false = dry-run preview only)'
+        required: false
+        default: 'false'
+        type: choice
+        options: ['false', 'true']
+      count:
+        description: 'How many pins to publish (1-5)'
+        required: false
+        default: '1'
+
+permissions:
+  contents: write   # Needed to commit posted-log.csv
+
+concurrency:
+  group: pin-factory
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Pre-flight — Pinterest token check
+        id: preflight
+        run: |
+          if [ -z "${{ secrets.PINTEREST_ACCESS_TOKEN }}" ]; then
+            echo "::warning::PINTEREST_ACCESS_TOKEN secret missing — skipping run"
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+            echo "PINTEREST_ACCESS_TOKEN=${{ secrets.PINTEREST_ACCESS_TOKEN }}" > .env.local
+          fi
+
+      - name: Pick next pin from queue
+        if: steps.preflight.outputs.skip == 'false'
+        id: pick
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+
+          const queuePath = 'data/pinterest/pin-queue.csv';
+          const logPath   = 'data/pinterest/posted-log.csv';
+          const mapPath   = 'data/pinterest/board-id-map.json';
+
+          const map = JSON.parse(fs.readFileSync(mapPath, 'utf8'));
+
+          // Naive CSV parse — handles quoted fields with commas
+          function parseCSV(text) {
+            const rows = [];
+            const lines = text.split('\n');
+            const header = lines.shift().split(',');
+            for (const line of lines) {
+              if (!line.trim()) continue;
+              const cells = [];
+              let cur = '', inQ = false;
+              for (let i = 0; i < line.length; i++) {
+                const c = line[i];
+                if (c === '"' && (i === 0 || line[i-1] !== '\\')) { inQ = !inQ; continue; }
+                if (c === ',' && !inQ) { cells.push(cur); cur = ''; continue; }
+                cur += c;
+              }
+              cells.push(cur);
+              const row = {};
+              header.forEach((h, i) => row[h] = (cells[i] || '').trim());
+              rows.push(row);
+            }
+            return rows;
+          }
+
+          const queue = parseCSV(fs.readFileSync(queuePath, 'utf8'));
+
+          // Filter out pins posted in last 72h
+          let log = [];
+          if (fs.existsSync(logPath)) {
+            log = parseCSV(fs.readFileSync(logPath, 'utf8'));
+          }
+          const cutoff = Date.now() - 72 * 60 * 60 * 1000;
+          const recentSlugs = new Set(
+            log.filter(r => new Date(r.date).getTime() > cutoff).map(r => r.link_slug)
+          );
+
+          const next = queue.find(r => !recentSlugs.has(r.link_slug));
+
+          if (!next) {
+            console.log('Queue exhausted or all pins in 72h cooldown');
+            fs.writeFileSync('/tmp/pin-pick.json', JSON.stringify({ skip: true }));
+            return;
+          }
+
+          const boardId = map[next.board];
+          if (!boardId) {
+            console.error('No board ID mapped for: ' + next.board);
+            console.error('Map keys:', Object.keys(map).filter(k => !k.startsWith('_')));
+            process.exit(1);
+          }
+
+          const link  = `https://tileflowuk.com/${next.link_slug}?utm_source=pinterest&utm_medium=social&utm_campaign=launch&utm_content=${next.pin_id}`;
+          const image = `https://tileflowuk.com${next.pin_image_url}`;
+
+          const out = {
+            skip: false,
+            pin_id: next.pin_id,
+            board_name: next.board,
+            board_id: boardId,
+            title: next.title,
+            description: next.description,
+            overlay: next.overlay_hook,
+            link_slug: next.link_slug,
+            link_url: link,
+            image_url: image,
+          };
+          fs.writeFileSync('/tmp/pin-pick.json', JSON.stringify(out));
+          console.log(`Picked ${out.pin_id}: ${out.title}`);
+          console.log(`Board: ${out.board_name} (${out.board_id})`);
+          NODE
+
+          if [ -f /tmp/pin-pick.json ]; then
+            PICK_JSON=$(cat /tmp/pin-pick.json)
+            echo "pick<<PICK_EOF" >> $GITHUB_OUTPUT
+            echo "$PICK_JSON" >> $GITHUB_OUTPUT
+            echo "PICK_EOF" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Dry-run preview
+        if: steps.preflight.outputs.skip == 'false' && fromJSON(steps.pick.outputs.pick).skip == false && (github.event.inputs.live != 'true' && github.event_name != 'schedule')
+        run: |
+          echo "════════════════════════════════════════════════════"
+          echo "DRY RUN — would post the following pin:"
+          echo "════════════════════════════════════════════════════"
+          echo "  Pin ID:  ${{ fromJSON(steps.pick.outputs.pick).pin_id }}"
+          echo "  Board:   ${{ fromJSON(steps.pick.outputs.pick).board_name }}"
+          echo "  ID:      ${{ fromJSON(steps.pick.outputs.pick).board_id }}"
+          echo "  Title:   ${{ fromJSON(steps.pick.outputs.pick).title }}"
+          echo "  Overlay: ${{ fromJSON(steps.pick.outputs.pick).overlay }}"
+          echo "  Image:   ${{ fromJSON(steps.pick.outputs.pick).image_url }}"
+          echo "  Link:    ${{ fromJSON(steps.pick.outputs.pick).link_url }}"
+          echo "════════════════════════════════════════════════════"
+          echo "To go live: re-run workflow with live=true"
+
+      - name: Publish pin (live)
+        if: steps.preflight.outputs.skip == 'false' && fromJSON(steps.pick.outputs.pick).skip == false && (github.event.inputs.live == 'true' || github.event_name == 'schedule')
+        env:
+          PINTEREST_ACCESS_TOKEN: ${{ secrets.PINTEREST_ACCESS_TOKEN }}
+        run: |
+          node scripts/pinterest/post-pin.mjs \
+            --board "${{ fromJSON(steps.pick.outputs.pick).board_id }}" \
+            --title "${{ fromJSON(steps.pick.outputs.pick).title }}" \
+            --description "${{ fromJSON(steps.pick.outputs.pick).description }}" \
+            --link "${{ fromJSON(steps.pick.outputs.pick).link_url }}" \
+            --image "${{ fromJSON(steps.pick.outputs.pick).image_url }}" \
+            --alt "${{ fromJSON(steps.pick.outputs.pick).overlay }}"
+
+      - name: Append to posted-log
+        if: steps.preflight.outputs.skip == 'false' && fromJSON(steps.pick.outputs.pick).skip == false && (github.event.inputs.live == 'true' || github.event_name == 'schedule')
+        run: |
+          DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          PIN_ID="${{ fromJSON(steps.pick.outputs.pick).pin_id }}"
+          BOARD="${{ fromJSON(steps.pick.outputs.pick).board_name }}"
+          LINK_SLUG="${{ fromJSON(steps.pick.outputs.pick).link_slug }}"
+          TITLE="${{ fromJSON(steps.pick.outputs.pick).title }}"
+
+          LOG=data/pinterest/posted-log.csv
+          if [ ! -f "$LOG" ]; then
+            echo "date,pin_id,board,link_slug,title,result" > "$LOG"
+          fi
+          echo "$DATE,$PIN_ID,\"$BOARD\",$LINK_SLUG,\"$TITLE\",success" >> "$LOG"
+
+      - name: Commit posted-log
+        if: steps.preflight.outputs.skip == 'false' && fromJSON(steps.pick.outputs.pick).skip == false && (github.event.inputs.live == 'true' || github.event_name == 'schedule')
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "Pin Factory Bot"
+          git add data/pinterest/posted-log.csv
+          git diff --cached --quiet && exit 0
+          git commit -m "log: posted ${{ fromJSON(steps.pick.outputs.pick).pin_id }}"
+          git push
+
+      - name: Cleanup
+        if: always()
+        run: |
+          rm -f .env.local
