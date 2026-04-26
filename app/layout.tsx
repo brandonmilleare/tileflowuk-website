@@ -44,6 +44,11 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  verification: {
+    other: process.env.PINTEREST_DOMAIN_VERIFY
+      ? { 'p:domain_verify': process.env.PINTEREST_DOMAIN_VERIFY }
+      : {},
+  },
   manifest: '/manifest.json',
   icons: {
     icon: '/favicon.ico',

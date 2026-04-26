@@ -14,14 +14,24 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   const { slug } = await props.params
   const post = getPostBySlug(slug)
   if (!post) return {}
+  const image = post.heroImage ?? `/og/blog/${slug}`
   return {
     title: post.title,
     description: post.excerpt,
+    alternates: { canonical: `/blog/${slug}` },
     openGraph: {
       title: post.title,
       description: post.excerpt,
       type: 'article',
+      url: `/blog/${slug}`,
       publishedTime: post.date,
+      images: [{ url: image, width: 1200, height: 630, alt: post.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.excerpt,
+      images: [image],
     },
   }
 }
@@ -52,7 +62,9 @@ export default async function BlogPostPage(props: { params: Promise<{ slug: stri
     datePublished: post.date,
     dateModified: post.date,
     mainEntityOfPage: `https://tileflowuk.com/blog/${slug}`,
-    image: `https://tileflowuk.com/images/hero/website.jpeg`,
+    image: post.heroImage
+      ? (post.heroImage.startsWith('http') ? post.heroImage : `https://tileflowuk.com${post.heroImage}`)
+      : `https://tileflowuk.com/og/blog/${slug}`,
   }
 
   const breadcrumbSchema = {

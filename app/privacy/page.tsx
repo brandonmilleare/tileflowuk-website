@@ -12,7 +12,7 @@ export default function PrivacyPage() {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h1 className="font-display text-3xl font-bold text-[var(--tf-fg)] mb-8">Privacy Policy</h1>
         <div className="prose prose-stone max-w-none prose-headings:font-display">
-          <p className="text-sm text-stone-400">Last updated: June 2025</p>
+          <p className="text-sm text-stone-400">Last updated: April 2026</p>
 
           <h2>What Data We Collect</h2>
           <p>
@@ -39,7 +39,24 @@ export default function PrivacyPage() {
 
           <h2>Third-Party Services</h2>
           <p>
-            This site uses: Google Analytics 4, Amazon Associates. Each has its own privacy policy.
+            This site uses: Google Analytics 4, Amazon Associates, Pinterest API (v5). Each has its own privacy policy.
+          </p>
+
+          <h2>Pinterest API Integration</h2>
+          <p>
+            TileFlow UK uses the Pinterest API (v5) to manage our own Pinterest business account (@tileflowuk). Specifically:
+          </p>
+          <ul>
+            <li>We create, edit, and schedule pins that link to content on this website.</li>
+            <li>We read analytics for pins and boards we own.</li>
+            <li>We do not collect personal data from Pinterest users.</li>
+            <li>We do not share any data with third parties.</li>
+            <li>
+              We follow the <a href="https://policy.pinterest.com/en/developer-guidelines" target="_blank" rel="noopener noreferrer">Pinterest Developer Guidelines</a> and Pinterest&apos;s API terms of service.
+            </li>
+          </ul>
+          <p>
+            The access tokens that authorise this integration are held only by the business owner and are never shared.
           </p>
 
           <h2>Contact</h2>

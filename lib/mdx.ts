@@ -10,6 +10,7 @@ export interface MdxDoc {
   readTime: string
   category: string
   author?: string
+  heroImage?: string
   content: string
   tags?: string[]
 }
@@ -22,6 +23,7 @@ export interface MdxDocMeta {
   readTime: string
   category: string
   author?: string
+  heroImage?: string
   tags?: string[]
 }
 
@@ -47,6 +49,7 @@ function readDoc(dir: string, slug: string): MdxDoc | null {
     readTime: data.readTime ?? '8 min',
     category: data.category ?? 'Guide',
     author: data.author,
+    heroImage: data.heroImage,
     content,
     tags: data.tags ?? [],
   }

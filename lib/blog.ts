@@ -12,6 +12,8 @@ export interface BlogPost {
   readTime: string
   category: string
   author?: string
+  heroImage?: string
+  tags?: string[]
   content: string
 }
 
@@ -23,6 +25,8 @@ export interface BlogPostMeta {
   readTime: string
   category: string
   author?: string
+  heroImage?: string
+  tags?: string[]
 }
 
 export function getAllPostSlugs(): string[] {
@@ -49,6 +53,8 @@ export function getAllPosts(): BlogPostMeta[] {
         readTime: data.readTime ?? '5 min',
         category: data.category ?? 'Guide',
         author: data.author,
+        heroImage: data.heroImage,
+        tags: data.tags ?? [],
       }
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
@@ -74,6 +80,8 @@ export function getPostBySlug(slug: string): BlogPost | null {
     readTime: data.readTime ?? '5 min',
     category: data.category ?? 'Guide',
     author: data.author,
+    heroImage: data.heroImage,
+    tags: data.tags ?? [],
     content,
   }
 }

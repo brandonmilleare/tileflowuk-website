@@ -7,8 +7,27 @@
 export const AMAZON_TAG = 'tileflowuk-21'
 export const AWIN_PUBLISHER_ID = '2826900'
 
-export function amazonUrl(asin: string): string {
-  return `https://www.amazon.co.uk/dp/${asin}?tag=${AMAZON_TAG}`
+/**
+ * Append UTM parameters for attribution tracking.
+ * Works on both direct amazon.co.uk URLs and amzn.to short URLs
+ * (amzn.to preserves query string through the redirect).
+ */
+export function withUtm(
+  url: string,
+  opts: { source?: string; medium?: string; campaign?: string; content?: string } = {},
+): string {
+  const source = opts.source ?? 'pinterest'
+  const medium = opts.medium ?? 'pin'
+  const campaign = opts.campaign ?? 'tileflowuk'
+  const sep = url.includes('?') ? '&' : '?'
+  let qs = `utm_source=${encodeURIComponent(source)}&utm_medium=${encodeURIComponent(medium)}&utm_campaign=${encodeURIComponent(campaign)}`
+  if (opts.content) qs += `&utm_content=${encodeURIComponent(opts.content)}`
+  return `${url}${sep}${qs}`
+}
+
+export function amazonUrl(asin: string, utm?: Parameters<typeof withUtm>[1]): string {
+  const base = `https://www.amazon.co.uk/dp/${asin}?tag=${AMAZON_TAG}`
+  return utm ? withUtm(base, utm) : base
 }
 
 export const affiliateLinks = {
