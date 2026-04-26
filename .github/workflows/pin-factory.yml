@@ -70,83 +70,82 @@ jobs:
         id: pick
         run: |
           node <<'NODE'
-          const fs = require('fs');
-          const path = require('path');
+          (() => {
+            const fs = require('fs');
 
-          const queuePath = 'data/pinterest/pin-queue.csv';
-          const logPath   = 'data/pinterest/posted-log.csv';
-          const mapPath   = 'data/pinterest/board-id-map.json';
+            const queuePath = 'data/pinterest/pin-queue.csv';
+            const logPath   = 'data/pinterest/posted-log.csv';
+            const mapPath   = 'data/pinterest/board-id-map.json';
 
-          const map = JSON.parse(fs.readFileSync(mapPath, 'utf8'));
+            const map = JSON.parse(fs.readFileSync(mapPath, 'utf8'));
 
-          // Naive CSV parse — handles quoted fields with commas
-          function parseCSV(text) {
-            const rows = [];
-            const lines = text.split('\n');
-            const header = lines.shift().split(',');
-            for (const line of lines) {
-              if (!line.trim()) continue;
-              const cells = [];
-              let cur = '', inQ = false;
-              for (let i = 0; i < line.length; i++) {
-                const c = line[i];
-                if (c === '"' && (i === 0 || line[i-1] !== '\\')) { inQ = !inQ; continue; }
-                if (c === ',' && !inQ) { cells.push(cur); cur = ''; continue; }
-                cur += c;
+            function parseCSV(text) {
+              const rows = [];
+              const lines = text.split('\n');
+              const header = lines.shift().split(',');
+              for (const line of lines) {
+                if (!line.trim()) continue;
+                const cells = [];
+                let cur = '', inQ = false;
+                for (let i = 0; i < line.length; i++) {
+                  const c = line[i];
+                  if (c === '"' && (i === 0 || line[i-1] !== '\\')) { inQ = !inQ; continue; }
+                  if (c === ',' && !inQ) { cells.push(cur); cur = ''; continue; }
+                  cur += c;
+                }
+                cells.push(cur);
+                const row = {};
+                header.forEach((h, i) => row[h] = (cells[i] || '').trim());
+                rows.push(row);
               }
-              cells.push(cur);
-              const row = {};
-              header.forEach((h, i) => row[h] = (cells[i] || '').trim());
-              rows.push(row);
+              return rows;
             }
-            return rows;
-          }
 
-          const queue = parseCSV(fs.readFileSync(queuePath, 'utf8'));
+            const queue = parseCSV(fs.readFileSync(queuePath, 'utf8'));
 
-          // Filter out pins posted in last 72h
-          let log = [];
-          if (fs.existsSync(logPath)) {
-            log = parseCSV(fs.readFileSync(logPath, 'utf8'));
-          }
-          const cutoff = Date.now() - 72 * 60 * 60 * 1000;
-          const recentSlugs = new Set(
-            log.filter(r => new Date(r.date).getTime() > cutoff).map(r => r.link_slug)
-          );
+            let log = [];
+            if (fs.existsSync(logPath)) {
+              log = parseCSV(fs.readFileSync(logPath, 'utf8'));
+            }
+            const cutoff = Date.now() - 72 * 60 * 60 * 1000;
+            const recentSlugs = new Set(
+              log.filter(r => new Date(r.date).getTime() > cutoff).map(r => r.link_slug)
+            );
 
-          const next = queue.find(r => !recentSlugs.has(r.link_slug));
+            const next = queue.find(r => !recentSlugs.has(r.link_slug));
 
-          if (!next) {
-            console.log('Queue exhausted or all pins in 72h cooldown');
-            fs.writeFileSync('/tmp/pin-pick.json', JSON.stringify({ skip: true }));
-            return;
-          }
+            if (!next) {
+              console.log('Queue exhausted or all pins in 72h cooldown');
+              fs.writeFileSync('/tmp/pin-pick.json', JSON.stringify({ skip: true }));
+              return;
+            }
 
-          const boardId = map[next.board];
-          if (!boardId) {
-            console.error('No board ID mapped for: ' + next.board);
-            console.error('Map keys:', Object.keys(map).filter(k => !k.startsWith('_')));
-            process.exit(1);
-          }
+            const boardId = map[next.board];
+            if (!boardId) {
+              console.error('No board ID mapped for: ' + next.board);
+              console.error('Map keys:', Object.keys(map).filter(k => !k.startsWith('_')));
+              process.exit(1);
+            }
 
-          const link  = `https://tileflowuk.com/${next.link_slug}?utm_source=pinterest&utm_medium=social&utm_campaign=launch&utm_content=${next.pin_id}`;
-          const image = `https://tileflowuk.com${next.pin_image_url}`;
+            const link  = 'https://tileflowuk.com/' + next.link_slug + '?utm_source=pinterest&utm_medium=social&utm_campaign=launch&utm_content=' + next.pin_id;
+            const image = 'https://tileflowuk.com' + next.pin_image_url;
 
-          const out = {
-            skip: false,
-            pin_id: next.pin_id,
-            board_name: next.board,
-            board_id: boardId,
-            title: next.title,
-            description: next.description,
-            overlay: next.overlay_hook,
-            link_slug: next.link_slug,
-            link_url: link,
-            image_url: image,
-          };
-          fs.writeFileSync('/tmp/pin-pick.json', JSON.stringify(out));
-          console.log(`Picked ${out.pin_id}: ${out.title}`);
-          console.log(`Board: ${out.board_name} (${out.board_id})`);
+            const out = {
+              skip: false,
+              pin_id: next.pin_id,
+              board_name: next.board,
+              board_id: boardId,
+              title: next.title,
+              description: next.description,
+              overlay: next.overlay_hook,
+              link_slug: next.link_slug,
+              link_url: link,
+              image_url: image,
+            };
+            fs.writeFileSync('/tmp/pin-pick.json', JSON.stringify(out));
+            console.log('Picked ' + out.pin_id + ': ' + out.title);
+            console.log('Board: ' + out.board_name + ' (' + out.board_id + ')');
+          })();
           NODE
 
           if [ -f /tmp/pin-pick.json ]; then
