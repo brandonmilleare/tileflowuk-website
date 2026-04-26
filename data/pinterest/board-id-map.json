@@ -1,0 +1,22 @@
+{
+  "_comment": "Maps queue CSV board names (with sort prefix) to Pinterest numeric board IDs. Generated 2026-04-26 from list-boards.mjs after all 10 strategy boards were created.",
+  "_account": "uk.pinterest.com/tileflowuk",
+  "_generated": "2026-04-26",
+
+  "1 Small UK Bathroom Tiling Ideas": "1143984811537393797",
+  "2 How to Tile UK DIY":              "1143984811537393800",
+  "3 Tile Drenching":                  "1143984811537393807",
+  "4 2026 UK Tile Trends":             "1143984811537393810",
+  "5 Bathroom Floor Tiles UK":         "1143984811537393812",
+  "6 Kitchen Splashback & Wall":       "1143984811537393815",
+  "7 Tiling Tools UK":                 "1143984811537393823",
+  "8 Tile Grout & Adhesive":           "1143984811537393825",
+  "9 UK Bathroom Before & After":      "1143984811537393829",
+  "10 Zellige Terrazzo Handmade":      "1143984811537393832",
+
+  "_legacy_boards_kept": {
+    "power tools": "1143984811537348205",
+    "Social":      "1143984811537359959",
+    "Products":    "1143984811537377936"
+  }
+}
