@@ -50,7 +50,7 @@ export default async function BlogPostPage(props: { params: Promise<{ slug: stri
     description: post.excerpt,
     author: {
       '@type': 'Person',
-      name: post.author ?? 'Brandon Miller, Professional Tiler',
+      name: post.author ?? 'Brandon, TileFlow UK · 15 years in the trade',
       url: 'https://tileflowuk.com/about',
     },
     publisher: {

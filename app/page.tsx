@@ -11,7 +11,7 @@ import Newsletter from '@/components/home/Newsletter'
 export const metadata: Metadata = {
   title: 'TileFlow UK — Professional Tiling Tools & Inspiration',
   description:
-    'Honest tiling tool reviews and buying guides from a UK professional tiler with 10+ years experience. Find the best tile cutters, laser levels, angle grinders, and more.',
+    'Honest tiling tool reviews and buying guides from a UK professional tiler with 15+ years experience. Find the best tile cutters, laser levels, angle grinders, and more.',
 }
 
 const orgSchema = {
@@ -20,7 +20,7 @@ const orgSchema = {
   name: 'TileFlow UK',
   url: 'https://tileflowuk.com',
   logo: 'https://tileflowuk.com/logo.svg',
-  description: 'Professional tiling tool reviews and buying guides from a UK tiler with 10+ years experience.',
+  description: 'Professional tiling tool reviews and buying guides from a UK tiler with 15+ years experience.',
   sameAs: [
     'https://instagram.com/tileflowuk',
     'https://youtube.com/@tileflowuk',

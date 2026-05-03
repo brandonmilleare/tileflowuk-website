@@ -12,7 +12,7 @@ const products = [
     title: 'The Professional Tiling Handbook',
     subtitle: '120-page PDF guide',
     description:
-      'Everything from substrate prep and waterproofing to large-format slab installation and wet room builds. Written from 10 years of daily site experience.',
+      'Everything from substrate prep and waterproofing to large-format slab installation and wet room builds. Written from 15 years of daily site experience.',
     icon: FileText,
     price: '£24.99',
     status: 'coming-soon' as const,

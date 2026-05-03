@@ -5,7 +5,7 @@ import { ArrowRight } from 'lucide-react'
 export const metadata: Metadata = {
   title: 'About — TileFlow UK',
   description:
-    'TileFlow UK is run by a professional UK tiler with over 10 years of trade experience. Learn why this site exists and what you can expect from it.',
+    'TileFlow UK is run by a professional UK tiler with over 15 years of trade experience. Learn why this site exists and what you can expect from it.',
 }
 
 export default function AboutPage() {
@@ -22,7 +22,7 @@ export default function AboutPage() {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="prose prose-stone max-w-none prose-headings:font-display prose-headings:font-bold prose-a:text-[var(--tf-primary)] prose-a:no-underline hover:prose-a:underline">
           <p className="text-lg text-stone-600 leading-relaxed">
-            I&apos;ve been laying tiles professionally since I was sixteen. Bathrooms, kitchens, wet rooms, commercial floors — I&apos;ve tiled them all across homes and businesses throughout the UK. After ten years of picking up wrong tools, wasting money on gear that looked good in adverts but fell apart on site, and reading &ldquo;reviews&rdquo; clearly written by people who&apos;d never held a tile cutter, I decided to build something better.
+            I&apos;ve been laying tiles professionally since I was sixteen. Bathrooms, kitchens, wet rooms, commercial floors — I&apos;ve tiled them all across homes and businesses throughout the UK. After fifteen years of picking up wrong tools, wasting money on gear that looked good in adverts but fell apart on site, and reading &ldquo;reviews&rdquo; clearly written by people who&apos;d never held a tile cutter, I decided to build something better.
           </p>
 
           <h2>What TileFlow UK Is</h2>

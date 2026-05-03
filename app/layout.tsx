@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Playfair_Display, Montserrat } from 'next/font/google'
+import { Cormorant_Garamond, Inter_Tight } from 'next/font/google'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { GoogleTagManager } from '@next/third-parties/google'
 import Navbar from '@/components/layout/Navbar'
@@ -7,18 +7,19 @@ import Footer from '@/components/layout/Footer'
 import CookieBanner from '@/components/layout/CookieBanner'
 import './globals.css'
 
-const playfair = Playfair_Display({
+const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
   variable: '--font-display',
   display: 'swap',
-  weight: ['400', '500', '600', '700', '800'],
+  weight: ['300', '400', '500'],
+  style: ['normal', 'italic'],
 })
 
-const montserrat = Montserrat({
+const interTight = Inter_Tight({
   subsets: ['latin'],
   variable: '--font-body',
   display: 'swap',
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['400', '500', '600'],
 })
 
 export const metadata: Metadata = {
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
     template: '%s | TileFlow UK',
   },
   description:
-    'Expert tiling tool reviews, buying guides, and real inspiration from a professional UK tiler with 10+ years experience. Trusted by tradespeople and serious DIYers.',
+    'Expert tiling tool reviews, buying guides, and real inspiration from a professional UK tiler with 15+ years experience. Trusted by tradespeople and serious DIYers.',
   metadataBase: new URL('https://tileflowuk.com'),
   openGraph: {
     type: 'website',
@@ -64,9 +65,9 @@ export default function RootLayout({
   return (
     <html
       lang="en-GB"
-      className={`${playfair.variable} ${montserrat.variable}`}
+      className={`${cormorant.variable} ${interTight.variable}`}
     >
-      <body className="min-h-screen flex flex-col bg-white text-[#1f2937]">
+      <body className="min-h-screen flex flex-col bg-[var(--tf-paper)] text-[var(--tf-ink)]">
         <GoogleTagManager gtmId="GTM-WMPBDV7D" />
         <NuqsAdapter>
           <Navbar />

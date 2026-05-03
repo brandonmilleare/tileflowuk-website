@@ -104,7 +104,7 @@ export default async function ProductPage({ params }: PageProps) {
             />
             {product.badge && (
               <span className="absolute top-4 left-4">
-                <Badge className="bg-amber-500 text-white border-0 text-sm font-semibold px-3 py-1.5">
+                <Badge className="bg-[var(--tf-sage-deep)] text-white border-0 text-sm font-semibold px-3 py-1.5">
                   {product.badge}
                 </Badge>
               </span>

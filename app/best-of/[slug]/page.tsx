@@ -50,7 +50,7 @@ export default async function BestOfDetailPage({ params }: PageProps) {
     description: doc.excerpt,
     author: {
       '@type': 'Person',
-      name: doc.author ?? 'Brandon Miller, Professional Tiler',
+      name: doc.author ?? 'Brandon, TileFlow UK · 15 years in the trade',
     },
     publisher: {
       '@type': 'Organization',

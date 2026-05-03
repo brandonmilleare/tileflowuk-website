@@ -18,8 +18,14 @@ export default function Hero() {
         sizes="100vw"
       />
 
-      {/* Very light overlay — lets the marble show through, dark at bottom for button contrast */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-white/20 to-black/55" />
+      {/* Side scrim — strong dark gradient on the left, fades to transparent on the right */}
+      <div
+        className="absolute inset-0 bg-gradient-to-r to-transparent"
+        style={{
+          backgroundImage:
+            'linear-gradient(to right, rgba(26,26,24,0.85), rgba(26,26,24,0.65), transparent)',
+        }}
+      />
 
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -34,25 +40,28 @@ export default function Hero() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.15, duration: 0.6 }}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 mb-6 rounded-full bg-white/60 backdrop-blur-sm border border-white/50 text-[#2d2d2d] text-xs font-medium tracking-wide uppercase shadow-sm"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 mb-6 rounded-full bg-white/15 backdrop-blur-sm border border-white/30 text-white text-xs font-bold tracking-wide uppercase"
           >
-            <Star className="w-3 h-3 fill-amber-500 text-amber-500" />
-            10+ Years Professional Experience
+            <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+            15+ Years Professional Experience
           </motion.div>
 
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-black">
-            TileFlowUK
-            <span className="block mt-1">Built on Style.</span>
-            <span className="block">Backed by Skill.</span>
+          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-light leading-tight mb-5 text-white">
+            TileFlowUK · Built on Style. Backed by{' '}
+            <span className="italic font-normal text-[var(--tf-sage)]">Skill.</span>
           </h1>
 
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.7 }}
-            className="text-base text-black leading-relaxed mb-8 max-w-xl font-semibold"
+            className="text-base sm:text-lg text-white/95 leading-relaxed mb-8 max-w-xl font-medium"
           >
-            Honest reviews and buying guides from a UK professional tiler. No sponsored fluff — only the tools I actually use on the job.
+            We bring you high-end tiles and LVT at prices that defy the design.
+            We don&rsquo;t just supply the floor — we empower the project. From
+            &ldquo;unbelievable&rdquo; luxury aesthetics to expert how-to guides
+            and honest tool reviews, we bridge the gap between premium style and
+            DIY confidence.
           </motion.p>
 
           <motion.div
@@ -69,10 +78,10 @@ export default function Hero() {
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
-              href="/best-of"
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white/70 backdrop-blur-sm text-[#1f2937] font-semibold rounded-full border border-white/60 hover:bg-white/90 transition-all duration-200 text-sm shadow-sm"
+              href="/deluxe-flooring"
+              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white/15 backdrop-blur-sm text-white font-semibold rounded-full border border-white/40 hover:bg-white/25 transition-all duration-200 text-sm"
             >
-              Best Of Lists
+              Browse Flooring
             </Link>
           </motion.div>
         </motion.div>
