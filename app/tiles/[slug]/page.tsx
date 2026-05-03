@@ -3,13 +3,15 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import Script from 'next/script'
-import { Mail, CheckCircle2, ChevronLeft } from 'lucide-react'
+import { Mail, CheckCircle2, ChevronLeft, MessageCircle } from 'lucide-react'
 import {
   getTileBySlug,
   getRelatedTiles,
   tiles,
   enquiryMailto,
+  whatsappLink,
   ENQUIRY_EMAIL,
+  PHONE_DISPLAY,
 } from '@/data/tiles'
 import TileCard from '@/components/tiles/TileCard'
 
@@ -25,7 +27,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params
   const tile = getTileBySlug(slug)
   if (!tile) return {}
-  const title = `${tile.name} — ${tile.style} | Coming Soon`
+  const title = `${tile.name} — ${tile.style} | ${tile.price}`
   return {
     title,
     description: tile.description,
@@ -66,7 +68,8 @@ export default async function TileDetailPage({ params }: PageProps) {
     offers: {
       '@type': 'Offer',
       priceCurrency: 'GBP',
-      availability: 'https://schema.org/PreOrder',
+      price: tile.priceNumeric,
+      availability: 'https://schema.org/InStock',
       url: `https://tileflowuk.com/tiles/${tile.slug}`,
       seller: { '@type': 'Organization', name: 'TileFlow UK' },
     },
@@ -126,8 +129,9 @@ export default async function TileDetailPage({ params }: PageProps) {
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
-              <span className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[var(--tf-primary)] text-white shadow-sm">
-                Coming soon
+              <span className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-[var(--tf-ink)] text-white shadow-sm uppercase tracking-wider">
+                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                In Stock
               </span>
             </div>
             {tile.images.length > 1 && (
@@ -162,17 +166,37 @@ export default async function TileDetailPage({ params }: PageProps) {
             <p className="text-stone-600 leading-relaxed mb-6">{tile.longDescription}</p>
 
             <div className="p-5 bg-stone-50 rounded-xl border border-stone-200 mb-8">
-              <p className="text-xs text-stone-400 uppercase tracking-wide mb-1">Pricing</p>
-              <p className="text-2xl font-bold text-[var(--tf-fg)] mb-3">Coming soon</p>
-              <a
-                href={enquiryMailto(tile.name)}
-                className="inline-flex items-center gap-2 px-5 py-3 bg-[var(--tf-primary)] text-white font-bold rounded-full hover:bg-[var(--tf-primary-hover)] transition-colors text-sm shadow-md"
-              >
-                <Mail className="w-4 h-4" />
-                Enquire for early access
-              </a>
-              <p className="text-xs text-stone-500 mt-3">
-                Email {ENQUIRY_EMAIL} — we usually reply the same day.
+              <div className="flex items-baseline justify-between mb-1">
+                <p className="text-xs text-stone-400 uppercase tracking-wide">Price · Size</p>
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-[var(--tf-ink)] text-white uppercase tracking-wider">
+                  <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                  In Stock
+                </span>
+              </div>
+              <p className="text-3xl font-bold text-[var(--tf-fg)] mb-1">{tile.price}</p>
+              <p className="text-sm text-stone-500 mb-4">{tile.size} porcelain tile</p>
+
+              <div className="flex flex-col sm:flex-row gap-2.5">
+                <a
+                  href={enquiryMailto(tile.name)}
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-[var(--tf-primary)] text-white font-bold rounded-full hover:bg-[var(--tf-primary-hover)] transition-colors text-sm shadow-md flex-1"
+                >
+                  <Mail className="w-4 h-4" />
+                  Email to order
+                </a>
+                <a
+                  href={whatsappLink(tile.name)}
+                  target="_blank"
+                  rel="noopener"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#25D366] text-white font-bold rounded-full hover:bg-[#1ea850] transition-colors text-sm shadow-md flex-1"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  WhatsApp
+                </a>
+              </div>
+              <p className="text-xs text-stone-500 mt-3 leading-relaxed">
+                Email <a href={`mailto:${ENQUIRY_EMAIL}`} className="underline hover:text-[var(--tf-primary)]">{ENQUIRY_EMAIL}</a> or
+                WhatsApp/text <a href={whatsappLink(tile.name)} target="_blank" rel="noopener" className="underline hover:text-[var(--tf-primary)]">{PHONE_DISPLAY}</a> to order or ask about delivery.
               </p>
             </div>
 
@@ -193,8 +217,7 @@ export default async function TileDetailPage({ params }: PageProps) {
         </div>
 
         <p className="mt-10 text-xs text-stone-400 border-t border-stone-100 pt-4">
-          Pricing and availability for the {tile.name} range will be confirmed at launch. Register
-          early access above to get first notice.
+          Prices shown per m². Get in touch for delivery quotes — we ship across UK mainland.
         </p>
 
         {related.length > 0 && (

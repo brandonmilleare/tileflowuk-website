@@ -14,6 +14,21 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'images-na.ssl-images-amazon.com' },
     ],
   },
+
+  async redirects() {
+    return [
+      {
+        source: '/preview/deluxe-flooring',
+        destination: '/deluxe-flooring',
+        permanent: true,
+      },
+      {
+        source: '/preview/deluxe-flooring/:path*',
+        destination: '/deluxe-flooring/:path*',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 export default nextConfig

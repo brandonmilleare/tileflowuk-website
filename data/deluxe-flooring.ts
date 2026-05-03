@@ -1,13 +1,13 @@
 /**
- * Deluxe Flooring — preview/pitch data.
+ * Deluxe Flooring — product data for the public /deluxe-flooring page.
  *
- * This is a MOCK-UP page Brandon is sending to the Deluxe Flooring owner as a
- * "here's how I'd sell your products" pitch. It is NOT a live product page.
+ * Paid partnership with Deluxe Flooring Ltd. Affiliate referrer ID /ref/3/
+ * appended to every product link via deluxeProductLink().
  *
- * - Affiliate link: /ref/3/ is Brandon's Deluxe Flooring referrer ID
- * - Prices taken directly from deluxe-flooring.co.uk (captured 2026-04-21)
- * - Images downloaded from their CDN and served locally from /public
- * - The page is noindex and NOT listed in nav/footer/sitemap
+ * - Prices captured from deluxe-flooring.co.uk on 2026-04-21
+ *   (review/refresh quarterly, or whenever Deluxe updates their pricing)
+ * - Images used with permission, stored locally in public/images/deluxe-flooring/
+ * - Page is indexed and listed in nav + sitemap
  */
 
 export const DELUXE_BASE_URL = 'https://deluxe-flooring.co.uk'
@@ -31,6 +31,7 @@ export interface DeluxeProduct {
   image: string
   productUrl: string
   features: string[]
+  /** Marks the product as a Best Seller — shown in the Best Sellers strip on /deluxe-flooring. */
   featured?: boolean
 }
 
@@ -259,6 +260,7 @@ export const deluxeProducts: DeluxeProduct[] = [
       'Underfloor heating compatible',
       '25-year guarantee',
     ],
+    featured: true,
   },
   {
     slug: 'bibury-engineered-oak-click-15-4mm',
@@ -455,6 +457,7 @@ export const deluxeProducts: DeluxeProduct[] = [
       'Click installation',
       '25-year guarantee',
     ],
+    featured: true,
   },
   {
     slug: 'madrid-chevron-laminate-light-oak-8mm',
@@ -628,6 +631,7 @@ export const deluxeProducts: DeluxeProduct[] = [
       'Click installation',
       '25-year guarantee',
     ],
+    featured: true,
   },
 ]
 

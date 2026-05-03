@@ -30,13 +30,13 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
             <Badge
               className={`text-xs font-semibold px-2.5 py-1 ${
                 product.badge === 'Best Seller'
-                  ? 'bg-amber-500 text-white border-0'
+                  ? 'bg-[var(--tf-sage-deep)] text-white border-0'
                   : product.badge === 'Best Value'
-                    ? 'bg-green-600 text-white border-0'
+                    ? 'bg-[var(--tf-stone-700)] text-white border-0'
                     : product.badge === "Editor's Pick"
                       ? 'bg-[var(--tf-primary)] text-white border-0'
                       : product.badge === 'Pro Choice'
-                        ? 'bg-purple-600 text-white border-0'
+                        ? 'bg-[var(--tf-ink)] text-white border-0'
                         : 'bg-orange-500 text-white border-0'
               }`}
             >

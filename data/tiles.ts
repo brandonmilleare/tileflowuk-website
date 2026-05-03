@@ -9,6 +9,12 @@ export interface Tile {
   features: string[]
   images: string[]
   featured?: boolean
+  /** Display price including unit, e.g. "£29.99 per m²". */
+  price: string
+  /** Numeric price for schema.org Product availability/offers. */
+  priceNumeric: number
+  /** Tile size, e.g. "300×600mm" or "1200×600mm". */
+  size: string
 }
 
 export const tiles: Tile[] = [
@@ -18,15 +24,18 @@ export const tiles: Tile[] = [
     shortName: 'Delphi',
     range: 'Wex',
     style: 'Marble-effect porcelain',
+    size: '300×600mm',
+    price: '£29.99 per m²',
+    priceNumeric: 29.99,
     description:
-      'Part of the upcoming Wex Delphi range at TileFlow UK — a premium marble-effect porcelain with soft veining and a polished finish.',
+      'Premium marble-effect porcelain with soft veining and a polished finish — part of the Wex range at TileFlow UK.',
     longDescription:
-      'The Wex Delphi range brings the feel of natural marble into a hard-wearing porcelain tile. Expect soft grey veining on a warm white background, ideal for bathrooms, kitchens, and open-plan living areas. Full specification, size options and UK pricing will be announced shortly — register your interest below and be first to hear when Delphi goes live.',
+      'The Wex Delphi range brings the feel of natural marble into a hard-wearing porcelain tile. Soft grey veining on a warm white background — ideal for bathrooms, kitchens, and open-plan living areas. 300×600mm format, £29.99 per m². In stock — email or WhatsApp Brandon to order.',
     features: [
       'Marble-effect porcelain',
       'Polished finish',
+      '300×600mm format',
       'Suitable for walls and floors',
-      'Large-format options',
     ],
     images: ['/images/tiles/wex-delphi.jpg'],
     featured: true,
@@ -37,14 +46,17 @@ export const tiles: Tile[] = [
     shortName: 'Linsey',
     range: 'Wex',
     style: 'Contemporary stone-look porcelain',
+    size: '1200×600mm',
+    price: '£43.99 per m²',
+    priceNumeric: 43.99,
     description:
-      'The Wex Linsey range is a contemporary stone-look porcelain — warm neutral tones with a subtle textured surface, landing soon at TileFlow UK.',
+      'Contemporary stone-look porcelain — warm neutral tones with a subtle textured surface, in large-format 1200×600mm.',
     longDescription:
-      'Linsey is designed for modern UK homes — a stone-look porcelain in warm neutrals that suits kitchens, hallways, and bathrooms equally well. The subtle surface texture reads natural while staying easy to clean. We\'re finalising sizes, trims, and pricing now. Leave your email below to be first in line when Linsey is released.',
+      'Linsey is designed for modern UK homes — a stone-look porcelain in warm neutrals that suits kitchens, hallways, and bathrooms equally well. The subtle surface texture reads natural while staying easy to clean. Large-format 1200×600mm at £43.99 per m². In stock — email or WhatsApp Brandon to order.',
     features: [
       'Stone-look porcelain',
       'Warm neutral palette',
-      'Subtle surface texture',
+      '1200×600mm large format',
       'Wall and floor use',
     ],
     images: ['/images/tiles/wex-linsey.jpg', '/images/tiles/wex-linsey-2.jpg'],
@@ -56,14 +68,17 @@ export const tiles: Tile[] = [
     shortName: 'Quartz Jade',
     range: 'Wex',
     style: 'Deep green quartz-effect porcelain',
+    size: '1200×600mm',
+    price: '£43.99 per m²',
+    priceNumeric: 43.99,
     description:
-      'Wex Quartz Jade is a bold, deep-green quartz-effect porcelain — a statement tile coming soon to TileFlow UK.',
+      'Bold deep-green quartz-effect porcelain — a statement tile in large-format 1200×600mm.',
     longDescription:
-      'Quartz Jade is the statement option in the Wex Quartz range — a rich green quartz-effect porcelain that works beautifully as a feature wall, a splashback, or a whole-room install in larger bathrooms. Full sizes, trims and UK pricing are being finalised now — register early access below.',
+      'Quartz Jade is the statement option in the Wex Quartz range — a rich green quartz-effect porcelain that works beautifully as a feature wall, a splashback, or a whole-room install in larger bathrooms. Large-format 1200×600mm at £43.99 per m². In stock — email or WhatsApp Brandon to order.',
     features: [
       'Quartz-effect porcelain',
       'Deep green colourway',
-      'Feature-tile finish',
+      '1200×600mm large format',
       'Low-maintenance surface',
     ],
     images: ['/images/tiles/wex-quartz-jade.jpg'],
@@ -75,14 +90,17 @@ export const tiles: Tile[] = [
     shortName: 'Quartz Onyx',
     range: 'Wex',
     style: 'Onyx-effect porcelain',
+    size: '300×600mm',
+    price: '£29.99 per m²',
+    priceNumeric: 29.99,
     description:
-      'Wex Quartz Onyx is a dramatic onyx-effect porcelain with deep veining — a bold bathroom and kitchen tile arriving soon.',
+      'Dramatic onyx-effect porcelain with deep veining — a bold feature tile in 300×600mm.',
     longDescription:
-      'Quartz Onyx delivers the look of polished onyx in a durable porcelain tile — deep, dramatic veining on a dark base. Used sparingly as a feature or across a full bathroom, it\'s a high-end finish without the upkeep of real stone. Sizes and UK pricing announced soon — register below for first access.',
+      'Quartz Onyx delivers the look of polished onyx in a durable porcelain tile — deep, dramatic veining on a dark base. Used sparingly as a feature or across a full bathroom, it\'s a high-end finish without the upkeep of real stone. 300×600mm at £29.99 per m². In stock — email or WhatsApp Brandon to order.',
     features: [
       'Onyx-effect porcelain',
       'Dramatic deep veining',
-      'Polished finish',
+      '300×600mm format',
       'Feature-wall ready',
     ],
     images: ['/images/tiles/wex-quartz-onyx.jpg'],
@@ -93,14 +111,17 @@ export const tiles: Tile[] = [
     shortName: 'Stone',
     range: 'Wex',
     style: 'Natural stone-look porcelain',
+    size: '300×600mm',
+    price: '£29.99 per m²',
+    priceNumeric: 29.99,
     description:
-      'The Wex Stone range is a versatile natural stone-look porcelain — neutral tones that work across bathrooms, kitchens and living spaces.',
+      'Versatile natural stone-look porcelain — neutral tones that work across bathrooms, kitchens and living spaces.',
     longDescription:
-      'Stone is the workhorse of the Wex range — a natural stone-look porcelain in neutral tones designed to sit alongside almost any palette. Great for through-floor continuity between kitchen and living room. Sizes, finishes and UK pricing will be confirmed shortly — early-access list open below.',
+      'Stone is the workhorse of the Wex range — a natural stone-look porcelain in neutral tones designed to sit alongside almost any palette. Great for through-floor continuity between kitchen and living room. 300×600mm at £29.99 per m². In stock — email or WhatsApp Brandon to order.',
     features: [
       'Stone-look porcelain',
       'Neutral palette',
-      'Through-floor friendly',
+      '300×600mm format',
       'Durable for high-traffic rooms',
     ],
     images: ['/images/tiles/wex-stone.jpg'],
@@ -111,15 +132,18 @@ export const tiles: Tile[] = [
     shortName: 'Trevi',
     range: 'Wex',
     style: 'Classic porcelain, updated',
+    size: '300×600mm',
+    price: '£29.99 per m²',
+    priceNumeric: 29.99,
     description:
-      'The new Wex Trevi collection reimagines a classic tile pattern for modern UK homes — arriving soon at TileFlow UK.',
+      'A classic tile pattern reimagined for modern UK homes — clean finish, contemporary colourways.',
     longDescription:
-      'Trevi takes a classic tile silhouette and updates it with a cleaner finish and contemporary colourways. A go-to for period properties, bathrooms with character, and feature splashbacks. Full spec, pricing and availability coming soon — register interest below.',
+      'Trevi takes a classic tile silhouette and updates it with a cleaner finish and contemporary colourways. A go-to for period properties, bathrooms with character, and feature splashbacks. 300×600mm at £29.99 per m². In stock — email or WhatsApp Brandon to order.',
     features: [
       'Updated classic pattern',
       'Contemporary finish',
+      '300×600mm format',
       'Feature-wall and splashback friendly',
-      'Multiple colourways',
     ],
     images: ['/images/tiles/wex-trevi.jpg'],
   },
@@ -129,14 +153,17 @@ export const tiles: Tile[] = [
     shortName: 'Flurry',
     range: 'Wex',
     style: 'Soft terrazzo-effect porcelain',
+    size: '1200×600mm',
+    price: '£43.99 per m²',
+    priceNumeric: 43.99,
     description:
-      'Wex Flurry is a light, airy terrazzo-effect porcelain — a soft modern look coming soon to TileFlow UK.',
+      'Light, airy terrazzo-effect porcelain — a soft modern look in large-format 1200×600mm.',
     longDescription:
-      'Flurry is a soft terrazzo-effect porcelain — speckled, light, and perfect for bright bathrooms, utility rooms, and kitchen floors. A refreshing change from the heavier marble looks without losing the premium feel. Full details and UK pricing imminent — leave your email below for first access.',
+      'Flurry is a soft terrazzo-effect porcelain — speckled, light, and perfect for bright bathrooms, utility rooms, and kitchen floors. A refreshing change from the heavier marble looks without losing the premium feel. Large-format 1200×600mm at £43.99 per m². In stock — email or WhatsApp Brandon to order.',
     features: [
       'Terrazzo-effect porcelain',
       'Light, airy look',
-      'Great for bathrooms and utilities',
+      '1200×600mm large format',
       'Complements warm and cool palettes',
     ],
     images: ['/images/tiles/wex-flurry.jpg'],
@@ -153,12 +180,24 @@ export function getRelatedTiles(currentSlug: string, limit = 3): Tile[] {
 
 export const ENQUIRY_EMAIL = 'tileflowuk@gmail.com'
 
+/** Brandon's WhatsApp number in international format (no +, no spaces) for wa.me links. */
+export const WHATSAPP_NUMBER = '447539472545'
+/** Display version of the phone number. */
+export const PHONE_DISPLAY = '+44 7539 472545'
+
 export function enquiryMailto(tileName?: string): string {
   const subject = tileName
-    ? `Early access enquiry: ${tileName}`
-    : 'Early access enquiry — TileFlow tiles'
+    ? `Order enquiry: ${tileName}`
+    : 'Tile order enquiry — TileFlow UK'
   const body = tileName
-    ? `Hi,\n\nI'd like early access details for the ${tileName} tile.\n\nThanks,\n`
-    : `Hi,\n\nI'd like early access details for your upcoming tile ranges.\n\nThanks,\n`
+    ? `Hi Brandon,\n\nI'd like to order the ${tileName} tile. Could you let me know availability and delivery options?\n\nThanks,\n`
+    : `Hi Brandon,\n\nI'd like to order from your tile range. Could you tell me what's in stock and how to order?\n\nThanks,\n`
   return `mailto:${ENQUIRY_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+}
+
+export function whatsappLink(tileName?: string): string {
+  const text = tileName
+    ? `Hi Brandon, I'd like to order the ${tileName} tile from TileFlow UK.`
+    : `Hi Brandon, I'd like to order from your TileFlow UK tile range.`
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`
 }

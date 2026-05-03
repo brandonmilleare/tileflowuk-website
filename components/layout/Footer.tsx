@@ -19,14 +19,14 @@ const SvgFacebook = () => (
 )
 
 const shopLinks = [
-  { href: '/tiles', label: 'Tiles (Coming Soon)' },
+  { href: '/tiles', label: 'Tiles' },
+  { href: '/deluxe-flooring', label: 'Wood Flooring' },
   { href: '/shop', label: 'All Tools' },
   { href: '/shop?category=Tile+Cutters', label: 'Tile Cutters' },
   { href: '/shop?category=Angle+Grinders', label: 'Angle Grinders' },
   { href: '/shop?category=Laser+Levels', label: 'Laser Levels' },
   { href: '/shop?category=Wet+Saws', label: 'Wet Saws' },
   { href: '/shop?category=Spirit+Levels', label: 'Spirit Levels' },
-  { href: '/deals', label: 'Deals' },
 ]
 
 const contentLinks = [
@@ -54,7 +54,7 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="bg-[#111827] text-stone-300 mt-auto">
+    <footer className="bg-[var(--tf-ink)] text-stone-300 mt-auto">
       {/* Main grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
         {/* Brand */}

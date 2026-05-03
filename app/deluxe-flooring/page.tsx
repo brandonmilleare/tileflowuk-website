@@ -11,10 +11,17 @@ import {
 } from '@/data/deluxe-flooring'
 
 export const metadata: Metadata = {
-  title: 'Deluxe Flooring at TileFlow UK — Preview (Private)',
+  title: 'Wood Flooring UK — Engineered Oak, Herringbone, LVT & Laminate',
   description:
-    'Preview mock-up of a Deluxe Flooring partnership page on tileflowuk.com. Private — not for public release.',
-  robots: { index: false, follow: false, nocache: true },
+    'A hand-picked range of wood flooring from a UK tiler with 15 years in the trade. Engineered oak, herringbone parquet, luxury vinyl (SPC LVT) and AC5 laminate — in partnership with Deluxe Flooring. Free UK delivery over £500.',
+  alternates: { canonical: 'https://tileflowuk.com/deluxe-flooring' },
+  openGraph: {
+    title: 'Wood Flooring UK — Engineered Oak, Herringbone, LVT & Laminate',
+    description:
+      'Hand-picked wood flooring from a UK tiler with 15 years in the trade. In partnership with Deluxe Flooring.',
+    url: 'https://tileflowuk.com/deluxe-flooring',
+    type: 'website',
+  },
 }
 
 const CATEGORY_BLURB: Record<DeluxeCategory, string> = {
@@ -32,21 +39,11 @@ function CategoryAnchor({ id }: { id: string }) {
   return <span id={id} className="block -mt-20 pt-20" aria-hidden="true" />
 }
 
-export default function DeluxeFlooringPreviewPage() {
+export default function DeluxeFlooringPage() {
   const featured = deluxeProducts.filter(p => p.featured)
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Preview banner — visible to Brandon + the Deluxe owner so they know this is a mock-up */}
-      <div className="bg-amber-50 border-b border-amber-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 text-center text-sm text-amber-900">
-          <strong>Preview / private mock-up.</strong> This page is hosted on
-          tileflowuk.com but not indexed or linked publicly. All products, prices and
-          images remain the property of Deluxe Flooring Ltd — shown here for partnership
-          discussion only.
-        </div>
-      </div>
-
       {/* Co-brand header */}
       <section className="pt-24 pb-10 bg-stone-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -62,7 +59,7 @@ export default function DeluxeFlooringPreviewPage() {
             <div className="text-stone-400 text-3xl font-light hidden sm:block">×</div>
             <div className="text-center">
               <div className="text-xs uppercase tracking-[0.2em] text-stone-500 mb-1">
-                In partnership with
+                Paid partnership with
               </div>
               <Image
                 src="/images/deluxe-flooring/logo.png"
@@ -76,14 +73,15 @@ export default function DeluxeFlooringPreviewPage() {
           </div>
 
           <div className="text-center max-w-3xl mx-auto">
-            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--tf-fg)] mb-4 leading-tight">
-              Engineered oak, herringbone and luxury vinyl — picked by a UK tiler
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-light text-[var(--tf-ink)] mb-4 leading-tight">
+              Engineered oak, <span className="accent-italic">herringbone</span>, LVT and laminate
             </h1>
             <p className="text-stone-600 text-lg leading-relaxed mb-6">
-              30 floors from Deluxe Flooring&rsquo;s premium range. Real oak wear layers,
-              waterproof SPC cores, 25-year guarantees. Every product below links
-              straight to Deluxe Flooring&rsquo;s own checkout — nothing changes for them,
-              nothing changes for the buyer.
+              A proper range of UK click-and-lock flooring — easily installed by
+              yourself or your flooring specialist. These are our hand-picked
+              choices that we think will make your interior pop with stylish,
+              luxury designs. Featuring high-end 100% waterproof SPC luxury vinyl,
+              engineered oak, herringbone parquet and AC4&ndash;AC5 laminate.
             </p>
             <div className="inline-flex items-center gap-2 text-sm text-stone-600 bg-white border border-stone-200 rounded-full px-4 py-2">
               <span className="w-2 h-2 rounded-full bg-[var(--tf-primary)]"></span>
@@ -114,18 +112,19 @@ export default function DeluxeFlooringPreviewPage() {
         </div>
       </nav>
 
-      {/* Featured / top picks strip */}
+      {/* Best Sellers */}
       {featured.length > 0 && (
         <section className="py-14 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-end justify-between mb-8">
               <div>
-                <div className="text-xs uppercase tracking-[0.2em] text-[var(--tf-primary)] font-semibold mb-2">
-                  Tiler&rsquo;s top picks
-                </div>
-                <h2 className="font-display text-2xl sm:text-3xl font-bold text-[var(--tf-fg)]">
-                  What I&rsquo;d fit in my own house
+                <h2 className="font-display text-3xl sm:text-4xl font-light text-[var(--tf-ink)]">
+                  Best <span className="accent-italic">Sellers</span>
                 </h2>
+                <p className="text-stone-600 mt-2">
+                  The floors moving fastest from Deluxe&rsquo;s UK warehouse — picked
+                  across herringbone, engineered oak, LVT and laminate.
+                </p>
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -142,8 +141,8 @@ export default function DeluxeFlooringPreviewPage() {
                       sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <span className="absolute top-3 left-3 bg-[var(--tf-primary)] text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow">
-                      Top pick
+                    <span className="absolute top-3 left-3 bg-[var(--tf-accent)] text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow">
+                      Best Seller
                     </span>
                   </div>
                   <div className="p-5">
@@ -242,16 +241,16 @@ export default function DeluxeFlooringPreviewPage() {
         )
       })}
 
-      {/* How it works */}
+      {/* How buying works */}
       <section className="py-16 bg-[var(--tf-fg)] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
-            How the partnership would work
+            How buying works
           </h2>
           <p className="text-stone-300 text-lg leading-relaxed mb-10 max-w-2xl mx-auto">
-            No new checkout. No new stock to manage. Every button on this page sends the
-            buyer straight to Deluxe Flooring&rsquo;s own site with a referral tag, so
-            Deluxe handles payment, delivery and aftercare exactly the way you do today.
+            You click through to Deluxe Flooring&rsquo;s own UK site, order direct
+            from them. They handle payment, delivery and aftercare. Free samples
+            are available, and free UK mainland delivery kicks in over £500.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
@@ -259,30 +258,33 @@ export default function DeluxeFlooringPreviewPage() {
               <div className="w-10 h-10 rounded-full bg-[var(--tf-primary)] flex items-center justify-center font-bold mb-4">
                 1
               </div>
-              <h3 className="font-display font-bold text-lg mb-2">UK buyer lands here</h3>
+              <h3 className="font-display font-bold text-lg mb-2">Pick your floor</h3>
               <p className="text-sm text-stone-300 leading-relaxed">
-                Driven by TileFlow UK content, Pinterest pins, SEO blog posts and a
-                growing tiler-led audience.
+                Browse the categories below — engineered oak, herringbone parquet,
+                LVT or laminate. Order up to 3 free samples to see the finish in
+                your own light before committing.
               </p>
             </div>
             <div className="bg-white/5 rounded-2xl p-6 border border-white/10">
               <div className="w-10 h-10 rounded-full bg-[var(--tf-primary)] flex items-center justify-center font-bold mb-4">
                 2
               </div>
-              <h3 className="font-display font-bold text-lg mb-2">Clicks &ldquo;View&rdquo;</h3>
+              <h3 className="font-display font-bold text-lg mb-2">Order direct from Deluxe</h3>
               <p className="text-sm text-stone-300 leading-relaxed">
-                Goes straight to the product on deluxe-flooring.co.uk with referral
-                tag <code className="bg-white/10 px-1.5 py-0.5 rounded text-xs">?ref=3</code>.
+                Every &ldquo;View&rdquo; button takes you straight to the product on
+                deluxe-flooring.co.uk. Their checkout, their warehouse, their UK
+                delivery network.
               </p>
             </div>
             <div className="bg-white/5 rounded-2xl p-6 border border-white/10">
               <div className="w-10 h-10 rounded-full bg-[var(--tf-primary)] flex items-center justify-center font-bold mb-4">
                 3
               </div>
-              <h3 className="font-display font-bold text-lg mb-2">You fulfil the sale</h3>
+              <h3 className="font-display font-bold text-lg mb-2">Fit it yourself or get a tiler in</h3>
               <p className="text-sm text-stone-300 leading-relaxed">
-                Deluxe Flooring processes payment, delivers the floor, and pays me a
-                commission on each tracked order. Zero risk either side.
+                Most engineered oak, LVT and laminate is straightforward DIY-fit
+                with the right prep. Herringbone takes more skill — worth a chat
+                with a tiler first.
               </p>
             </div>
           </div>
@@ -293,8 +295,21 @@ export default function DeluxeFlooringPreviewPage() {
             rel="sponsored nofollow noopener"
             className="inline-flex items-center gap-2 mt-10 bg-white text-[var(--tf-fg)] font-semibold px-7 py-3.5 rounded-full hover:bg-stone-100 transition-colors"
           >
-            Open my affiliate link (deluxe-flooring.co.uk/ref/3/) →
+            Browse the full Deluxe Flooring range →
           </a>
+        </div>
+      </section>
+
+      {/* Affiliate disclosure */}
+      <section className="bg-[var(--tf-sage-mist)] border-y border-[var(--tf-sage-soft)] py-6">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-[var(--tf-ink-soft)] leading-relaxed">
+          <strong className="text-[var(--tf-sage-deep)]">Paid partnership with Deluxe Flooring Ltd.</strong> TileFlow UK
+          also earns a commission on purchases made through links on this page —
+          at no extra cost to you. See our{' '}
+          <Link href="/disclosure" className="underline font-semibold text-[var(--tf-sage-deep)] hover:text-[var(--tf-ink)]">
+            full affiliate disclosure
+          </Link>
+          .
         </div>
       </section>
 
@@ -302,7 +317,8 @@ export default function DeluxeFlooringPreviewPage() {
       <footer className="bg-white border-t border-stone-200 py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-stone-500 space-y-2">
           <p>
-            Product names, descriptions, prices and images are the property of{' '}
+            Product names, descriptions, prices and images are used with permission
+            and remain the property of{' '}
             <Link
               href="https://deluxe-flooring.co.uk"
               target="_blank"
@@ -311,12 +327,6 @@ export default function DeluxeFlooringPreviewPage() {
             >
               Deluxe Flooring Ltd
             </Link>
-            . Shown here as a private preview for partnership discussion on{' '}
-            {new Date().toLocaleDateString('en-GB', {
-              day: 'numeric',
-              month: 'long',
-              year: 'numeric',
-            })}
             .
           </p>
           <p>
