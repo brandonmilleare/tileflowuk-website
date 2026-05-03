@@ -69,7 +69,7 @@ export default function Footer() {
             />
           </Link>
           <p className="text-sm leading-relaxed text-stone-400 mb-5">
-            Honest tool reviews and practical guides from a UK professional tiler with 10+ years on the tools. No fluff — just what works.
+            Honest tool reviews and practical guides from a UK professional tiler with 15+ years on the tools. No fluff — just what works.
           </p>
           <div className="flex items-center gap-3">
             {socials.map(({ href, label, Icon }) => (

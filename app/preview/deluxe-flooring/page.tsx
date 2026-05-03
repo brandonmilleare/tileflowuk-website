@@ -320,7 +320,7 @@ export default function DeluxeFlooringPreviewPage() {
             .
           </p>
           <p>
-            TileFlow UK · Brandon Milleare · Full-time UK tiler · 10+ years on the tools.
+            TileFlow UK · 15+ years in the trade · Full-time UK tiler.
           </p>
         </div>
       </footer>

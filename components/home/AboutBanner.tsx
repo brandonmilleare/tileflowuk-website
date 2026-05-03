@@ -20,7 +20,7 @@ export default function AboutBanner() {
             Advice From Someone Who&apos;s Actually Used the Kit
           </h2>
           <p className="text-stone-400 leading-relaxed mb-8">
-            I&apos;ve been laying tiles professionally for over a decade — bathrooms, kitchens, wet rooms, and commercial floors. This site exists because I was fed up of &ldquo;review&rdquo; sites written by people who&apos;d never held a tile cutter.
+            I&apos;ve been laying tiles for 15 years — bathrooms, kitchens, wet rooms, and commercial floors. This site exists because I was fed up of &ldquo;review&rdquo; sites written by people who&apos;d never held a tile cutter.
           </p>
           <Link
             href="/about"

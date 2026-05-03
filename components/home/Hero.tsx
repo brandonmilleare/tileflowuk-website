@@ -37,7 +37,7 @@ export default function Hero() {
             className="inline-flex items-center gap-1.5 px-3 py-1.5 mb-6 rounded-full bg-white/60 backdrop-blur-sm border border-white/50 text-[#2d2d2d] text-xs font-medium tracking-wide uppercase shadow-sm"
           >
             <Star className="w-3 h-3 fill-amber-500 text-amber-500" />
-            10+ Years Professional Experience
+            15+ Years Professional Experience
           </motion.div>
 
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-black">
