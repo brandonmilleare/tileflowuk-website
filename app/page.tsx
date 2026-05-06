@@ -6,7 +6,8 @@ import CategoryGrid from '@/components/home/CategoryGrid'
 import FeaturedProducts from '@/components/home/FeaturedProducts'
 import InspirationStrip from '@/components/home/InspirationStrip'
 import AboutBanner from '@/components/home/AboutBanner'
-import Newsletter from '@/components/home/Newsletter'
+// Newsletter form hidden 2026-05-05 — no list yet, was faking success. Restore when a list provider is wired up.
+// import Newsletter from '@/components/home/Newsletter'
 
 export const metadata: Metadata = {
   title: 'TileFlow UK — Professional Tiling Tools & Inspiration',
@@ -41,7 +42,7 @@ export default function HomePage() {
       <FeaturedProducts />
       <InspirationStrip />
       <AboutBanner />
-      <Newsletter />
+      {/* <Newsletter /> hidden 2026-05-05 — restore when list provider is live */}
     </>
   )
 }
