@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Star, ExternalLink } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
+import AffiliateLink from '@/components/affiliate/AffiliateLink'
 import type { Product } from '@/data/products'
 
 interface ProductCardProps {
@@ -81,15 +82,15 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
               {product.priceNote ? product.priceNote : `£${product.price.toLocaleString('en-GB')}`}
             </span>
           </div>
-          <a
+          <AffiliateLink
             href={product.affiliateUrl}
-            target="_blank"
-            rel="nofollow sponsored noopener noreferrer"
+            retailer="amazon"
+            product={product.slug}
             className="inline-flex items-center gap-1 px-3.5 py-1.5 bg-[var(--tf-accent)] text-white text-xs font-semibold rounded-full hover:bg-orange-600 transition-colors"
           >
             Amazon
             <ExternalLink className="w-3 h-3" />
-          </a>
+          </AffiliateLink>
         </div>
       </div>
     </article>

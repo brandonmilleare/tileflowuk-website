@@ -7,6 +7,7 @@ import { Star, CheckCircle2, XCircle, ExternalLink, ChevronLeft } from 'lucide-r
 import { getProductBySlug, getRelatedProducts, products } from '@/data/products'
 import { Badge } from '@/components/ui/badge'
 import ProductCard from '@/components/product/ProductCard'
+import AffiliateLink from '@/components/affiliate/AffiliateLink'
 
 // Next.js 16: params must be awaited
 type PageProps = {
@@ -149,15 +150,15 @@ export default async function ProductPage({ params }: PageProps) {
                 <p className="text-xs text-stone-400 uppercase tracking-wide mb-0.5">Amazon Price</p>
                 <p className="text-2xl font-bold text-[var(--tf-fg)]">{price}</p>
               </div>
-              <a
+              <AffiliateLink
                 href={product.affiliateUrl}
-                target="_blank"
-                rel="nofollow sponsored noopener noreferrer"
+                retailer="amazon"
+                product={product.slug}
                 className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[var(--tf-accent)] text-white font-bold rounded-full hover:bg-orange-600 transition-colors text-sm shadow-lg shadow-orange-200 hover:-translate-y-0.5 transition-transform"
               >
                 View on Amazon
                 <ExternalLink className="w-4 h-4" />
-              </a>
+              </AffiliateLink>
             </div>
 
             {/* Specs */}

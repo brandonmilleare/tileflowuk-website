@@ -9,6 +9,7 @@ import {
   DELUXE_AFFILIATE_URL,
   type DeluxeCategory,
 } from '@/data/deluxe-flooring'
+import AffiliateLink from '@/components/affiliate/AffiliateLink'
 
 export const metadata: Metadata = {
   title: 'Wood Flooring UK — Engineered Oak, Herringbone, LVT & Laminate',
@@ -155,14 +156,14 @@ export default function DeluxeFlooringPage() {
                     <div className="text-xl font-bold text-[var(--tf-primary)] mb-4">
                       {p.price}
                     </div>
-                    <a
+                    <AffiliateLink
                       href={deluxeProductLink(p)}
-                      target="_blank"
-                      rel="sponsored nofollow noopener"
+                      retailer="deluxe"
+                      product={p.slug}
                       className="block w-full text-center bg-[var(--tf-fg)] text-white font-semibold px-5 py-3 rounded-full hover:bg-stone-800 transition-colors"
                     >
                       View on Deluxe Flooring →
-                    </a>
+                    </AffiliateLink>
                   </div>
                 </article>
               ))}
@@ -223,14 +224,14 @@ export default function DeluxeFlooringPage() {
                         <div className="text-lg font-bold text-[var(--tf-primary)]">
                           {p.price}
                         </div>
-                        <a
+                        <AffiliateLink
                           href={deluxeProductLink(p)}
-                          target="_blank"
-                          rel="sponsored nofollow noopener"
+                          retailer="deluxe"
+                          product={p.slug}
                           className="text-sm font-semibold text-[var(--tf-fg)] hover:text-[var(--tf-primary)] transition-colors"
                         >
                           View &rarr;
-                        </a>
+                        </AffiliateLink>
                       </div>
                     </div>
                   </article>
@@ -289,14 +290,14 @@ export default function DeluxeFlooringPage() {
             </div>
           </div>
 
-          <a
+          <AffiliateLink
             href={DELUXE_AFFILIATE_URL}
-            target="_blank"
-            rel="sponsored nofollow noopener"
+            retailer="deluxe"
+            product="full-range"
             className="inline-flex items-center gap-2 mt-10 bg-white text-[var(--tf-fg)] font-semibold px-7 py-3.5 rounded-full hover:bg-stone-100 transition-colors"
           >
             Browse the full Deluxe Flooring range →
-          </a>
+          </AffiliateLink>
         </div>
       </section>
 
