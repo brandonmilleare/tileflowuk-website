@@ -11,12 +11,6 @@ interface AffiliateLinkProps {
   children: ReactNode
 }
 
-declare global {
-  interface Window {
-    dataLayer?: Array<Record<string, unknown>>
-  }
-}
-
 export default function AffiliateLink({
   href,
   retailer,
@@ -27,8 +21,9 @@ export default function AffiliateLink({
 }: AffiliateLinkProps) {
   const handleClick = (_e: MouseEvent<HTMLAnchorElement>) => {
     if (typeof window === 'undefined') return
-    window.dataLayer = window.dataLayer || []
-    window.dataLayer.push({
+    const w = window as unknown as { dataLayer?: unknown[] }
+    w.dataLayer = w.dataLayer || []
+    w.dataLayer.push({
       event: 'affiliate_click',
       retailer,
       link_url: href,
