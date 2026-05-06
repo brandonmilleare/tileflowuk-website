@@ -1,14 +1,42 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import ContactForm from './ContactForm'
 
 export const metadata: Metadata = {
   title: 'Contact — TileFlow UK',
   description: 'Get in touch with TileFlow UK — questions, corrections, partnership enquiries.',
+  alternates: { canonical: 'https://tileflowuk.com/contact' },
+}
+
+const contactSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: 'Contact TileFlow UK',
+  url: 'https://tileflowuk.com/contact',
+  description: 'Contact page for TileFlow UK — direct email and message form.',
+  mainEntity: {
+    '@type': 'Organization',
+    name: 'TileFlow UK',
+    url: 'https://tileflowuk.com',
+    email: 'hello@tileflowuk.com',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'customer support',
+      email: 'hello@tileflowuk.com',
+      areaServed: 'GB',
+      availableLanguage: ['English'],
+    },
+  },
 }
 
 export default function ContactPage() {
   return (
     <div className="min-h-screen pt-16">
+      <Script
+        id="contact-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }}
+      />
       <div className="bg-stone-50 border-b border-stone-200">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <h1 className="font-display text-3xl lg:text-4xl font-bold text-[var(--tf-fg)] mb-3">

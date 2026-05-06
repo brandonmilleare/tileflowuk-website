@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     template: '%s | TileFlow UK',
   },
   description:
-    'Expert tiling tool reviews, buying guides, and real inspiration from a professional UK tiler with 15+ years experience. Trusted by tradespeople and serious DIYers.',
+    'Tiling tool reviews and buying guides from a UK tiler with 15+ years on site. Trusted by tradespeople and serious DIYers.',
   metadataBase: new URL('https://tileflowuk.com'),
   openGraph: {
     type: 'website',

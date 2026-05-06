@@ -8,7 +8,7 @@ import { tiles, enquiryMailto, whatsappLink, ENQUIRY_EMAIL, PHONE_DISPLAY } from
 export const metadata: Metadata = {
   title: 'Wex Porcelain Tiles for Sale UK — From £29.99/m²',
   description:
-    'Premium Wex range porcelain tiles from TileFlow UK. Marble-effect, stone-look, quartz, terrazzo and classic porcelain — 300×600mm and 1200×600mm formats from £29.99/m². In stock, UK delivery.',
+    'Premium Wex porcelain tiles — marble, stone, quartz and terrazzo looks. 300×600mm and 1200×600mm formats from £29.99/m². In stock, UK delivery.',
   alternates: {
     canonical: 'https://tileflowuk.com/tiles',
   },

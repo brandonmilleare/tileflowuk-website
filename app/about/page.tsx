@@ -1,16 +1,51 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Script from 'next/script'
 import { ArrowRight } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'About — TileFlow UK',
   description:
     'TileFlow UK is run by a professional UK tiler with over 15 years of trade experience. Learn why this site exists and what you can expect from it.',
+  alternates: { canonical: 'https://tileflowuk.com/about' },
+}
+
+const aboutSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'About TileFlow UK',
+  url: 'https://tileflowuk.com/about',
+  description:
+    'TileFlow UK is run by Brandon, a professional UK tiler with 15+ years of trade experience.',
+  mainEntity: {
+    '@type': 'Person',
+    name: 'Brandon',
+    jobTitle: 'Professional Tiler',
+    description: 'UK-based professional tiler with 15+ years in the trade.',
+    knowsAbout: [
+      'Tile cutting',
+      'Wall tiling',
+      'Floor tiling',
+      'Wet room tanking',
+      'Large format tiles',
+      'Tile adhesive selection',
+    ],
+    worksFor: {
+      '@type': 'Organization',
+      name: 'TileFlow UK',
+      url: 'https://tileflowuk.com',
+    },
+  },
 }
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen pt-16">
+      <Script
+        id="about-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutSchema) }}
+      />
       <div className="bg-stone-50 border-b border-stone-200">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <h1 className="font-display text-3xl lg:text-4xl font-bold text-[var(--tf-fg)] mb-3">

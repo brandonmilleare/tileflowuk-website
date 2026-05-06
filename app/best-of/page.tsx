@@ -1,11 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Script from 'next/script'
 import { ArrowRight, Star } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Best Of — Top-Rated Tiling Tools',
   description:
     'The definitive "Best Of" lists for every tiling tool category — tile cutters, laser levels, angle grinders, and more. Ranked by a working UK professional.',
+  alternates: { canonical: 'https://tileflowuk.com/best-of' },
 }
 
 const lists = [
@@ -53,9 +55,35 @@ const lists = [
   },
 ]
 
+const collectionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Best Of Lists — TileFlow UK',
+  url: 'https://tileflowuk.com/best-of',
+  description:
+    "Best Of lists for every tiling tool category — tile cutters, laser levels, angle grinders, wet saws — ranked by a working UK professional tiler.",
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListOrder: 'https://schema.org/ItemListOrderDescending',
+    numberOfItems: lists.length,
+    itemListElement: lists.map((list, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 1,
+      url: `https://tileflowuk.com/best-of/${list.slug}`,
+      name: list.title,
+      description: list.subtitle,
+    })),
+  },
+}
+
 export default function BestOfPage() {
   return (
     <div className="min-h-screen pt-16">
+      <Script
+        id="best-of-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
       <div className="bg-stone-50 border-b border-stone-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <h1 className="font-display text-3xl lg:text-4xl font-bold text-[var(--tf-fg)] mb-3">
