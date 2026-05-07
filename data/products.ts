@@ -7,6 +7,11 @@ export type ProductCategory =
   | 'Wet Saws'
   | 'Spirit Levels'
   | 'Drill Bits'
+  | 'Tile Spacers'
+  | 'Trowels'
+  | 'Knee Pads'
+  | 'Tile Cleaners'
+  | 'Mixing Tools'
 
 export interface Product {
   slug: string
@@ -548,6 +553,163 @@ export const products: Product[] = [
       'Not for heavy commercial use',
     ],
     affiliateUrl: affiliateLinks.tileDrillBits,
+    featured: false,
+  },
+
+  // ─── Added 2026-05-07: Amazon UK research batch (5 priority launch picks) ───
+  {
+    slug: 'vitrex-2mm-tile-spacers-1000pk',
+    name: 'Vitrex 2mm Cross Tile Spacers (Pack of 1000)',
+    shortName: 'Vitrex 2mm Spacers x1000',
+    category: 'Tile Spacers',
+    price: 2.40,
+    rating: 4.4,
+    reviewCount: 1500,
+    image: 'https://m.media-amazon.com/images/I/71Fmm9yjdUL._AC_SL1500_.jpg',
+    description:
+      'Vitrex are the UK trade default for tile spacers — every merchant carries them, every tiler trusts them. The 2mm pack is the spacing I use on most domestic wall tiling jobs. 1,000 pieces is enough for two or three full bathrooms.',
+    specs: {
+      Size: '2mm',
+      'Pack Size': '1,000 pieces',
+      Material: 'Plastic',
+      'Suitable For': 'Wall tiles, ceramic floor tiles',
+    },
+    pros: [
+      'UK trade staple — same product every merchant stocks',
+      '1,000-piece pack covers multiple full jobs',
+      'Sized accurately — no oversize variation',
+      'Pennies per spacer — cheap to over-buy',
+    ],
+    cons: [
+      'Single-use plastic — recycle responsibly after the job',
+      'Get 3mm separately if your tiles are off-square or rustic',
+    ],
+    badge: 'Best Value',
+    affiliateUrl: affiliateLinks.vitrex2mmSpacers1k,
+    featured: false,
+  },
+  {
+    slug: 'ox-pro-10mm-notch-trowel',
+    name: 'OX Pro 10mm Square-Notch Tile Trowel',
+    shortName: 'OX Pro 10mm Trowel',
+    category: 'Trowels',
+    price: 12.99,
+    rating: 4.7,
+    reviewCount: 500,
+    image: 'https://m.media-amazon.com/images/I/71bzQyNExaL._AC_SL1500_.jpg',
+    description:
+      'A 10mm square-notch trowel is the workhorse for most domestic floor tiling — 300×300mm to 600×600mm tiles bed cleanly with this notch size. OX Pro use carbon steel with a DuraGrip handle that survives years of site use. Best-rated trowel in this notch size on Amazon UK.',
+    specs: {
+      Notch: '10mm square',
+      Blade: 'Carbon steel',
+      Handle: 'DuraGrip soft-grip',
+      'Suitable For': 'Floor tiles 300mm – 600mm',
+    },
+    pros: [
+      'Carbon steel blade keeps a clean edge',
+      'Soft-grip handle reduces hand fatigue on long jobs',
+      'Right notch size for typical floor tiling',
+      'Trade favourite — durable enough for daily use',
+    ],
+    cons: [
+      'Pair with a 12mm for large-format tiles 600mm+',
+      'Carbon steel will rust if washed and not dried — clean it properly',
+    ],
+    badge: 'Pro Choice',
+    affiliateUrl: affiliateLinks.oxPro10mmTrowel,
+    featured: false,
+  },
+  {
+    slug: 'toughbuilt-gelfit-stabilization-knee-pads',
+    name: 'ToughBuilt TB-KP-G3 GELFIT Stabilization Knee Pads',
+    shortName: 'ToughBuilt G3 Knee Pads',
+    category: 'Knee Pads',
+    price: 92.99,
+    rating: 4.6,
+    reviewCount: 5000,
+    image: 'https://m.media-amazon.com/images/I/61mYRBhg-yL._AC_SL1080_.jpg',
+    description:
+      'The most-recommended knee pads on the UK tilers\' forums. Gel-filled cushion, hard outer shell that pivots on rough screed without grinding the gel into your knee, and a thigh strap that takes the weight off your knee on long floor jobs. Not cheap — but you\'ll regret saving £30 on cheap foam pads after one week.',
+    specs: {
+      Cushioning: 'Gel-filled',
+      Shell: 'Hard plastic, non-marring',
+      'Strap System': 'Thigh-stabilising',
+      Coverage: 'Full-knee + lower thigh',
+    },
+    pros: [
+      "'Kings of comfort' on Tilers Forums for a reason",
+      'Thigh strap takes weight off the knee on long jobs',
+      'Hard shell pivots cleanly on rough screed',
+      'Gel doesn\'t go flat after the first week (foam pads do)',
+    ],
+    cons: [
+      'Premium price — knee-pad prices have moved up sharply since 2024',
+      'Bulkier than basic foam pads — takes a day to get used to',
+    ],
+    badge: "Editor's Pick",
+    affiliateUrl: affiliateLinks.toughbuiltGelfitG3,
+    featured: false,
+  },
+  {
+    slug: 'hg-tile-cleaner-product-16',
+    name: 'HG Tile Cleaner Product 16 (1L Concentrated)',
+    shortName: 'HG Tile Cleaner 1L',
+    category: 'Tile Cleaners',
+    price: 6.50,
+    rating: 4.6,
+    reviewCount: 5000,
+    image: 'https://m.media-amazon.com/images/I/51XIALrAoiL._AC_SL1000_.jpg',
+    description:
+      'HG Product 16 is the budget tile cleaner that actually works — concentrated formula gives roughly 40 mop-buckets per litre, gentle enough for daily use, strong enough to lift old grout haze and traffic grime. Mass-market pricing (£6–7), proper cleaning power.',
+    specs: {
+      Volume: '1L (concentrated)',
+      Coverage: '~40 wash buckets',
+      'Suitable For': 'Ceramic, porcelain, natural stone (test first)',
+      pH: 'Neutral when diluted',
+    },
+    pros: [
+      'Concentrated — 1L lasts dozens of cleans',
+      'Mass-market price (~£6.50)',
+      'Works on grout haze and traffic grime',
+      'Available in every UK supermarket and Amazon UK',
+    ],
+    cons: [
+      "Won't strip serious builders' grime — use Lithofin FZ for that",
+      'Always test natural stone first — some sealants are sensitive',
+    ],
+    badge: 'Best Value',
+    affiliateUrl: affiliateLinks.hgTileCleaner16,
+    featured: false,
+  },
+  {
+    slug: 'faithfull-faimp120-mixing-paddle',
+    name: 'Faithfull FAIMP120 Mixing Paddle 120mm',
+    shortName: 'Faithfull 120mm Paddle',
+    category: 'Mixing Tools',
+    price: 17.13,
+    rating: 4.6,
+    reviewCount: 1500,
+    image: 'https://m.media-amazon.com/images/I/61CoRIGi7tL._AC_SL1500_.jpg',
+    description:
+      'The right paddle for tile adhesive. 120mm head size is the sweet spot — small enough for a 25L bucket without splash-out, big enough to mix a full bag of adhesive in one go. Standard chuck shaft fits any cordless drill or paddle mixer. Faithfull is a UK trade brand you can rely on.',
+    specs: {
+      'Head Size': '120mm',
+      Shaft: 'Standard chuck (10mm hex)',
+      Length: '~600mm overall',
+      'Suitable For': 'Tile adhesive, thinset, grout',
+    },
+    pros: [
+      'Right size for a 25L bucket — no splash-out',
+      'Standard chuck — fits any drill or mixer',
+      'UK trade brand with reliable quality',
+      'Use it slow-speed (max 600 rpm) for clean lump-free mix',
+    ],
+    cons: [
+      'For SDS+ rotary hammers, get a different paddle (SDS+ shaft)',
+      'Paddle bends if you push too fast — keep it under 600 rpm',
+    ],
+    badge: 'Best Seller',
+    affiliateUrl: affiliateLinks.faithfullPaddle120,
     featured: false,
   },
 ]
