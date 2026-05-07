@@ -5,6 +5,7 @@ import Script from 'next/script'
 import { ArrowLeft, Clock, Calendar, Star, ExternalLink } from 'lucide-react'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { getAllBestOfSlugs, getBestOfDoc } from '@/lib/mdx'
+import { mdxComponents } from '@/components/mdx/mdxComponents'
 
 type PageProps = { params: Promise<{ slug: string }> }
 
@@ -128,7 +129,7 @@ export default async function BestOfDetailPage({ params }: PageProps) {
         prose-strong:text-[var(--tf-fg)]
         prose-li:marker:text-[var(--tf-primary)]
         prose-table:text-sm">
-        <MDXRemote source={doc.content} />
+        <MDXRemote source={doc.content} components={mdxComponents} />
       </article>
 
       {/* Footer */}
