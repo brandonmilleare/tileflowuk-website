@@ -5,6 +5,7 @@ import Script from 'next/script'
 import { ArrowLeft, Clock, Calendar, BookOpen } from 'lucide-react'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { getAllGuidesSlugs, getGuideDoc } from '@/lib/mdx'
+import { mdxComponents } from '@/components/mdx/mdxComponents'
 
 type PageProps = { params: Promise<{ slug: string }> }
 
@@ -127,7 +128,7 @@ export default async function GuideDetailPage({ params }: PageProps) {
         prose-a:text-[var(--tf-primary)] prose-a:font-medium hover:prose-a:text-[var(--tf-primary-hover)]
         prose-strong:text-[var(--tf-fg)]
         prose-li:marker:text-[var(--tf-primary)]">
-        <MDXRemote source={doc.content} />
+        <MDXRemote source={doc.content} components={mdxComponents} />
       </article>
 
       {/* Footer CTA */}

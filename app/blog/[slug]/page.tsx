@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Script from 'next/script'
 import { Clock, ArrowLeft, Calendar, ArrowRight } from 'lucide-react'
 import { MDXRemote } from 'next-mdx-remote/rsc'
+import { mdxComponents } from '@/components/mdx/mdxComponents'
 import { getAllPostSlugs, getPostBySlug, getRelatedPosts } from '@/lib/blog'
 
 export async function generateStaticParams() {
@@ -126,7 +127,7 @@ export default async function BlogPostPage(props: { params: Promise<{ slug: stri
         prose-a:text-[var(--tf-primary)] prose-a:font-medium hover:prose-a:text-[var(--tf-primary-hover)]
         prose-strong:text-[var(--tf-fg)]
         prose-li:marker:text-[var(--tf-primary)]">
-        <MDXRemote source={post.content} />
+        <MDXRemote source={post.content} components={mdxComponents} />
       </article>
 
       {/* Related posts */}
