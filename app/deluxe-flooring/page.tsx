@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
+import Script from 'next/script'
 import {
   deluxeProducts,
   deluxeCategories,
@@ -14,7 +15,7 @@ import AffiliateLink from '@/components/affiliate/AffiliateLink'
 export const metadata: Metadata = {
   title: 'Wood Flooring UK — Engineered Oak, Herringbone, LVT & Laminate',
   description:
-    'A hand-picked range of wood flooring from a UK tiler with 15 years in the trade. Engineered oak, herringbone parquet, luxury vinyl (SPC LVT) and AC5 laminate — in partnership with Deluxe Flooring. Free UK delivery over £500.',
+    'Hand-picked UK wood flooring from a 15-year tiler — engineered oak, herringbone parquet, SPC LVT and AC5 laminate. In partnership with Deluxe Flooring.',
   alternates: { canonical: 'https://tileflowuk.com/deluxe-flooring' },
   openGraph: {
     title: 'Wood Flooring UK — Engineered Oak, Herringbone, LVT & Laminate',
@@ -22,6 +23,18 @@ export const metadata: Metadata = {
       'Hand-picked wood flooring from a UK tiler with 15 years in the trade. In partnership with Deluxe Flooring.',
     url: 'https://tileflowuk.com/deluxe-flooring',
     type: 'website',
+    images: [
+      {
+        url: '/images/deluxe-flooring/burghley.png',
+        width: 1200,
+        height: 630,
+        alt: 'Burghley engineered oak — featured at TileFlow × Deluxe Flooring',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: ['/images/deluxe-flooring/burghley.png'],
   },
 }
 
@@ -43,8 +56,60 @@ function CategoryAnchor({ id }: { id: string }) {
 export default function DeluxeFlooringPage() {
   const featured = deluxeProducts.filter(p => p.featured)
 
+  const itemListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'TileFlow × Deluxe Flooring — Wood Flooring Range',
+    description:
+      'Hand-picked UK wood flooring: engineered oak, herringbone parquet, SPC LVT, and AC5 laminate.',
+    numberOfItems: deluxeProducts.length,
+    itemListElement: deluxeProducts.slice(0, 20).map((p, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'Product',
+        name: p.name,
+        category: p.category,
+        image: `https://tileflowuk.com${p.image}`,
+        description: p.description,
+        offers: {
+          '@type': 'Offer',
+          priceCurrency: 'GBP',
+          price: p.price.replace(/[£\s]/g, '').split('per')[0],
+          availability: 'https://schema.org/InStock',
+          url: deluxeProductLink(p),
+          seller: { '@type': 'Organization', name: 'Deluxe Flooring Ltd' },
+        },
+      },
+    })),
+  }
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://tileflowuk.com' },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Wood Flooring',
+        item: 'https://tileflowuk.com/deluxe-flooring',
+      },
+    ],
+  }
+
   return (
     <div className="min-h-screen bg-white">
+      <Script
+        id="deluxe-itemlist-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+      />
+      <Script
+        id="deluxe-breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       {/* Co-brand header */}
       <section className="pt-24 pb-10 bg-stone-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

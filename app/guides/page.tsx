@@ -5,7 +5,8 @@ import { BookOpen, ArrowRight } from 'lucide-react'
 export const metadata: Metadata = {
   title: 'Buying Guides — Tiling Tools & Materials Explained',
   description:
-    'Complete buying guides for tiling tools and materials. Learn what specs actually matter, which features are marketing fluff, and how to avoid expensive mistakes on site.',
+    'Buying guides for tiling tools and materials — what specs matter, what is marketing fluff, and how to avoid costly mistakes on site.',
+  alternates: { canonical: 'https://tileflowuk.com/guides' },
 }
 
 const guides = [
