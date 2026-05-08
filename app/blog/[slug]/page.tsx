@@ -6,6 +6,7 @@ import { Clock, ArrowLeft, Calendar, ArrowRight } from 'lucide-react'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { mdxComponents } from '@/components/mdx/mdxComponents'
 import AuthorByline from '@/components/content/AuthorByline'
+import AffiliateDisclosure from '@/components/affiliate/AffiliateDisclosure'
 import { getAllPostSlugs, getPostBySlug, getRelatedPosts } from '@/lib/blog'
 
 export async function generateStaticParams() {
@@ -135,6 +136,11 @@ export default async function BlogPostPage(props: { params: Promise<{ slug: stri
             <p className="mt-4 text-stone-500 text-sm">By {post.author}</p>
           )}
         </div>
+      </div>
+
+      {/* Above-the-fold affiliate disclosure (ASA + Amazon Operating Agreement) */}
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <AffiliateDisclosure mode="banner" />
       </div>
 
       {/* Body */}

@@ -24,6 +24,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/disclosure`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${BASE}/privacy`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${BASE}/terms`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${BASE}/returns`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${BASE}/data-rights`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
   ]
 
   const tilePages: MetadataRoute.Sitemap = tiles.map(t => ({

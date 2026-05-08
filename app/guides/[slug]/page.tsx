@@ -7,6 +7,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 import { getAllGuidesSlugs, getGuideDoc } from '@/lib/mdx'
 import { mdxComponents } from '@/components/mdx/mdxComponents'
 import AuthorByline from '@/components/content/AuthorByline'
+import AffiliateDisclosure from '@/components/affiliate/AffiliateDisclosure'
 
 type PageProps = { params: Promise<{ slug: string }> }
 
@@ -135,6 +136,11 @@ export default async function GuideDetailPage({ params }: PageProps) {
           <p className="text-stone-500 text-lg leading-relaxed">{doc.excerpt}</p>
           {doc.author && <p className="mt-4 text-stone-500 text-sm">By {doc.author}</p>}
         </div>
+      </div>
+
+      {/* Above-the-fold affiliate disclosure (ASA + Amazon Operating Agreement) */}
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <AffiliateDisclosure mode="banner" />
       </div>
 
       {/* Content */}
