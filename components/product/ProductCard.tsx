@@ -4,6 +4,7 @@ import { Star, ExternalLink } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import AffiliateLink from '@/components/affiliate/AffiliateLink'
 import type { Product } from '@/data/products'
+import { formatGBP } from '@/lib/utils'
 
 interface ProductCardProps {
   product: Product
@@ -79,7 +80,7 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
         <div className="flex items-center justify-between mt-auto pt-3 border-t border-stone-100">
           <div>
             <span className="font-bold text-[var(--tf-fg)]">
-              {product.priceNote ? product.priceNote : `£${product.price.toLocaleString('en-GB')}`}
+              {product.priceNote ? product.priceNote : formatGBP(product.price)}
             </span>
           </div>
           <AffiliateLink

@@ -8,6 +8,7 @@ import { getProductBySlug, getRelatedProducts, products } from '@/data/products'
 import { Badge } from '@/components/ui/badge'
 import ProductCard from '@/components/product/ProductCard'
 import AffiliateLink from '@/components/affiliate/AffiliateLink'
+import { formatGBP } from '@/lib/utils'
 
 // Next.js 16: params must be awaited
 type PageProps = {
@@ -41,8 +42,8 @@ export default async function ProductPage({ params }: PageProps) {
   const hasHalf = product.rating % 1 >= 0.5
 
   const price = product.priceNote
-    ? `£${product.price.toLocaleString('en-GB')} (${product.priceNote})`
-    : `£${product.price.toLocaleString('en-GB')}`
+    ? `${formatGBP(product.price)} (${product.priceNote})`
+    : formatGBP(product.price)
 
   const productSchema = {
     '@context': 'https://schema.org',
