@@ -5,6 +5,7 @@ import Script from 'next/script'
 import { Clock, ArrowLeft, Calendar, ArrowRight } from 'lucide-react'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { mdxComponents } from '@/components/mdx/mdxComponents'
+import AuthorByline from '@/components/content/AuthorByline'
 import { getAllPostSlugs, getPostBySlug, getRelatedPosts } from '@/lib/blog'
 
 export async function generateStaticParams() {
@@ -144,6 +145,11 @@ export default async function BlogPostPage(props: { params: Promise<{ slug: stri
         prose-li:marker:text-[var(--tf-primary)]">
         <MDXRemote source={post.content} components={mdxComponents} />
       </article>
+
+      {/* Author byline — E-E-A-T author identity strip */}
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-12">
+        <AuthorByline />
+      </div>
 
       {/* Related posts */}
       {related.length > 0 && (

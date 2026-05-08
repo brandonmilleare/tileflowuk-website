@@ -6,6 +6,7 @@ import { ArrowLeft, Clock, Calendar, BookOpen } from 'lucide-react'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { getAllGuidesSlugs, getGuideDoc } from '@/lib/mdx'
 import { mdxComponents } from '@/components/mdx/mdxComponents'
+import AuthorByline from '@/components/content/AuthorByline'
 
 type PageProps = { params: Promise<{ slug: string }> }
 
@@ -145,6 +146,11 @@ export default async function GuideDetailPage({ params }: PageProps) {
         prose-li:marker:text-[var(--tf-primary)]">
         <MDXRemote source={doc.content} components={mdxComponents} />
       </article>
+
+      {/* Author byline — E-E-A-T author identity strip */}
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-12">
+        <AuthorByline />
+      </div>
 
       {/* Footer CTA */}
       <div className="border-t border-stone-200 bg-stone-50">

@@ -10,39 +10,76 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://tileflowuk.com/about' },
 }
 
+/**
+ * Person schema with full E-E-A-T signals.
+ * - @id lets Article.author across the site point to a single canonical Person
+ *   instead of redeclaring the bio on every blog post.
+ * - sameAs unifies Brandon's identity across the social platforms he posts on.
+ * - knowsAbout helps Google's Knowledge Graph match this Person to topical
+ *   queries like "best UK tiler advice on porcelain".
+ */
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': 'https://tileflowuk.com/about#person',
+  name: 'Brandon',
+  alternateName: 'Brandon, TileFlow UK',
+  jobTitle: 'Professional Tiler',
+  description:
+    'UK-based professional tiler with 15 years in the trade. Bathrooms, kitchens, wet rooms, commercial floors. Founder and editor of TileFlow UK.',
+  url: 'https://tileflowuk.com/about',
+  image: 'https://tileflowuk.com/images/about/brandon.jpg',
+  knowsAbout: [
+    'Tile cutting',
+    'Wall tiling',
+    'Floor tiling',
+    'Wet room tanking',
+    'Large format tile installation',
+    'Tile adhesive selection',
+    'Porcelain tile installation',
+    'Underfloor heating tiling',
+    'Subfloor preparation',
+    'Tiling tool reviews',
+  ],
+  knowsLanguage: 'en-GB',
+  hasOccupation: {
+    '@type': 'Occupation',
+    name: 'Tiler',
+    occupationLocation: { '@type': 'Country', name: 'United Kingdom' },
+    estimatedSalary: { '@type': 'MonetaryAmountDistribution', name: 'UK tiler' },
+  },
+  worksFor: { '@id': 'https://tileflowuk.com#organization' },
+  founder: { '@id': 'https://tileflowuk.com#organization' },
+  sameAs: [
+    'https://www.instagram.com/tileflowuk/',
+    'https://www.tiktok.com/@tileflowuk1',
+    'https://pinterest.co.uk/tileflowuk',
+    'https://youtube.com/@tileflowuk',
+  ],
+}
+
 const aboutSchema = {
   '@context': 'https://schema.org',
   '@type': 'AboutPage',
+  '@id': 'https://tileflowuk.com/about#aboutpage',
   name: 'About TileFlow UK',
   url: 'https://tileflowuk.com/about',
   description:
-    'TileFlow UK is run by Brandon, a professional UK tiler with 15+ years of trade experience.',
-  mainEntity: {
-    '@type': 'Person',
-    name: 'Brandon',
-    jobTitle: 'Professional Tiler',
-    description: 'UK-based professional tiler with 15+ years in the trade.',
-    knowsAbout: [
-      'Tile cutting',
-      'Wall tiling',
-      'Floor tiling',
-      'Wet room tanking',
-      'Large format tiles',
-      'Tile adhesive selection',
-    ],
-    worksFor: {
-      '@type': 'Organization',
-      name: 'TileFlow UK',
-      url: 'https://tileflowuk.com',
-    },
-  },
+    'TileFlow UK is run by Brandon, a professional UK tiler with 15 years of trade experience.',
+  mainEntity: { '@id': 'https://tileflowuk.com/about#person' },
+  isPartOf: { '@id': 'https://tileflowuk.com#website' },
 }
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen pt-16">
       <Script
-        id="about-schema"
+        id="ld-person"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+      />
+      <Script
+        id="ld-aboutpage"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutSchema) }}
       />

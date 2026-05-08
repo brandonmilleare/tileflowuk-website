@@ -39,10 +39,10 @@ const orgSchema = {
   },
   areaServed: { '@type': 'Country', name: 'United Kingdom' },
   sameAs: [
-    'https://instagram.com/tileflowuk',
-    'https://youtube.com/@tileflowuk',
+    'https://www.instagram.com/tileflowuk/',
+    'https://www.tiktok.com/@tileflowuk1',
     'https://pinterest.co.uk/tileflowuk',
-    'https://tiktok.com/@tileflowuk',
+    'https://youtube.com/@tileflowuk',
   ],
 }
 
