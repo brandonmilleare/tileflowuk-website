@@ -4,6 +4,11 @@ import matter from 'gray-matter'
 
 const BLOG_DIR = path.join(process.cwd(), 'content/blog')
 
+export interface FaqEntry {
+  q: string
+  a: string
+}
+
 export interface BlogPost {
   slug: string
   title: string
@@ -14,6 +19,7 @@ export interface BlogPost {
   author?: string
   heroImage?: string
   tags?: string[]
+  faqs?: FaqEntry[]
   content: string
 }
 
@@ -82,6 +88,11 @@ export function getPostBySlug(slug: string): BlogPost | null {
     author: data.author,
     heroImage: data.heroImage,
     tags: data.tags ?? [],
+    faqs: Array.isArray(data.faqs)
+      ? data.faqs.filter((f: unknown): f is FaqEntry =>
+          !!f && typeof f === 'object' && 'q' in f && 'a' in f
+        )
+      : undefined,
     content,
   }
 }

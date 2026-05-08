@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
 import ContactForm from './ContactForm'
+import { whatsappLink, PHONE_DISPLAY } from '@/data/tiles'
 
 export const metadata: Metadata = {
   title: 'Contact — TileFlow UK',
@@ -53,13 +54,26 @@ export default function ContactPage() {
 
         <div className="mt-10 pt-8 border-t border-stone-100">
           <h2 className="font-semibold text-[var(--tf-fg)] mb-3">Other Ways to Reach Me</h2>
-          <p className="text-sm text-stone-500">
-            Email:{' '}
-            <a href="mailto:hello@tileflowuk.com" className="text-[var(--tf-primary)] hover:underline">
-              hello@tileflowuk.com
+          <div className="flex flex-col sm:flex-row gap-3 mb-4">
+            <a
+              href={whatsappLink(undefined, 'general')}
+              target="_blank"
+              rel="noopener"
+              className="inline-flex items-center justify-center gap-2 rounded-md bg-[#25D366] hover:bg-[#1fbf5a] text-white font-medium px-4 py-2.5 text-sm transition"
+            >
+              <span aria-hidden>💬</span> WhatsApp {PHONE_DISPLAY}
             </a>
+            <a
+              href="mailto:hello@tileflowuk.com"
+              className="inline-flex items-center justify-center gap-2 rounded-md border border-stone-300 hover:bg-stone-50 text-[var(--tf-fg)] font-medium px-4 py-2.5 text-sm transition"
+            >
+              <span aria-hidden>✉</span> hello@tileflowuk.com
+            </a>
+          </div>
+          <p className="text-sm text-stone-500">
+            Tap WhatsApp and a message is already typed — just send. Quickest way to reach me.
           </p>
-          <p className="text-sm text-stone-500 mt-1">
+          <p className="text-sm text-stone-500 mt-3">
             I don&apos;t accept sponsored posts or paid placements. All editorial decisions are independent.
           </p>
         </div>

@@ -2,6 +2,11 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 
+export interface FaqEntry {
+  q: string
+  a: string
+}
+
 export interface MdxDoc {
   slug: string
   title: string
@@ -13,6 +18,7 @@ export interface MdxDoc {
   heroImage?: string
   content: string
   tags?: string[]
+  faqs?: FaqEntry[]
 }
 
 export interface MdxDocMeta {
@@ -52,6 +58,11 @@ function readDoc(dir: string, slug: string): MdxDoc | null {
     heroImage: data.heroImage,
     content,
     tags: data.tags ?? [],
+    faqs: Array.isArray(data.faqs)
+      ? data.faqs.filter((f: unknown): f is FaqEntry =>
+          !!f && typeof f === 'object' && 'q' in f && 'a' in f
+        )
+      : undefined,
   }
 }
 

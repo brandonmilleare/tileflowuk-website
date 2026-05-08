@@ -195,9 +195,28 @@ export function enquiryMailto(tileName?: string): string {
   return `mailto:${ENQUIRY_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
 }
 
-export function whatsappLink(tileName?: string): string {
-  const text = tileName
-    ? `Hi Brandon, I'd like to order the ${tileName} tile from TileFlow UK.`
-    : `Hi Brandon, I'd like to order from your TileFlow UK tile range.`
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`
+export type WhatsAppIntent = 'order' | 'sample' | 'delivery' | 'question' | 'general'
+
+/**
+ * Build a wa.me link with a pre-filled message. Pre-filled text removes
+ * the friction of "what do I say" — Amazon can't do this. UK English.
+ */
+export function whatsappLink(tileName?: string, intent: WhatsAppIntent = 'order'): string {
+  const tile = tileName ?? ''
+  const messages: Record<WhatsAppIntent, string> = {
+    order: tile
+      ? `Hi Brandon, I'd like to order the ${tile} tile from TileFlow UK. What's the next step?`
+      : `Hi Brandon, I'd like to order from your TileFlow UK tile range. What's available?`,
+    sample: tile
+      ? `Hi Brandon, can I get a sample of the ${tile} tile? I want to see it in my own light before I commit.`
+      : `Hi Brandon, can I get a sample box of your tiles? I want to see them in my own light before I commit.`,
+    delivery: tile
+      ? `Hi Brandon, what's the delivery timing and cost for the ${tile} tile to my postcode?`
+      : `Hi Brandon, what's your delivery timing and cost to my postcode?`,
+    question: tile
+      ? `Hi Brandon, I've got a question about the ${tile} tile from TileFlow UK.`
+      : `Hi Brandon, I've got a question about your TileFlow UK tiles.`,
+    general: `Hi Brandon, I came across TileFlow UK and wanted to ask about your tiles.`,
+  }
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(messages[intent])}`
 }
