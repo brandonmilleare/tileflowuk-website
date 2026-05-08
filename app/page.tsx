@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import Script from 'next/script'
 import Hero from '@/components/home/Hero'
 import StatsBar from '@/components/home/StatsBar'
 import CategoryGrid from '@/components/home/CategoryGrid'
@@ -16,27 +15,12 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://tileflowuk.com' },
 }
 
-const orgSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'TileFlow UK',
-  url: 'https://tileflowuk.com',
-  logo: 'https://tileflowuk.com/logo.svg',
-  description: 'Professional tiling tool reviews and buying guides from a UK tiler with 15+ years experience.',
-  sameAs: [
-    'https://instagram.com/tileflowuk',
-    'https://youtube.com/@tileflowuk',
-  ],
-}
+// Note: Organization + WebSite schema now lives in app/layout.tsx (sitewide).
+// Page-specific schema (Article, Product, etc.) layers on top there.
 
 export default function HomePage() {
   return (
     <>
-      <Script
-        id="org-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
-      />
       <Hero />
       <StatsBar />
       <CategoryGrid />
