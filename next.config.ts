@@ -1,4 +1,5 @@
 import type { NextConfig } from 'next'
+import { withSentryConfig } from '@sentry/nextjs'
 
 /**
  * Security headers — applied to every response.
@@ -47,7 +48,7 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com data:",
       "img-src 'self' data: https://m.media-amazon.com https://images-na.ssl-images-amazon.com https://www.google-analytics.com https://www.googletagmanager.com",
-      "connect-src 'self' https://www.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://*.clarity.ms",
+      "connect-src 'self' https://www.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://*.clarity.ms https://*.ingest.sentry.io https://*.ingest.de.sentry.io https://*.ingest.us.sentry.io",
       "frame-src 'self' https://www.googletagmanager.com",
       "object-src 'none'",
       "base-uri 'self'",
@@ -98,4 +99,36 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default nextConfig
+/**
+ * Wrap with Sentry config — this:
+ *  - Injects Sentry into client + server bundles
+ *  - Tunnels error reports through `/monitoring` so ad blockers don't strip them
+ *  - Hides source maps from public, uploads them to Sentry for stack-trace clarity
+ *  - Tree-shakes Sentry logging in production for smaller bundles
+ */
+export default withSentryConfig(nextConfig, {
+  org: process.env.SENTRY_ORG ?? 'tileflowuk',
+  project: process.env.SENTRY_PROJECT ?? 'javascript-nextjs',
+
+  // Suppresses source-map upload logs during build (set to false to debug).
+  silent: !process.env.CI,
+
+  // Upload source maps for readable stack traces. Auth token only set in CI.
+  // Locally + on Vercel without the token, builds succeed without uploading.
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+
+  // Tunnel Sentry requests through /monitoring on our own origin so ad
+  // blockers + tracking-blockers don't drop them. Cuts visibility loss to ~0.
+  tunnelRoute: '/monitoring',
+
+  // Source maps are uploaded to Sentry for readable stack traces but not
+  // served to the public.
+  sourcemaps: {
+    disable: false,
+    deleteSourcemapsAfterUpload: true,
+  },
+
+  // Note: disableLogger + reactComponentAnnotation Sentry config are ignored
+  // because TileFlow runs Turbopack (not webpack). When Sentry adds first-class
+  // Turbopack support for these we can re-enable.
+})
