@@ -1,5 +1,18 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+
+/**
+ * ISR: revalidate every 24 hours.
+ * Why: posts are SSG'd at build but MDX content (images, embedded data,
+ * affiliate price comments) can drift between deploys. Hourly was too
+ * aggressive for static content; daily strikes the right balance between
+ * freshness and edge-cache efficiency.
+ *
+ * Note: not using Next 16 Cache Components (`cacheComponents: true` +
+ * `'use cache'`) yet — it's experimental, app-wide flag, would re-architect
+ * every page. ISR delivers ~80% of the win with 0% of the risk.
+ */
+export const revalidate = 86400
 import Link from 'next/link'
 import Script from 'next/script'
 import { Clock, ArrowLeft, Calendar, ArrowRight } from 'lucide-react'

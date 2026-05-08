@@ -1,5 +1,8 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+
+// ISR: 24-hour revalidation. See blog/[slug]/page.tsx for rationale.
+export const revalidate = 86400
 import Link from 'next/link'
 import Script from 'next/script'
 import { ArrowLeft, Clock, Calendar, Star, ExternalLink } from 'lucide-react'
