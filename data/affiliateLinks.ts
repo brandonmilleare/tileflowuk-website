@@ -1,6 +1,8 @@
 /**
  * TileFlow UK — Centralised Affiliate Link Config
- * All amzn.to links have tileflowuk-21 tag embedded (verified).
+ * All links are direct amazon.co.uk/dp/<ASIN>?tag=tileflowuk-21 (no amzn.to short links).
+ * Why: TikTok/Instagram in-app webviews can strip cookies on amzn.to redirects, losing the affiliate tag.
+ *      Direct URLs preserve the tag reliably across all browsers + webviews.
  * All links: rel="nofollow sponsored" target="_blank"
  */
 
@@ -9,8 +11,7 @@ export const AWIN_PUBLISHER_ID = '2826900'
 
 /**
  * Append UTM parameters for attribution tracking.
- * Works on both direct amazon.co.uk URLs and amzn.to short URLs
- * (amzn.to preserves query string through the redirect).
+ * Works on direct amazon.co.uk URLs (we no longer use amzn.to short links).
  */
 export function withUtm(
   url: string,
@@ -32,38 +33,38 @@ export function amazonUrl(asin: string, utm?: Parameters<typeof withUtm>[1]): st
 
 export const affiliateLinks = {
   // Tile Cutters
-  sigmaSmall37:   'https://amzn.to/4dC0yss',   // Sigma 2G 37cm — best for metros
-  sigma4bu70:     'https://amzn.to/4tvyV8X',   // Sigma 4BU 70cm
-  sigma4dn95:     'https://amzn.to/4dvM39w',   // Sigma 4DN 95cm
-  sigma4en125:    'https://amzn.to/4vnXHKc',   // Sigma 4EN 125cm
-  rubiSlimG2:     'https://amzn.to/4snQPtp',   // RUBI Slim Cutter G2
+  sigmaSmall37:   'https://www.amazon.co.uk/dp/B00BBBBCM2?tag=tileflowuk-21',   // Sigma 2G 37cm — best for metros
+  sigma4bu70:     'https://www.amazon.co.uk/dp/B0BSXR5JNM?tag=tileflowuk-21',   // Sigma 4BU 70cm
+  sigma4dn95:     'https://www.amazon.co.uk/dp/B0BSXQG3WQ?tag=tileflowuk-21',   // Sigma 4DN 95cm
+  sigma4en125:    'https://www.amazon.co.uk/dp/B0BSXPRPH8?tag=tileflowuk-21',   // Sigma 4EN 125cm
+  rubiSlimG2:     'https://www.amazon.co.uk/dp/B0CQK55C9X?tag=tileflowuk-21',   // RUBI Slim Cutter G2
 
   // Wet Saws
-  dewaltD36000:   'https://amzn.to/4vnDt3a',   // DEWALT DEWD36000 940mm Wet Saw
+  dewaltD36000:   'https://www.amazon.co.uk/dp/B099X8BT8F?tag=tileflowuk-21',   // DEWALT DEWD36000 940mm Wet Saw
 
   // Mixer Drills
-  dewaltMixer:    'https://amzn.to/4bZWgde',   // DEWALT DCD240X2 XR Flexvolt Paddle Mixer
+  dewaltMixer:    'https://www.amazon.co.uk/dp/B079NH3YCN?tag=tileflowuk-21',   // DEWALT DCD240X2 XR Flexvolt Paddle Mixer
 
   // Drill Bits / Hole Cutters
-  diamondCoreBits: 'https://amzn.to/4bY8EKJ',  // Diamond Core Drill Bits Set 11pcs
-  tileDrillBits:   'https://amzn.to/4msx5DB',  // Tile Drill Bits Kit 11pcs
+  diamondCoreBits: 'https://www.amazon.co.uk/dp/B0CDWZ36K3?tag=tileflowuk-21',  // Diamond Core Drill Bits Set 11pcs
+  tileDrillBits:   'https://www.amazon.co.uk/dp/B0CF1MDPPQ?tag=tileflowuk-21',  // Tile Drill Bits Kit 11pcs
 
   // Laser Levels
-  dewaltSelfLevel:  'https://amzn.to/4vhMDOv', // DEWALT DCE089D1G 3x360 Green 12V
-  dewaltDcle34035b: 'https://amzn.to/41UnsUF', // DEWALT DCLE34035B 18V 3x360 Remote
-  boschGll:         'https://amzn.to/4mgznWt', // Bosch GLL 12V-100-33 CG
-  huepar4x360:      'https://amzn.to/4cxxDVj', // Huepar Pro 4x360
+  dewaltSelfLevel:  'https://www.amazon.co.uk/dp/B016QUEA2G?tag=tileflowuk-21', // DEWALT DCE089D1G 3x360 Green 12V
+  dewaltDcle34035b: 'https://www.amazon.co.uk/dp/B0DMPCBK6F?tag=tileflowuk-21', // DEWALT DCLE34035B 18V 3x360 Remote
+  boschGll:         'https://www.amazon.co.uk/dp/B0DV9J2GVF?tag=tileflowuk-21', // Bosch GLL 12V-100-33 CG
+  huepar4x360:      'https://www.amazon.co.uk/dp/B0CX4XC397?tag=tileflowuk-21', // Huepar Pro 4x360
 
   // Spirit Levels
-  oxProLevelBag:  'https://amzn.to/4txJxEl',   // OX Pro Level Bag (1800/1200/600mm)
-  stabilaLevelSet: 'https://amzn.to/4e5LOlK',  // STABILA 196-2 Dark Shadow 183cm/40cm
+  oxProLevelBag:  'https://www.amazon.co.uk/dp/B01JUEZ6Z0?tag=tileflowuk-21',   // OX Pro Level Bag (1800/1200/600mm)
+  stabilaLevelSet: 'https://www.amazon.co.uk/dp/B0GMKVB8MT?tag=tileflowuk-21',  // STABILA 196-2 Dark Shadow 183cm/40cm
 
   // Angle Grinders
-  dewalt18vAngle: 'https://amzn.to/4ccqhW5',   // DEWALT DCG407N 18V 125mm (tool only)
-  dewaltDcg405n:  'https://amzn.to/3OdHKW6',   // DEWALT DCG405N 18V with 2x5Ah
-  dewaltDcg460:   'https://amzn.to/4ctEqzn',   // DEWALT DCG460 54V FLEXVOLT 230mm
-  makitaDga463z:  'https://amzn.to/3PWwn5s',   // Makita DGA463Z 18V 115mm
-  boschGwx18v:    'https://amzn.to/4vhO8ft',   // Bosch GWX 18V-7 125mm
+  dewalt18vAngle: 'https://www.amazon.co.uk/dp/B0F9LG2N1B?tag=tileflowuk-21',   // DEWALT DCG407N 18V 125mm (tool only)
+  dewaltDcg405n:  'https://www.amazon.co.uk/dp/B0BB2SJNFN?tag=tileflowuk-21',   // DEWALT DCG405N 18V with 2x5Ah
+  dewaltDcg460:   'https://www.amazon.co.uk/dp/B0CFXM3RXY?tag=tileflowuk-21',   // DEWALT DCG460 54V FLEXVOLT 230mm
+  makitaDga463z:  'https://www.amazon.co.uk/dp/B01LW2MQGG?tag=tileflowuk-21',   // Makita DGA463Z 18V 115mm
+  boschGwx18v:    'https://www.amazon.co.uk/dp/B0BYT1521B?tag=tileflowuk-21',   // Bosch GWX 18V-7 125mm
 
   // ─── Added 2026-05-07: Amazon UK research batch ───
   // Tile Levelling Systems
