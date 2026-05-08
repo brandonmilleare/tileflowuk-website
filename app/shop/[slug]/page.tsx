@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import Script from 'next/script'
-import { Star, CheckCircle2, XCircle, ExternalLink, ChevronLeft } from 'lucide-react'
+import { Star, CheckCircle2, XCircle, ExternalLink, ChevronLeft, ShieldCheck, Truck, RotateCcw, Quote } from 'lucide-react'
 import { getProductBySlug, getRelatedProducts, products } from '@/data/products'
 import { Badge } from '@/components/ui/badge'
 import ProductCard from '@/components/product/ProductCard'
@@ -146,7 +146,7 @@ export default async function ProductPage({ params }: PageProps) {
             <p className="text-stone-600 leading-relaxed mb-6">{product.description}</p>
 
             {/* Price + CTA */}
-            <div className="flex flex-col sm:flex-row sm:items-center gap-4 p-5 bg-stone-50 rounded-xl border border-stone-200 mb-8">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4 p-5 bg-stone-50 rounded-xl border border-stone-200 mb-3">
               <div className="flex-1">
                 <p className="text-xs text-stone-400 uppercase tracking-wide mb-0.5">Amazon Price</p>
                 <p className="text-2xl font-bold text-[var(--tf-fg)]">{price}</p>
@@ -161,6 +161,73 @@ export default async function ProductPage({ params }: PageProps) {
                 <ExternalLink className="w-4 h-4" />
               </AffiliateLink>
             </div>
+
+            {/* Trust strip — biggest free conversion lever on affiliate pages.
+                Why these 4: Amazon trust ("buy direct"), risk-reversal (30-day returns),
+                speed signal (Prime/next-day), authority signal (Brandon picked it). */}
+            <ul
+              className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-stone-500 mb-7"
+              aria-label="Trust signals"
+            >
+              <li className="flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-[var(--tf-accent)]" aria-hidden />
+                <span>Buy direct from Amazon UK (secure checkout)</span>
+              </li>
+              <li className="flex items-center gap-1.5">
+                <RotateCcw className="w-3.5 h-3.5 text-[var(--tf-accent)]" aria-hidden />
+                <span>30-day Amazon returns</span>
+              </li>
+              <li className="flex items-center gap-1.5">
+                <Truck className="w-3.5 h-3.5 text-[var(--tf-accent)]" aria-hidden />
+                <span>Prime / next-day delivery available</span>
+              </li>
+              <li className="flex items-center gap-1.5">
+                <Star className="w-3.5 h-3.5 text-[var(--tf-accent)] fill-current" aria-hidden />
+                <span>Picked by Brandon · 15 yrs in the trade</span>
+              </li>
+            </ul>
+
+            {/* Reviews block — surface Amazon star rating prominently + a pull quote
+                pulled from Brandon's existing description. Why this matters: pages
+                currently rush price → button. Real social-proof block earns the click. */}
+            <aside
+              className="mb-8 p-5 rounded-xl bg-white border border-stone-200"
+              aria-label="Why this product"
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <div className="flex gap-0.5" aria-hidden>
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star
+                      key={i}
+                      className={`w-5 h-5 ${
+                        i < fullStars
+                          ? 'fill-amber-400 text-amber-400'
+                          : i === fullStars && hasHalf
+                            ? 'fill-amber-200 text-amber-400'
+                            : 'text-stone-200 fill-stone-200'
+                      }`}
+                    />
+                  ))}
+                </div>
+                <p className="text-sm font-bold text-[var(--tf-fg)]">
+                  {product.rating.toFixed(1)} on Amazon UK
+                </p>
+                <p className="text-xs text-stone-400">
+                  ({product.reviewCount.toLocaleString()} verified reviews)
+                </p>
+              </div>
+              <div className="flex gap-3">
+                <Quote className="w-5 h-5 text-[var(--tf-accent)] shrink-0 mt-0.5" aria-hidden />
+                <div>
+                  <p className="text-xs uppercase tracking-wider font-semibold text-[var(--tf-accent)] mb-1">
+                    Why Brandon picked this
+                  </p>
+                  <p className="text-sm text-stone-700 leading-relaxed italic">
+                    {product.description}
+                  </p>
+                </div>
+              </div>
+            </aside>
 
             {/* Specs */}
             <div className="mb-6">
