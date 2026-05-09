@@ -78,10 +78,25 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
 
         {/* Price + CTA */}
         <div className="flex items-center justify-between mt-auto pt-3 border-t border-stone-100">
-          <div>
-            <span className="font-bold text-[var(--tf-fg)]">
-              {product.priceNote ? product.priceNote : formatGBP(product.price)}
-            </span>
+          <div className="flex flex-col leading-tight">
+            {/* Show real price if we have one; if price is 0 we treat priceNote as
+                the canonical value (e.g. "Check Amazon for current price"). */}
+            {product.price > 0 ? (
+              <>
+                <span className="font-bold text-[var(--tf-fg)]">
+                  {formatGBP(product.price)}
+                </span>
+                {product.priceNote && (
+                  <span className="text-[11px] text-stone-500 font-normal">
+                    {product.priceNote}
+                  </span>
+                )}
+              </>
+            ) : (
+              <span className="text-xs font-medium text-stone-600">
+                {product.priceNote || 'Price on Amazon'}
+              </span>
+            )}
           </div>
           <AffiliateLink
             href={product.affiliateUrl}

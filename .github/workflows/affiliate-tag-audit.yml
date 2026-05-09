@@ -1,0 +1,39 @@
+name: Affiliate tag audit
+
+# Why this exists:
+# - Every Amazon URL across the site must carry tag=tileflowuk-21.
+# - Missing tag = no commission. Wrong tag = commission going to someone else.
+# - Pre-commit hook catches this at commit time, but only if the dev has
+#   git config core.hooksPath .githooks set. This is the failsafe.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/**'
+      - 'content/**'
+      - 'app/**'
+      - 'components/**'
+      - 'scripts/products/check-affiliate-tags.mjs'
+  pull_request:
+    paths:
+      - 'data/**'
+      - 'content/**'
+      - 'app/**'
+      - 'components/**'
+      - 'scripts/products/check-affiliate-tags.mjs'
+  schedule:
+    # Sundays 04:00 UTC — weekly belt-and-braces sweep
+    - cron: '0 4 * * 0'
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Run affiliate-tag audit
+        run: node scripts/products/check-affiliate-tags.mjs

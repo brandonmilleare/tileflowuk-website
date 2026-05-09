@@ -55,5 +55,22 @@ if [ -n "$PRODUCT_FILES" ]; then
     fi
 fi
 
+# 4. Affiliate-tag audit — runs whenever affiliate-touching files are staged.
+# Ensures every Amazon URL carries tileflowuk-21 (no commission leak).
+AFFILIATE_FILES=$(echo "$STAGED" | grep -E '^(data/.+\.ts|content/.+\.mdx|app/.+\.tsx|components/.+\.tsx)$' || true)
+if [ -n "$AFFILIATE_FILES" ]; then
+    echo "→ Running affiliate-tag audit..."
+    if ! node scripts/products/check-affiliate-tags.mjs > /tmp/aff-audit.log 2>&1; then
+        cat /tmp/aff-audit.log
+        echo ""
+        echo "✗ Pre-commit BLOCKED — affiliate-tag audit failed."
+        echo "  Every Amazon URL must carry tag=tileflowuk-21."
+        echo "  Missing or wrong tag = lost commission. To bypass: git commit --no-verify"
+        exit 1
+    fi
+    # Show only the summary on success
+    grep -E "^(Affiliate|  ✓ |✓ All)" /tmp/aff-audit.log || true
+fi
+
 echo "✓ Pre-commit checks passed."
 exit 0
