@@ -1,0 +1,44 @@
+name: Dashboard snapshot
+
+# Why:
+# - The /dashboard route on Vercel needs to read .claude/agents, .claude/skills,
+#   TOMORROW.md, and recent session logs from the local TileflowCEO/ folder.
+# - Vercel doesn't have access to those files (they live outside the website
+#   git repo). This workflow snapshots them into website/public/dash-snapshot/
+#   on a schedule and commits the change so Vercel deploys see the latest.
+#
+# Cadence:
+# - Nightly 23:30 UTC — captures end-of-day state
+# - On manual workflow_dispatch
+#
+# NOTE: Currently commits a stub since the upstream TileflowCEO/ folder isn't
+# in this repo. To make this fully automatic, you have two options:
+#   (a) Add this workflow to the parent TileflowCEO repo (if/when you make one)
+#       and have it push to website/ as a subdir
+#   (b) Run `npm run dashboard:snapshot` locally and commit the output yourself
+#       (current pattern — fine for daily-driver use)
+
+on:
+  schedule:
+    - cron: '30 23 * * *'
+  workflow_dispatch:
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Stub-snapshot reminder
+        run: |
+          echo "ℹ️ Dashboard snapshot workflow ran on schedule."
+          echo "ℹ️ The upstream TileflowCEO/.claude/ folder isn't checked in,"
+          echo "   so this workflow can't refresh it from CI alone."
+          echo "ℹ️ To refresh: locally run 'npm run dashboard:snapshot' then commit."
+          echo "ℹ️ The dashboard reads from public/dash-snapshot/ — already populated"
+          echo "   by the initial commit. It only goes stale until you re-snapshot."
