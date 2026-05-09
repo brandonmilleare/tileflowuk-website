@@ -79,6 +79,18 @@ function findApifyToken() {
   return null
 }
 
+// When Apify returns null price, queue this slug+ASIN for Playwright lookup.
+// Future agents can read this CSV and run Playwright via the MCP.
+function queueForPlaywright(slug, asin, reason) {
+  const queueFile = path.join(ROOT, 'scripts', 'products', 'playwright-queue.csv')
+  const exists = fs.existsSync(queueFile)
+  const row = `${slug},${asin},${reason},${new Date().toISOString()}\n`
+  if (!exists) fs.writeFileSync(queueFile, 'slug,asin,reason,queuedAt\n' + row)
+  else fs.appendFileSync(queueFile, row)
+  console.log(`  ⚠ Queued for Playwright fallback: ${slug} (${reason})`)
+  console.log(`    Queue file: ${queueFile}`)
+}
+
 async function fetchViaApify(slug, asin) {
   const token = findApifyToken()
   if (!token) {
@@ -149,6 +161,13 @@ async function fetchViaApify(slug, asin) {
   console.log(`  Title: ${item.title || '(no title)'}`)
   console.log(`  ASIN:  ${item.asin || asin}`)
   console.log(`  Image: ${fullSizeUrl}`)
+
+  // If Apify returned no price, queue for Playwright fallback (Brandon's rule:
+  // "use playwright when apify isnnt working"). Caller still gets the image
+  // and other data — this just flags the product for a manual price check.
+  if (!item.price?.value && !item.listPrice?.value) {
+    queueForPlaywright(slug, asin, 'apify-no-price')
+  }
 
   // Save the full Amazon data alongside the image so the entry-generator
   // can lift real title/price/description/features instead of guessing.

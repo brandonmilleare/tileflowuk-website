@@ -46,10 +46,16 @@ export default async function ProductPage({ params }: PageProps) {
   const fullStars = Math.floor(product.rating)
   const hasHalf = product.rating % 1 >= 0.5
 
-  const price = product.priceNote
-    ? `${formatGBP(product.price)} (${product.priceNote})`
-    : formatGBP(product.price)
+  // Display price: real value + note as suffix; if price is 0, the note IS the value
+  const price =
+    product.price > 0
+      ? product.priceNote
+        ? `${formatGBP(product.price)} (${product.priceNote})`
+        : formatGBP(product.price)
+      : product.priceNote || 'Price on Amazon'
 
+  // Schema offer: only emit if we have a real price — emitting price=0 creates
+  // bad rich-result data and can hurt the listing in Google Shopping.
   const productSchema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -57,14 +63,18 @@ export default async function ProductPage({ params }: PageProps) {
     description: product.description,
     image: `https://tileflowuk.com${product.image}`,
     brand: { '@type': 'Brand', name: product.name.split(' ')[0] },
-    offers: {
-      '@type': 'Offer',
-      priceCurrency: 'GBP',
-      price: product.price,
-      availability: 'https://schema.org/InStock',
-      url: product.affiliateUrl,
-      seller: { '@type': 'Organization', name: 'Amazon UK' },
-    },
+    ...(product.price > 0
+      ? {
+          offers: {
+            '@type': 'Offer',
+            priceCurrency: 'GBP',
+            price: product.price,
+            availability: 'https://schema.org/InStock',
+            url: product.affiliateUrl,
+            seller: { '@type': 'Organization', name: 'Amazon UK' },
+          },
+        }
+      : {}),
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: product.rating,
