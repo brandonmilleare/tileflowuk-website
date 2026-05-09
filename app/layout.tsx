@@ -42,8 +42,7 @@ const orgSchema = {
   sameAs: [
     'https://www.instagram.com/tileflowuk/',
     'https://www.tiktok.com/@tileflowuk1',
-    'https://pinterest.co.uk/tileflowuk',
-    'https://youtube.com/@tileflowuk',
+    'https://uk.pinterest.com/tileflowuk/',
   ],
 }
 
