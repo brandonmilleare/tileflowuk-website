@@ -12,6 +12,7 @@ import { getProductBySlug, getRelatedProducts, products } from '@/data/products'
 import { Badge } from '@/components/ui/badge'
 import ProductCard from '@/components/product/ProductCard'
 import AffiliateLink from '@/components/affiliate/AffiliateLink'
+import AffiliateDisclosure from '@/components/affiliate/AffiliateDisclosure'
 import { formatGBP } from '@/lib/utils'
 
 // Next.js 16: params must be awaited
@@ -93,6 +94,11 @@ export default async function ProductPage({ params }: PageProps) {
           <span>/</span>
           <span className="text-stone-600 truncate">{product.shortName}</span>
         </nav>
+      </div>
+
+      {/* Above-the-fold affiliate disclosure */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <AffiliateDisclosure mode="banner" />
       </div>
 
       {/* Main product */}

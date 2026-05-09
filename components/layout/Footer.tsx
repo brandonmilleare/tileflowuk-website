@@ -40,13 +40,15 @@ const contentLinks = [
 const companyLinks = [
   { href: '/about', label: 'About TileFlow UK' },
   { href: '/contact', label: 'Contact' },
+  { href: '/returns', label: 'Returns & Refunds' },
+  { href: '/data-rights', label: 'Your Data Rights' },
   { href: '/disclosure', label: 'Affiliate Disclosure' },
   { href: '/privacy', label: 'Privacy Policy' },
   { href: '/terms', label: 'Terms of Use' },
 ]
 
 const socials = [
-  { href: 'https://instagram.com/tileflowuk', label: 'Instagram', Icon: SvgInstagram },
+  { href: 'https://www.instagram.com/tileflowuk/', label: 'Instagram', Icon: SvgInstagram },
   { href: 'https://youtube.com/@tileflowuk', label: 'YouTube', Icon: SvgYoutube },
   { href: 'https://facebook.com/tileflowuk', label: 'Facebook', Icon: SvgFacebook },
   { href: 'mailto:hello@tileflowuk.com', label: 'Email', Icon: Mail },
