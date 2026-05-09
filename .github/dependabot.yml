@@ -1,0 +1,88 @@
+# Dependabot — weekly dependency security + version updates.
+#
+# Why:
+#   - Catches CVEs (Sentry SDK, Next.js, etc.) without manual checking.
+#   - Bumps version numbers in batched, reviewable PRs.
+#   - Free for public + private GitHub repos. No external service.
+#
+# Cadence: weekly Sunday — quietest day for Brandon, low risk if a
+# bumped dep breaks build (failing PR doesn't touch main).
+#
+# Grouped updates: by ecosystem, to avoid 20 small PRs every week.
+
+version: 2
+
+updates:
+  # npm packages (Next.js, Sentry, web-vitals, Tailwind, etc.)
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'sunday'
+      time: '09:00'
+      timezone: 'Europe/London'
+    open-pull-requests-limit: 5
+    # Group minor/patch updates so they ship in one PR per ecosystem cluster.
+    # Major updates stay separate (potentially breaking — review individually).
+    groups:
+      next-ecosystem:
+        patterns:
+          - 'next'
+          - 'next-*'
+          - '@next/*'
+          - 'react'
+          - 'react-*'
+        update-types:
+          - 'minor'
+          - 'patch'
+      sentry:
+        patterns:
+          - '@sentry/*'
+        update-types:
+          - 'minor'
+          - 'patch'
+      tailwind:
+        patterns:
+          - 'tailwindcss'
+          - '@tailwindcss/*'
+        update-types:
+          - 'minor'
+          - 'patch'
+      types:
+        patterns:
+          - '@types/*'
+        update-types:
+          - 'minor'
+          - 'patch'
+      eslint-prettier:
+        patterns:
+          - 'eslint'
+          - 'eslint-*'
+          - '@eslint/*'
+          - 'prettier'
+          - 'prettier-*'
+        update-types:
+          - 'minor'
+          - 'patch'
+    labels:
+      - 'dependencies'
+      - 'automated'
+    commit-message:
+      prefix: 'chore(deps)'
+      include: 'scope'
+
+  # GitHub Actions versions (uses-pinning bumps for upstream actions)
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'sunday'
+      time: '09:00'
+      timezone: 'Europe/London'
+    open-pull-requests-limit: 3
+    labels:
+      - 'dependencies'
+      - 'github-actions'
+      - 'automated'
+    commit-message:
+      prefix: 'chore(ci)'
