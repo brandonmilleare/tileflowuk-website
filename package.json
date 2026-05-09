@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/products/check-images.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:images": "node scripts/products/check-images.mjs --verbose"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.0",

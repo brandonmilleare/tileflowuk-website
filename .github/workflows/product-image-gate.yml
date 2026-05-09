@@ -1,0 +1,34 @@
+name: Product image gate
+
+# Why this exists:
+# - Pre-commit hook catches missing images at commit time, but only if
+#   the dev has run `git config core.hooksPath .githooks` and didn't
+#   pass --no-verify.
+# - This job is the failsafe: any push or PR that adds/changes a product
+#   without a real image fails CI, blocks merge, and notifies in PR view.
+# - Runs in ~10s (just Node + a script — no Next build).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/products.ts'
+      - 'public/images/products/**'
+      - 'scripts/products/**'
+  pull_request:
+    paths:
+      - 'data/products.ts'
+      - 'public/images/products/**'
+      - 'scripts/products/**'
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Run image gate
+        run: node scripts/products/check-images.mjs --verbose
