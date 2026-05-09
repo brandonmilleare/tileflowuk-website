@@ -69,21 +69,34 @@ async function downloadImage(slug, imageUrl) {
   return out
 }
 
-// ── Apify mode (gated — only fires if APIFY_TOKEN is set) ──
+// ── Apify mode (gated — only fires if any APIFY_* token var is set) ──
+function findApifyToken() {
+  // Accept any common variable name — Brandon already has one in ~/.zshenv
+  const names = ['APIFY_TOKEN', 'APIFY_API_TOKEN', 'APIFY_API_KEY', 'APIFY_KEY']
+  for (const n of names) {
+    if (process.env[n] && process.env[n].length > 10) return process.env[n]
+  }
+  return null
+}
+
 async function fetchViaApify(slug, asin) {
-  const token = process.env.APIFY_TOKEN
+  const token = findApifyToken()
   if (!token) {
     throw new Error(
-      'APIFY_TOKEN not set. Either:\n' +
+      'No Apify token found in env (looked for APIFY_TOKEN, APIFY_API_TOKEN, APIFY_API_KEY, APIFY_KEY).\n' +
+        'Either:\n' +
         '  1. Use URL mode: paste a SiteStripe image URL directly, or\n' +
-        '  2. Get Brandon to approve Apify free-tier sign-up + add APIFY_TOKEN to .env.local'
+        '  2. Source ~/.zshenv before running, or\n' +
+        '  3. Add APIFY_TOKEN=... to website/.env.local'
     )
   }
 
-  console.log(`→ Apify fetch for ASIN ${asin} (actor: curious_coder/amazon-scraper)`)
+  // Using junglee/Amazon-crawler — 15k users, explicit .co.uk support, latest build May 2026.
+  // Free tier covers ~30 ASINs/month easily. ~$3/1k results.
+  console.log(`→ Apify fetch for ASIN ${asin} (actor: junglee/Amazon-crawler)`)
 
   const startRes = await fetch(
-    `https://api.apify.com/v2/acts/curious_coder~amazon-scraper/runs?token=${token}`,
+    `https://api.apify.com/v2/acts/junglee~Amazon-crawler/runs?token=${token}`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -121,13 +134,20 @@ async function fetchViaApify(slug, asin) {
   if (!items.length) throw new Error('Apify returned no items for this ASIN')
 
   const item = items[0]
-  const imageUrl = item.images?.[0] || item.image
+  // junglee/Amazon-crawler returns: highResolutionImages, galleryThumbnails, thumbnailImage
+  const imageUrl =
+    item.highResolutionImages?.[0] ||
+    item.galleryThumbnails?.[0] ||
+    item.thumbnailImage ||
+    item.images?.[0] ||
+    item.image
   if (!imageUrl) throw new Error('No image URL in Apify response')
 
-  // Strip size segment for original quality
-  const fullSizeUrl = imageUrl.replace(/\._[^.]+_\./, '.')
+  // Strip size segment for original quality (e.g. ._AC_SL1100_. → .)
+  const fullSizeUrl = imageUrl.replace(/\._[A-Z0-9_,]+_\./, '.')
 
-  console.log(`  Title: ${item.title}`)
+  console.log(`  Title: ${item.title || '(no title)'}`)
+  console.log(`  ASIN:  ${item.asin || asin}`)
   console.log(`  Image: ${fullSizeUrl}`)
   return downloadImage(slug, fullSizeUrl)
 }
