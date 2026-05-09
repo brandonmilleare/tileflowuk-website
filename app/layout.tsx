@@ -6,6 +6,7 @@ import { GoogleTagManager } from '@next/third-parties/google'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import CookieBanner from '@/components/layout/CookieBanner'
+import WebVitals from '@/components/analytics/WebVitals'
 import './globals.css'
 
 /**
@@ -136,6 +137,9 @@ export default function RootLayout({
           us doesn't doubt it.
         */}
         <GoogleTagManager gtmId="GTM-WMPBDV7D" />
+        {/* Reports Core Web Vitals (INP, LCP, CLS, FCP, TTFB) to GA4 as
+            'web_vitals' events. Only active when gtag is loaded. */}
+        <WebVitals />
         <NuqsAdapter>
           <Navbar />
           <main className="flex-1">
