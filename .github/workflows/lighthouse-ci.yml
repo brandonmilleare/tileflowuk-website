@@ -1,0 +1,68 @@
+name: Lighthouse CI (perf + a11y + SEO)
+
+# Why:
+# - Catches LCP/CLS/SEO regressions before they hurt search ranking.
+# - Brandon's pages are image-heavy (tile photos) — biggest perf risk.
+# - Free, runs on GitHub-hosted runners.
+#
+# Cadence:
+# - Nightly cron 02:00 UTC against production (catches gradual drift)
+# - On-demand via workflow_dispatch
+# - DOES NOT run on every PR — too slow + flaky for that. Use the
+#   manual dispatch when prepping a big change.
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli@0.15.x
+
+      - name: Run Lighthouse against production
+        id: lhci
+        run: |
+          lhci autorun --config=./lighthouserc.json || echo "lhci_failed=true" >> $GITHUB_OUTPUT
+        continue-on-error: true
+
+      - name: Surface failure summary
+        if: steps.lhci.outputs.lhci_failed == 'true'
+        run: |
+          {
+            echo "# Lighthouse regression — $(date -u +%Y-%m-%d)"
+            echo ""
+            echo "One or more URLs breached the budget in \`lighthouserc.json\`."
+            echo ""
+            echo "## Action"
+            echo "- Open the run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            echo "- Find the public LHCI report URL printed in the 'Run Lighthouse' step output"
+            echo "- The report shows which audits failed and on which URL"
+            echo ""
+            echo "## Most common causes (image-heavy site)"
+            echo "- LCP regression → unoptimised hero image, missing \`priority\` flag, missing \`fetchPriority='high'\`"
+            echo "- CLS regression → image without explicit width/height, font swap"
+            echo "- Image payload over budget → swap PNG → WebP/AVIF, or compress"
+            echo ""
+            echo "## Auto-issue notice"
+            echo "This issue was opened automatically by \`.github/workflows/lighthouse-ci.yml\`."
+            echo "Close it when you've shipped a fix or accepted the regression."
+          } > /tmp/lhci-report.md
+
+      - name: Open issue on failure
+        if: steps.lhci.outputs.lhci_failed == 'true'
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: 'Lighthouse: budget breached on nightly run'
+          content-filepath: /tmp/lhci-report.md
+          labels: lighthouse, performance, automated
