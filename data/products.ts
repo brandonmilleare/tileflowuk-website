@@ -292,9 +292,9 @@ export const products: Product[] = [
     name: 'DEWALT Self-Levelling Multi Line 3×360°',
     shortName: 'DEWALT Self-Level Laser',
     category: 'Laser Levels',
-    price: 299,
+    price: 399.99,
     rating: 4.6,
-    reviewCount: 287,
+    reviewCount: 321,
     image: '/images/products/dewalt-self-levelling-laser.jpg',
     description:
       'Reliable 3×360° self-levelling green-beam laser (DCE089D1G, 12V) for tiling and general building work. Quick to set up, accurate to ±3mm at 10m. A solid, no-fuss laser that does exactly what you need.',
