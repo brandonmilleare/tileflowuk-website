@@ -41,6 +41,39 @@ type AffiliateData = {
   fetchedAt: string
 }
 
+type ApifyData = {
+  ok: boolean
+  recentRuns?: Array<{
+    actorName: string
+    status: string
+    startedAt: string
+    runtimeSecs: number
+    datasetItemsCount: number
+  }>
+  usage?: {
+    computeUnitsUsed: number
+    computeUnitsTotal: number | null
+    period: string
+  }
+  error?: string
+  fetchedAt: string
+}
+
+type VercelData = {
+  ok: boolean
+  deployments?: Array<{
+    state: string
+    target: string
+    createdAt: string | null
+    buildingAt: string | null
+    readyAt: string | null
+    url: string
+    durationSecs: number | null
+  }>
+  error?: string
+  fetchedAt: string
+}
+
 const REFRESH_INTERVAL = 60_000 // 60s
 
 function timeAgo(iso: string | undefined): string {
@@ -95,19 +128,25 @@ export default function Dashboard() {
   const [sentry, setSentry] = useState<SentryData | null>(null)
   const [local, setLocal] = useState<LocalData | null>(null)
   const [affiliate, setAffiliate] = useState<AffiliateData | null>(null)
+  const [apify, setApify] = useState<ApifyData | null>(null)
+  const [vercel, setVercel] = useState<VercelData | null>(null)
   const [lastRefresh, setLastRefresh] = useState<Date>(new Date())
 
   async function fetchAll() {
-    const [g, s, l, a] = await Promise.all([
+    const [g, s, l, a, ap, v] = await Promise.all([
       fetch('/api/dash/github').then((r) => r.json()).catch(() => ({ ok: false })),
       fetch('/api/dash/sentry').then((r) => r.json()).catch(() => ({ ok: false })),
       fetch('/api/dash/local').then((r) => r.json()).catch(() => ({ ok: false })),
       fetch('/api/dash/affiliate-health').then((r) => r.json()).catch(() => ({ ok: false })),
+      fetch('/api/dash/apify').then((r) => r.json()).catch(() => ({ ok: false })),
+      fetch('/api/dash/vercel').then((r) => r.json()).catch(() => ({ ok: false })),
     ])
     setGithub(g)
     setSentry(s)
     setLocal(l)
     setAffiliate(a)
+    setApify(ap)
+    setVercel(v)
     setLastRefresh(new Date())
   }
 
@@ -259,6 +298,120 @@ export default function Dashboard() {
               ))}
               {sentry?.configured && !(sentry?.issues || []).length && !sentry?.error && (
                 <div className="text-xs text-emerald-400">🎉 No unresolved issues in the last 7 days.</div>
+              )}
+            </div>
+          </Card>
+        </div>
+
+        {/* Row 2.5: Operations — Vercel + Apify */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <Card
+            title="Vercel · recent deploys"
+            badge={vercel?.fetchedAt ? `synced ${timeAgo(vercel.fetchedAt)}` : 'loading…'}
+          >
+            {vercel?.error && (
+              <div className="text-xs text-amber-400 bg-amber-900/20 border border-amber-800/40 rounded p-3 mb-3">
+                {vercel.error}
+              </div>
+            )}
+            <div className="space-y-1.5">
+              {(vercel?.deployments || []).map((d, idx) => {
+                const stateUpper = (d.state || '').toUpperCase()
+                const tone =
+                  stateUpper === 'READY'
+                    ? 'green'
+                    : stateUpper === 'ERROR' || stateUpper === 'CANCELED'
+                    ? 'red'
+                    : stateUpper === 'BUILDING' || stateUpper === 'QUEUED' || stateUpper === 'INITIALIZING'
+                    ? 'amber'
+                    : 'grey'
+                return (
+                  <a
+                    key={`${d.url}-${idx}`}
+                    href={d.url || '#'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between py-1.5 border-b border-gray-800 hover:bg-gray-800/50 -mx-2 px-2 rounded transition-colors"
+                  >
+                    <div className="flex items-center gap-3 text-sm min-w-0">
+                      <Pill tone={tone}>{stateUpper.toLowerCase() || 'unknown'}</Pill>
+                      <span className="truncate text-gray-300">{d.target || 'preview'}</span>
+                      {d.durationSecs !== null && (
+                        <span className="text-xs text-gray-500 flex-shrink-0">
+                          {d.durationSecs}s
+                        </span>
+                      )}
+                    </div>
+                    <span className="text-xs text-gray-500 flex-shrink-0 ml-2">
+                      {timeAgo(d.createdAt || undefined)}
+                    </span>
+                  </a>
+                )
+              })}
+              {!vercel?.deployments?.length && !vercel?.error && (
+                <div className="text-xs text-gray-500">Loading…</div>
+              )}
+            </div>
+          </Card>
+
+          <Card
+            title="Apify · usage + recent runs"
+            badge={apify?.fetchedAt ? `synced ${timeAgo(apify.fetchedAt)}` : 'loading…'}
+          >
+            {apify?.error && (
+              <div className="text-xs text-amber-400 bg-amber-900/20 border border-amber-800/40 rounded p-3 mb-3">
+                {apify.error}
+              </div>
+            )}
+            {apify?.usage && (
+              <div className="mb-4">
+                <div className="text-[11px] uppercase tracking-wider text-gray-500 mb-1">
+                  Compute units · {apify.usage.period}
+                </div>
+                <div className="text-2xl font-bold text-gray-100">
+                  {apify.usage.computeUnitsUsed.toLocaleString(undefined, {
+                    maximumFractionDigits: 2,
+                  })}
+                  {apify.usage.computeUnitsTotal !== null && (
+                    <span className="text-sm text-gray-500 font-normal">
+                      {' '}
+                      / {apify.usage.computeUnitsTotal.toLocaleString()}
+                    </span>
+                  )}
+                </div>
+              </div>
+            )}
+            <div className="text-[11px] uppercase tracking-wider text-gray-500 mb-2">
+              Recent runs
+            </div>
+            <div className="space-y-1.5">
+              {(apify?.recentRuns || []).slice(0, 6).map((r, idx) => {
+                const statusUpper = (r.status || '').toUpperCase()
+                const tone =
+                  statusUpper === 'SUCCEEDED'
+                    ? 'green'
+                    : statusUpper === 'FAILED' || statusUpper === 'ABORTED'
+                    ? 'red'
+                    : statusUpper === 'RUNNING'
+                    ? 'amber'
+                    : 'grey'
+                return (
+                  <div
+                    key={`${r.startedAt}-${idx}`}
+                    className="flex items-center justify-between py-1.5 border-b border-gray-800"
+                  >
+                    <div className="flex items-center gap-3 text-sm min-w-0">
+                      <Pill tone={tone}>{statusUpper.toLowerCase() || 'unknown'}</Pill>
+                      <span className="truncate text-gray-300">{r.actorName}</span>
+                    </div>
+                    <span className="text-xs text-gray-500 flex-shrink-0 ml-2">
+                      {r.runtimeSecs}s · {r.datasetItemsCount} items
+                    </span>
+                  </div>
+                )
+              })}
+              {!apify?.recentRuns?.length && !apify?.error && (
+                <div className="text-xs text-gray-500">No recent runs.</div>
               )}
             </div>
           </Card>
