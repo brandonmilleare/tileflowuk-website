@@ -1,0 +1,75 @@
+name: Broken-link monitor (Lychee)
+
+# Why this exists:
+# - publish-gate catches broken internal links at commit time (in-PR).
+# - Lychee runs continuously and catches links that BREAK AFTER the
+#   commit lands — Amazon products go out of stock, third-party guides
+#   move, source domains expire.
+# - Free, fast, runs in 30s for the whole site.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/**/*.mdx'
+      - 'app/**/*.tsx'
+      - 'data/**'
+  schedule:
+    # Sundays 03:00 UTC — quiet time, weekly cadence catches drift
+    - cron: '0 3 * * 0'
+  # Manual run from Actions tab when needed
+  workflow_dispatch:
+
+jobs:
+  link-check:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+
+      # Restore cache so we don't re-check every URL every run
+      - name: Restore lychee cache
+        uses: actions/cache@v4
+        with:
+          path: .lycheecache
+          key: cache-lychee-${{ github.sha }}
+          restore-keys: cache-lychee-
+
+      - name: Run Lychee
+        id: lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          # Config:
+          #   --cache: re-use prior responses (much faster)
+          #   --max-cache-age 1d: refresh dailier-than that
+          #   --no-progress: cleaner CI logs
+          #   --verbose: show what's being checked
+          #   --include-fragments: catch #anchor breaks too
+          #   --exclude: skip Amazon affiliate URLs (Amazon blocks bots, false positives)
+          args: >-
+            --cache
+            --max-cache-age 1d
+            --no-progress
+            --verbose
+            --include-fragments
+            --exclude '^https?://(www\.)?(amazon\.|amzn\.)'
+            --exclude '^https?://(www\.)?(linkedin\.|x\.com|twitter\.)'
+            --exclude '^mailto:'
+            --exclude '^tel:'
+            './content/**/*.mdx'
+            './app/**/*.tsx'
+            './data/**/*.ts'
+          fail: true
+          format: markdown
+          output: ./lychee/out.md
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # When run on schedule, file an issue automatically with the report
+      - name: Create issue from broken-link report
+        if: env.lychee_exit_code != '0' && github.event_name == 'schedule'
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: 'Broken-link monitor: weekly report'
+          content-filepath: ./lychee/out.md
+          labels: broken-links, automated
