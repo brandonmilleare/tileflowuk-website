@@ -1,0 +1,64 @@
+name: Affiliate link health
+
+# Why this exists:
+# - check-affiliate-tags.mjs catches missing/wrong tileflowuk-21 tags
+#   (commission going elsewhere). Runs Sun 04:00 UTC.
+# - This workflow catches the OTHER failure mode: dead listings.
+#   Tag intact but Amazon ASIN pulled or Deluxe URL 404 = customer
+#   clicks → empty page → no sale.
+#
+# Reliability notes:
+# - Detects HTTP 4xx/5xx, network timeouts, Amazon CAPTCHA challenges.
+# - Does NOT detect "Currently unavailable" stock-outs (Amazon embeds
+#   both in-stock + OOS templates in static HTML; only JS knows which).
+#   For deeper stock detection, run a Playwright-based check separately.
+
+on:
+  schedule:
+    # Sunday 05:00 UTC — between affiliate-tag (04:00) and Lychee (03:00).
+    # Quietest UK time, low chance of catching maintenance windows.
+    - cron: '0 5 * * 0'
+  workflow_dispatch:
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run affiliate health check
+        id: health
+        run: node scripts/products/check-affiliate-health.mjs --concurrency 5 --report-only
+        # --report-only: never fails the workflow, only writes the report.
+        # We open an issue based on the report content, not the exit code.
+
+      - name: Read report
+        id: read
+        run: |
+          if [ -f /tmp/affiliate-health.md ]; then
+            REPORT=$(cat /tmp/affiliate-health.md)
+            echo "REPORT<<EOF" >> $GITHUB_ENV
+            echo "$REPORT" >> $GITHUB_ENV
+            echo "EOF" >> $GITHUB_ENV
+            # Detect if anything was flagged (dead/error sections present)
+            if grep -qE '(Dead listings|Fetch errors)' /tmp/affiliate-health.md; then
+              echo "has_failures=true" >> $GITHUB_OUTPUT
+            else
+              echo "has_failures=false" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "has_failures=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Open issue if failures detected
+        if: steps.read.outputs.has_failures == 'true'
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: 'Affiliate link health: weekly report — issues found'
+          content-filepath: /tmp/affiliate-health.md
+          labels: affiliate-health, automated, revenue-risk
