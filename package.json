@@ -8,7 +8,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "check:images": "node scripts/products/check-images.mjs --verbose"
+    "check:images": "node scripts/products/check-images.mjs --verbose",
+    "check:affiliate-tags": "node scripts/products/check-affiliate-tags.mjs",
+    "check:affiliate-health": "node scripts/products/check-affiliate-health.mjs --verbose",
+    "dashboard:snapshot": "node scripts/monitoring/dashboard-snapshot.mjs",
+    "dashboard:hash": "node -e \"console.log(require('crypto').createHash('sha256').update(process.argv[1]).digest('hex'))\""
   },
   "dependencies": {
     "@base-ui/react": "^1.4.0",
