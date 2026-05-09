@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+# .githooks/pre-commit — TileFlow quality gate
+#
+# Runs on staged files only. Catches issues before they hit a PR:
+#  - MDX content: tileflow-publish-gate (banned words, byline, disclosure,
+#    broken internal links, MDX syntax)
+#  - Schema-bearing pages: tileflow-schema-validator (deferred to local
+#    `next dev` run since it needs a live URL — printed reminder)
+#
+# Activate this hook locally:  git config core.hooksPath .githooks
+# (One-time per clone. Hook lives in-tree so devs share the gate.)
+#
+# Bypass when needed:  git commit --no-verify   (use sparingly)
+
+set -uo pipefail
+
+PUBLISH_GATE=~/Desktop/TileflowCEO/.claude/skills/tileflow-publish-gate/run.mjs
+
+# Capture staged files (only the ones being committed, not the whole tree)
+STAGED=$(git diff --cached --name-only --diff-filter=ACM)
+
+# 1. MDX publish-gate
+MDX_FILES=$(echo "$STAGED" | grep -E '^content/(blog|guides|best)/.+\.mdx$' || true)
+if [ -n "$MDX_FILES" ] && [ -f "$PUBLISH_GATE" ]; then
+    echo "→ Running tileflow-publish-gate on staged MDX..."
+    # shellcheck disable=SC2086
+    if ! node "$PUBLISH_GATE" $MDX_FILES; then
+        echo ""
+        echo "✗ Pre-commit BLOCKED — publish-gate failed."
+        echo "  Fix the issues above, re-stage, and try again."
+        echo "  To bypass intentionally: git commit --no-verify"
+        exit 1
+    fi
+fi
+
+# 2. Schema-validator reminder (can't run live without a deployed URL)
+SCHEMA_FILES=$(echo "$STAGED" | grep -E '^app/.*page\.tsx$' || true)
+if [ -n "$SCHEMA_FILES" ]; then
+    echo "→ Schema-bearing page.tsx files staged:"
+    echo "$SCHEMA_FILES" | sed 's/^/    /'
+    echo "  Reminder: after deploy, run schema-validator on the live URL:"
+    echo "    node ~/Desktop/TileflowCEO/.claude/skills/tileflow-schema-validator/run.mjs <url>"
+fi
+
+echo "✓ Pre-commit checks passed."
+exit 0
