@@ -66,37 +66,6 @@ export const products: Product[] = [
     featured: true,
   },
   {
-    slug: 'sigma-4dn-95cm',
-    name: 'Sigma Tile Cutter Art. 4DN 95cm',
-    shortName: 'Sigma 4DN 95cm',
-    category: 'Tile Cutters',
-    price: 489,
-    rating: 4.7,
-    reviewCount: 156,
-    image: '/images/products/sigma-4dn-95cm-tile-cutter.jpg',
-    description:
-      'For large format work — 60×120cm and above — the 4DN is the tool. Heavy but precise, this is the professional\'s choice for high-end residential and commercial jobs.',
-    specs: {
-      'Cutting Length': '95cm',
-      'Max Thickness': '15mm',
-      'Diagonal Cut': '67cm',
-      Weight: '14kg',
-      'Made In': 'Italy',
-    },
-    pros: [
-      'Handles 120cm large-format tiles with ease',
-      'Extremely precise — consistent cuts every time',
-      'Built for professional daily use',
-    ],
-    cons: [
-      'Heavy at 14kg — not ideal for solo use',
-      'Significant investment for occasional users',
-    ],
-    badge: "Editor's Pick",
-    affiliateUrl: affiliateLinks.sigma4dn95,
-    featured: true,
-  },
-  {
     slug: 'sigma-4en-125cm',
     name: 'Sigma Tile Cutter Art. 4EN 125cm',
     shortName: 'Sigma 4EN 125cm',
@@ -125,36 +94,6 @@ export const products: Product[] = [
     ],
     badge: 'Pro Choice',
     affiliateUrl: affiliateLinks.sigma4en125,
-    featured: false,
-  },
-  {
-    slug: 'rubi-rdxa35-tile-cutter',
-    name: 'RUBI RDXA 35 Tile Cutter',
-    shortName: 'RUBI RDXA35',
-    category: 'Tile Cutters',
-    price: 199,
-    rating: 4.5,
-    reviewCount: 213,
-    image: '/images/products/rubi-rdxa35-tile-cutter.jpg',
-    description:
-      'Solid mid-range option from RUBI. Good for ceramic and lighter porcelain on smaller bathroom and kitchen jobs. A reliable workhorse at a sensible price.',
-    specs: {
-      'Cutting Length': '35cm',
-      'Max Thickness': '12mm',
-      Weight: '4.2kg',
-      'Made In': 'Spain',
-    },
-    pros: [
-      'Excellent value for smaller jobs',
-      'Lightweight — easy to carry and set up',
-      'RUBI quality and reliability',
-    ],
-    cons: [
-      'Limited to 35cm — won\'t handle large format',
-      'Scoring wheel not as long-lasting as Sigma',
-    ],
-    badge: 'Best Value',
-    affiliateUrl: affiliateLinks.rubiSlimG2,
     featured: false,
   },
   {
@@ -355,21 +294,23 @@ export const products: Product[] = [
     reviewCount: 287,
     image: '/images/products/dewalt-self-levelling-laser.jpg',
     description:
-      'Reliable 3×360° self-levelling laser for tiling and general building work. Quick to set up, accurate to ±3mm at 10m. A solid, no-fuss laser that does exactly what you need.',
+      'Reliable 3×360° self-levelling green-beam laser (DCE089D1G, 12V) for tiling and general building work. Quick to set up, accurate to ±3mm at 10m. A solid, no-fuss laser that does exactly what you need.',
     specs: {
       Beams: '3×360°',
-      'Beam Colour': 'Red',
+      'Beam Colour': 'Green',
+      Voltage: '12V',
       Range: '30m',
       Accuracy: '±3mm/10m',
     },
     pros: [
       'Quick self-levelling — on site fast',
       'Robust build handles site conditions',
+      'Green beam — much more visible than red on a lit site',
       'Compatible with DEWALT detector for outdoor use',
     ],
     cons: [
-      'Red beam less visible in bright sunlight',
       'No remote control',
+      '12V battery only — separate from your 18V tool ecosystem',
     ],
     affiliateUrl: affiliateLinks.dewaltSelfLevel,
     featured: false,
@@ -526,35 +467,6 @@ export const products: Product[] = [
     affiliateUrl: affiliateLinks.oxProLevelBag,
     featured: false,
   },
-  {
-    slug: 'tile-drill-bits-kit',
-    name: 'Professional Tile Drill Bits Kit',
-    shortName: 'Tile Drill Bits Kit',
-    category: 'Drill Bits',
-    price: 29,
-    rating: 4.4,
-    reviewCount: 634,
-    image: '/images/products/tile-drill-bits-kit.jpg',
-    description:
-      'A solid set of diamond-tipped tile drill bits covering the most common hole sizes. Works on porcelain, ceramic, marble, and glass. Use with water cooling and low speed for best results.',
-    specs: {
-      'Sizes Included': '6mm, 8mm, 10mm, 12mm, 20mm, 25mm',
-      Tip: 'Diamond',
-      'Suitable For': 'Porcelain, Ceramic, Glass, Marble',
-    },
-    pros: [
-      'Covers all common hole sizes',
-      'Diamond tips last well if used correctly',
-      'Works on even hard porcelain',
-      'Great value for the set',
-    ],
-    cons: [
-      'Must use water cooling — dry drilling kills them fast',
-      'Not for heavy commercial use',
-    ],
-    affiliateUrl: affiliateLinks.tileDrillBits,
-    featured: false,
-  },
 
   // ─── Added 2026-05-07: Amazon UK research batch (5 priority launch picks) ───
   {
@@ -598,22 +510,22 @@ export const products: Product[] = [
     reviewCount: 500,
     image: 'https://m.media-amazon.com/images/I/71bzQyNExaL._AC_SL1500_.jpg',
     description:
-      'A 10mm square-notch trowel is the workhorse for most domestic floor tiling — 300×300mm to 600×600mm tiles bed cleanly with this notch size. OX Pro use carbon steel with a DuraGrip handle that survives years of site use. Best-rated trowel in this notch size on Amazon UK.',
+      'A 10mm square-notch trowel is the workhorse for most domestic floor tiling — 300×300mm to 600×600mm tiles bed cleanly with this notch size. OX Pro use a stainless steel blade with a DuraGrip handle that survives years of site use. Best-rated trowel in this notch size on Amazon UK.',
     specs: {
       Notch: '10mm square',
-      Blade: 'Carbon steel',
+      Blade: 'Stainless steel',
       Handle: 'DuraGrip soft-grip',
       'Suitable For': 'Floor tiles 300mm – 600mm',
     },
     pros: [
-      'Carbon steel blade keeps a clean edge',
+      'Stainless steel blade — won\'t rust if washed',
       'Soft-grip handle reduces hand fatigue on long jobs',
       'Right notch size for typical floor tiling',
       'Trade favourite — durable enough for daily use',
     ],
     cons: [
       'Pair with a 12mm for large-format tiles 600mm+',
-      'Carbon steel will rust if washed and not dried — clean it properly',
+      'Notches blunt over time — replace every 12-18 months on heavy use',
     ],
     badge: 'Pro Choice',
     affiliateUrl: affiliateLinks.oxPro10mmTrowel,
