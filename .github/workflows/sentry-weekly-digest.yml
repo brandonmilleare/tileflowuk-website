@@ -1,0 +1,50 @@
+name: Sentry weekly digest
+
+# Why:
+# - Sentry Developer (free) plan = per-issue alerts. Noise.
+# - This script aggregates a week of events into ONE Sunday-morning
+#   GitHub issue. Brandon checks Sentry once a week, not 50 times.
+#
+# Setup (one-time, Brandon's hands):
+# 1. Create Sentry auth token: https://sentry.io/settings/account/api/auth-tokens/
+#    Scopes: project:read, event:read, org:read
+# 2. Add to GitHub repo secrets:
+#    Settings → Secrets and variables → Actions → New repo secret
+#    Name: SENTRY_AUTH_TOKEN
+#    Value: (paste the token)
+# 3. (Optional) Add SENTRY_ORG_SLUG and SENTRY_PROJECT_SLUG repo
+#    variables (Settings → Variables → Actions) if your slugs differ
+#    from defaults 'tileflowuk' and 'tileflowuk-v2'.
+
+on:
+  schedule:
+    # Sunday 08:00 UTC — last in the digest cascade so it lands after
+    # all other weekly checks (Lychee 03:00, affiliate-tag 04:00,
+    # affiliate-health 05:00, Lighthouse 02:00 nightly).
+    - cron: '0 8 * * 0'
+  workflow_dispatch:
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate digest
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG_SLUG: ${{ vars.SENTRY_ORG_SLUG }}
+          SENTRY_PROJECT_SLUG: ${{ vars.SENTRY_PROJECT_SLUG }}
+        run: node scripts/monitoring/sentry-weekly-digest.mjs
+
+      - name: File digest as GitHub issue
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: "Sentry weekly digest — ${{ github.run_number }}"
+          content-filepath: /tmp/sentry-digest.md
+          labels: sentry, monitoring, automated
