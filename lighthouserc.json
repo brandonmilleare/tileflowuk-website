@@ -1,0 +1,56 @@
+{
+  "$comment": "Lighthouse CI config — runs LH against key URLs, asserts perf budgets.",
+
+  "ci": {
+    "collect": {
+      "url": [
+        "https://tileflowuk.com",
+        "https://tileflowuk.com/shop",
+        "https://tileflowuk.com/blog",
+        "https://tileflowuk.com/guides",
+        "https://tileflowuk.com/blog/sigma-vs-rubi-tile-cutters",
+        "https://tileflowuk.com/shop/sigma-4bu-70cm",
+        "https://tileflowuk.com/deluxe-flooring"
+      ],
+      "numberOfRuns": 2,
+      "settings": {
+        "preset": "desktop",
+        "throttlingMethod": "simulate",
+        "skipAudits": ["uses-http2"]
+      }
+    },
+
+    "assert": {
+      "$comment": "Budgets — fail CI if any drop below these. Tuned for image-heavy tile site.",
+      "preset": "lighthouse:no-pwa",
+      "assertions": {
+        "categories:performance": ["warn", { "minScore": 0.85 }],
+        "categories:accessibility": ["error", { "minScore": 0.9 }],
+        "categories:best-practices": ["warn", { "minScore": 0.9 }],
+        "categories:seo": ["error", { "minScore": 0.95 }],
+
+        "$comment-cwv": "Core Web Vitals — Google's thresholds for 'good' UX",
+        "largest-contentful-paint": ["warn", { "maxNumericValue": 2500 }],
+        "cumulative-layout-shift": ["error", { "maxNumericValue": 0.1 }],
+        "interactive": ["warn", { "maxNumericValue": 3500 }],
+        "total-blocking-time": ["warn", { "maxNumericValue": 300 }],
+
+        "$comment-budgets": "Hard caps on payload — tile photos can blow these if not optimised",
+        "resource-summary:document:size": ["warn", { "maxNumericValue": 50000 }],
+        "resource-summary:script:size": ["warn", { "maxNumericValue": 350000 }],
+        "resource-summary:image:size": ["warn", { "maxNumericValue": 2000000 }],
+
+        "$comment-nice-to-have": "Don't fail build, just surface warnings",
+        "uses-responsive-images": "warn",
+        "uses-optimized-images": "warn",
+        "modern-image-formats": "warn",
+        "unused-javascript": "warn",
+        "render-blocking-resources": "warn"
+      }
+    },
+
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}
