@@ -46,17 +46,22 @@ jobs:
           #   --no-progress: cleaner CI logs
           #   --verbose: show what's being checked
           #   --include-fragments: catch #anchor breaks too
+          #   --base: resolve root-relative links (/shop/foo) against production URL
           #   --exclude: skip Amazon affiliate URLs (Amazon blocks bots, false positives)
+          #   --exclude-path: skip Sentry instrumentation (intentional bad routes for monitoring)
           args: >-
             --cache
             --max-cache-age 1d
             --no-progress
             --verbose
             --include-fragments
+            --base 'https://tileflowuk.com'
             --exclude '^https?://(www\.)?(amazon\.|amzn\.)'
             --exclude '^https?://(www\.)?(linkedin\.|x\.com|twitter\.)'
             --exclude '^mailto:'
             --exclude '^tel:'
+            --exclude '^https?://localhost'
+            --exclude-path './app/monitoring'
             './content/**/*.mdx'
             './app/**/*.tsx'
             './data/**/*.ts'
