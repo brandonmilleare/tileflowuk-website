@@ -1,5 +1,9 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+
+// ISR: 24-hour revalidation. Product pages re-render hourly via cache —
+// keeps Amazon prices fresh-ish without blocking on every visit.
+export const revalidate = 86400
 import Image from 'next/image'
 import Link from 'next/link'
 import Script from 'next/script'
