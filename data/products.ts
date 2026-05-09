@@ -8,12 +8,10 @@ export type ProductCategory =
   | 'Spirit Levels'
   | 'Drill Bits'
   | 'Tile Spacers'
-  | 'Tile Levelling'
   | 'Trowels'
   | 'Knee Pads'
   | 'Tile Cleaners'
   | 'Mixing Tools'
-  | 'Mixing Buckets'
 
 export interface Product {
   slug: string
@@ -68,37 +66,6 @@ export const products: Product[] = [
     featured: true,
   },
   {
-    slug: 'sigma-4dn-95cm',
-    name: 'Sigma Tile Cutter Art. 4DN 95cm',
-    shortName: 'Sigma 4DN 95cm',
-    category: 'Tile Cutters',
-    price: 489,
-    rating: 4.7,
-    reviewCount: 156,
-    image: '/images/products/sigma-4dn-95cm-tile-cutter.jpg',
-    description:
-      'For large format work — 60×120cm and above — the 4DN is the tool. Heavy but precise, this is the professional\'s choice for high-end residential and commercial jobs.',
-    specs: {
-      'Cutting Length': '95cm',
-      'Max Thickness': '15mm',
-      'Diagonal Cut': '67cm',
-      Weight: '14kg',
-      'Made In': 'Italy',
-    },
-    pros: [
-      'Handles 120cm large-format tiles with ease',
-      'Extremely precise — consistent cuts every time',
-      'Built for professional daily use',
-    ],
-    cons: [
-      'Heavy at 14kg — not ideal for solo use',
-      'Significant investment for occasional users',
-    ],
-    badge: "Editor's Pick",
-    affiliateUrl: affiliateLinks.sigma4dn95,
-    featured: true,
-  },
-  {
     slug: 'sigma-4en-125cm',
     name: 'Sigma Tile Cutter Art. 4EN 125cm',
     shortName: 'Sigma 4EN 125cm',
@@ -127,36 +94,6 @@ export const products: Product[] = [
     ],
     badge: 'Pro Choice',
     affiliateUrl: affiliateLinks.sigma4en125,
-    featured: false,
-  },
-  {
-    slug: 'rubi-rdxa35-tile-cutter',
-    name: 'RUBI RDXA 35 Tile Cutter',
-    shortName: 'RUBI RDXA35',
-    category: 'Tile Cutters',
-    price: 199,
-    rating: 4.5,
-    reviewCount: 213,
-    image: '/images/products/rubi-rdxa35-tile-cutter.jpg',
-    description:
-      'Solid mid-range option from RUBI. Good for ceramic and lighter porcelain on smaller bathroom and kitchen jobs. A reliable workhorse at a sensible price.',
-    specs: {
-      'Cutting Length': '35cm',
-      'Max Thickness': '12mm',
-      Weight: '4.2kg',
-      'Made In': 'Spain',
-    },
-    pros: [
-      'Excellent value for smaller jobs',
-      'Lightweight — easy to carry and set up',
-      'RUBI quality and reliability',
-    ],
-    cons: [
-      'Limited to 35cm — won\'t handle large format',
-      'Scoring wheel not as long-lasting as Sigma',
-    ],
-    badge: 'Best Value',
-    affiliateUrl: affiliateLinks.rubiSlimG2,
     featured: false,
   },
   {
@@ -357,21 +294,23 @@ export const products: Product[] = [
     reviewCount: 287,
     image: '/images/products/dewalt-self-levelling-laser.jpg',
     description:
-      'Reliable 3×360° self-levelling laser for tiling and general building work. Quick to set up, accurate to ±3mm at 10m. A solid, no-fuss laser that does exactly what you need.',
+      'Reliable 3×360° self-levelling green-beam laser (DCE089D1G, 12V) for tiling and general building work. Quick to set up, accurate to ±3mm at 10m. A solid, no-fuss laser that does exactly what you need.',
     specs: {
       Beams: '3×360°',
-      'Beam Colour': 'Red',
+      'Beam Colour': 'Green',
+      Voltage: '12V',
       Range: '30m',
       Accuracy: '±3mm/10m',
     },
     pros: [
       'Quick self-levelling — on site fast',
       'Robust build handles site conditions',
+      'Green beam — much more visible than red on a lit site',
       'Compatible with DEWALT detector for outdoor use',
     ],
     cons: [
-      'Red beam less visible in bright sunlight',
       'No remote control',
+      '12V battery only — separate from your 18V tool ecosystem',
     ],
     affiliateUrl: affiliateLinks.dewaltSelfLevel,
     featured: false,
@@ -528,35 +467,6 @@ export const products: Product[] = [
     affiliateUrl: affiliateLinks.oxProLevelBag,
     featured: false,
   },
-  {
-    slug: 'tile-drill-bits-kit',
-    name: 'Professional Tile Drill Bits Kit',
-    shortName: 'Tile Drill Bits Kit',
-    category: 'Drill Bits',
-    price: 29,
-    rating: 4.4,
-    reviewCount: 634,
-    image: '/images/products/tile-drill-bits-kit.jpg',
-    description:
-      'A solid set of diamond-tipped tile drill bits covering the most common hole sizes. Works on porcelain, ceramic, marble, and glass. Use with water cooling and low speed for best results.',
-    specs: {
-      'Sizes Included': '6mm, 8mm, 10mm, 12mm, 20mm, 25mm',
-      Tip: 'Diamond',
-      'Suitable For': 'Porcelain, Ceramic, Glass, Marble',
-    },
-    pros: [
-      'Covers all common hole sizes',
-      'Diamond tips last well if used correctly',
-      'Works on even hard porcelain',
-      'Great value for the set',
-    ],
-    cons: [
-      'Must use water cooling — dry drilling kills them fast',
-      'Not for heavy commercial use',
-    ],
-    affiliateUrl: affiliateLinks.tileDrillBits,
-    featured: false,
-  },
 
   // ─── Added 2026-05-07: Amazon UK research batch (5 priority launch picks) ───
   {
@@ -600,22 +510,22 @@ export const products: Product[] = [
     reviewCount: 500,
     image: 'https://m.media-amazon.com/images/I/71bzQyNExaL._AC_SL1500_.jpg',
     description:
-      'A 10mm square-notch trowel is the workhorse for most domestic floor tiling — 300×300mm to 600×600mm tiles bed cleanly with this notch size. OX Pro use carbon steel with a DuraGrip handle that survives years of site use. Best-rated trowel in this notch size on Amazon UK.',
+      'A 10mm square-notch trowel is the workhorse for most domestic floor tiling — 300×300mm to 600×600mm tiles bed cleanly with this notch size. OX Pro use a stainless steel blade with a DuraGrip handle that survives years of site use. Best-rated trowel in this notch size on Amazon UK.',
     specs: {
       Notch: '10mm square',
-      Blade: 'Carbon steel',
+      Blade: 'Stainless steel',
       Handle: 'DuraGrip soft-grip',
       'Suitable For': 'Floor tiles 300mm – 600mm',
     },
     pros: [
-      'Carbon steel blade keeps a clean edge',
+      'Stainless steel blade — won\'t rust if washed',
       'Soft-grip handle reduces hand fatigue on long jobs',
       'Right notch size for typical floor tiling',
       'Trade favourite — durable enough for daily use',
     ],
     cons: [
       'Pair with a 12mm for large-format tiles 600mm+',
-      'Carbon steel will rust if washed and not dried — clean it properly',
+      'Notches blunt over time — replace every 12-18 months on heavy use',
     ],
     badge: 'Pro Choice',
     affiliateUrl: affiliateLinks.oxPro10mmTrowel,
@@ -712,318 +622,6 @@ export const products: Product[] = [
     ],
     badge: 'Best Seller',
     affiliateUrl: affiliateLinks.faithfullPaddle120,
-    featured: false,
-  },
-
-  // ─── Added 2026-05-08: 10-product expansion (autonomous batch) ───
-  // Image paths use /images/products/<slug>.jpg placeholder — Brandon swaps to local hi-res photos.
-  {
-    slug: 'sigma-2g-37cm-tile-cutter',
-    name: 'Sigma Tile Cutter Art. 2G 37cm',
-    shortName: 'Sigma 2G 37cm',
-    category: 'Tile Cutters',
-    price: 119,
-    rating: 4.7,
-    reviewCount: 280,
-    image: '/images/products/_pending.png',
-    description:
-      'Sigma quality at the small-format end. The 2G handles tiles up to 37cm — perfect for metro tiles, splashbacks, narrow shower walls. Same Italian-made carbide scoring wheel as the bigger Sigmas, just sized for jobs that don\'t need the full 70cm bench.',
-    specs: {
-      'Cutting Length': '37cm',
-      'Max Thickness': '12mm',
-      'Diagonal Cut': '26cm',
-      Weight: '4.5kg',
-      'Made In': 'Italy',
-    },
-    pros: [
-      'Sigma scoring wheel — clean breaks on metro tiles',
-      'Light enough to carry up stairs without thinking',
-      'Cheaper entry into Sigma quality',
-      'Made in Italy, full warranty',
-    ],
-    cons: [
-      'Won\'t handle 600mm+ floor tiles — get the 4BU for that',
-      'Overkill if you only ever cut ceramic — RUBI Slim is fine',
-    ],
-    affiliateUrl: affiliateLinks.sigmaSmall37,
-    featured: false,
-  },
-  {
-    slug: 'dewalt-dcd240x2-paddle-mixer',
-    name: 'DEWALT DCD240X2 XR FlexVolt Paddle Mixer',
-    shortName: 'DEWALT DCD240X2',
-    category: 'Mixing Tools',
-    price: 549,
-    rating: 4.8,
-    reviewCount: 320,
-    image: '/images/products/_pending.png',
-    description:
-      'Cordless mixing on the same FlexVolt platform as the DEWALT D36000 wet saw and 54V grinders — one battery, three tools. The DCD240X2 mixes a full 25kg bag of adhesive in 90 seconds without breaking a sweat. If you\'re already on FlexVolt, this is the no-brainer mixer upgrade.',
-    specs: {
-      Voltage: '54V FlexVolt (or 18V XR)',
-      'No-load speed': '0–800 rpm (low) / 0–1,800 rpm (high)',
-      Chuck: 'M14',
-      'Battery included': '2x 9.0Ah FlexVolt',
-      'Made For': 'Adhesive, render, screed',
-    },
-    pros: [
-      'Mixes 25kg bag in 90 seconds, no overheating',
-      'Cordless — no extension lead trip hazard on site',
-      'Shares batteries with DEWALT FlexVolt range',
-      'Anti-kickback prevents wrist injuries from snags',
-    ],
-    cons: [
-      'Premium price — corded mixers cost half',
-      'Heavy to hold above shoulder height for long mixes',
-    ],
-    badge: 'Pro Choice',
-    affiliateUrl: affiliateLinks.dewaltMixer,
-    featured: false,
-  },
-  {
-    slug: 'tool-depot-mlt-400-levelling-system',
-    name: 'Tool Depot 400-piece Tile Levelling System (2mm) + Pliers',
-    shortName: 'Tool Depot MLT 400pc',
-    category: 'Tile Levelling',
-    price: 10.47,
-    rating: 4.4,
-    reviewCount: 1250,
-    image: '/images/products/_pending.png',
-    description:
-      'A complete tile levelling system at the price most pliers cost on their own. 400 reusable wedges, 400 disposable clips, plus the levelling pliers — enough to do an entire bathroom floor twice over. Ideal first MLT system for anyone laying large-format tiles for the first time.',
-    specs: {
-      'Joint Width': '2mm',
-      'Pieces': '400 wedges + 400 clips + pliers',
-      'Tile Thickness': '3–12mm',
-      'Pliers Type': 'Manual squeeze action',
-    },
-    pros: [
-      'Cheapest complete kit on Amazon UK',
-      'Wedges are reusable — clips are the only consumable',
-      'Plenty of pieces for a full bathroom job',
-      'Pliers included — most kits make you buy them separately',
-    ],
-    cons: [
-      'Plastic build — not as long-lasting as Raimondi',
-      '2mm only — buy a 3mm kit too if grouting wider joints',
-    ],
-    badge: 'Best Value',
-    affiliateUrl: affiliateLinks.toolDepotMlt400,
-    featured: false,
-  },
-  {
-    slug: 'vitrex-3mm-tile-spacers-400pk',
-    name: 'Vitrex 3mm Cross Tile Spacers (Pack of 400)',
-    shortName: 'Vitrex 3mm Spacers x400',
-    category: 'Tile Spacers',
-    price: 4.99,
-    rating: 4.5,
-    reviewCount: 1100,
-    image: '/images/products/_pending.png',
-    description:
-      'The 3mm sister of Vitrex\'s 2mm spacer — same brand, same quality, wider joint. 3mm is the standard for floor tiles, rustic-edge tiles, and any wall tile that isn\'t rectified. 400-piece pack covers about 5–8m² of floor depending on tile size.',
-    specs: {
-      Size: '3mm',
-      'Pack Size': '400 pieces',
-      Material: 'Plastic',
-      'Suitable For': 'Floor tiles, rustic / non-rectified tiles',
-    },
-    pros: [
-      'Trade-default brand — every UK merchant carries Vitrex',
-      'Right pack size for one bathroom or kitchen floor',
-      'No sizing variation between pieces',
-      'Pair with the 2mm pack to cover most jobs',
-    ],
-    cons: [
-      'Single-use plastic — recycle properly',
-      'For 1.5mm rectified joints, need different spacers (no Vitrex equivalent)',
-    ],
-    affiliateUrl: affiliateLinks.vitrex3mmSpacers400,
-    featured: false,
-  },
-  {
-    slug: 'ox-pro-12mm-notch-trowel',
-    name: 'OX Pro 12mm Square-Notch Tile Trowel',
-    shortName: 'OX Pro 12mm Trowel',
-    category: 'Trowels',
-    price: 14.99,
-    rating: 4.7,
-    reviewCount: 380,
-    image: '/images/products/_pending.png',
-    description:
-      'The 12mm trowel earns its place when you move to 600mm+ tiles. 10mm is fine for 300×300mm and 400×400mm; once tiles get bigger, you need the deeper notch to leave enough adhesive after combing for proper coverage. Same OX Pro carbon steel + DuraGrip handle as the 10mm version.',
-    specs: {
-      Notch: '12mm square',
-      Blade: 'Carbon steel',
-      Handle: 'DuraGrip soft-grip',
-      'Suitable For': 'Floor tiles 600mm+ and large-format porcelain',
-    },
-    pros: [
-      'Right notch for large-format work',
-      'Carbon steel keeps a sharp edge through hundreds of m²',
-      'Soft-grip handle on long days',
-      'Use with back-buttering for bullet-proof coverage',
-    ],
-    cons: [
-      'Overkill for small wall tiles — use a 6mm or 8mm there',
-      'Carbon steel — dry it after every wash or it rusts',
-    ],
-    badge: 'Pro Choice',
-    affiliateUrl: affiliateLinks.oxPro12mmTrowel,
-    featured: false,
-  },
-  {
-    slug: 'e-cloth-bathroom-cleaning-pack',
-    name: 'E-Cloth Bathroom Cleaning Pack (2-piece)',
-    shortName: 'E-Cloth Bathroom Pack',
-    category: 'Tile Cleaners',
-    price: 9.99,
-    rating: 4.6,
-    reviewCount: 5200,
-    image: '/images/products/_pending.png',
-    description:
-      'Use water only, no chemicals. The microfibre weave grips the soap scum and limescale that wipes leave behind. UK-made, machine-washable up to 300 times. I keep one in every bathroom kit — gets glazed tiles streak-free in seconds.',
-    specs: {
-      Pack: '1x bathroom cloth + 1x glass & polishing cloth',
-      Material: 'Premium microfibre',
-      Washes: '300+',
-      Made: 'UK',
-    },
-    pros: [
-      'No chemicals — safe on every tile, grout, and fitting',
-      'Removes limescale + soap scum with water alone',
-      'Lasts 300 washes — calculator says 5+ years of weekly use',
-      'UK-made, premium microfibre weave',
-    ],
-    cons: [
-      'Won\'t shift heavy mineral build-up — use Lithofin FZ for that',
-      'Wash separately or fibres pick up fluff from cotton towels',
-    ],
-    badge: 'Best Seller',
-    affiliateUrl: affiliateLinks.eclothBathroom,
-    featured: false,
-  },
-  {
-    slug: 'lithofin-fz-intensive-cleaner-1l',
-    name: 'Lithofin FZ Intensive Cleaner 1L',
-    shortName: 'Lithofin FZ 1L',
-    category: 'Tile Cleaners',
-    price: 16.95,
-    rating: 4.7,
-    reviewCount: 850,
-    image: '/images/products/_pending.png',
-    description:
-      'German-made specialist tile cleaner that strips builders\' residue, grout haze, and cement film without damaging the tile or grout. The product I reach for on a finished bathroom before handover — gets that fresh-out-the-box clean even when the install was messy.',
-    specs: {
-      Volume: '1L (concentrated, dilute 1:5 to 1:10)',
-      'Suitable For': 'Glazed ceramic, porcelain, natural stone (test first)',
-      'Made In': 'Germany',
-      pH: 'Acidic — use gloves',
-    },
-    pros: [
-      'Strips builders\' grime that normal cleaners can\'t',
-      'Concentrated — 1L makes 5–10L of working solution',
-      'Trusted spec on German + UK trade jobs',
-      'Won\'t damage epoxy grout or tile glaze',
-    ],
-    cons: [
-      'Acidic — wear gloves and ventilate the room',
-      'Test on natural stone first — may etch limestone',
-    ],
-    badge: 'Pro Choice',
-    affiliateUrl: affiliateLinks.lithofinFzIntensive,
-    featured: false,
-  },
-  {
-    slug: 'toughbuilt-gelfit-snap-shell-knee-pads',
-    name: 'ToughBuilt GelFit Snap-Shell Tradesman Knee Pads',
-    shortName: 'ToughBuilt Snap-Shell',
-    category: 'Knee Pads',
-    price: 49.99,
-    rating: 4.8,
-    reviewCount: 2400,
-    image: '/images/products/_pending.png',
-    description:
-      'The knee pads I wish I\'d bought five years sooner. The Snap-Shell system means the gel cushion stays in place AND you can swap the wear plate (the bit that touches the floor) when it goes through. Ten years of daily site use on one set is realistic.',
-    specs: {
-      Padding: 'GelFit memory foam + EVA',
-      'Wear Plate': 'Replaceable hard shell',
-      Strap: 'Stretch + buckle, no Velcro to clog',
-      'Suitable For': 'Hard floors, concrete, tile, screed',
-    },
-    pros: [
-      'Wear plate is replaceable — pads last years longer',
-      'Gel cushioning genuinely comfortable for full-day work',
-      'Snap-Shell stays in place — no pad rotation under the trouser leg',
-      'Better build quality than the basic G3 ToughBuilt',
-    ],
-    cons: [
-      '£20 more than the standard ToughBuilt — but lasts 4x longer',
-      'Bulky in skip pockets — store in van not toolbag',
-    ],
-    badge: 'Pro Choice',
-    affiliateUrl: affiliateLinks.toughbuiltSnapShell,
-    featured: false,
-  },
-  {
-    slug: 'faithfull-faimp100-mixing-paddle',
-    name: 'Faithfull FAIMP100 Mixing Paddle 100mm',
-    shortName: 'Faithfull 100mm Paddle',
-    category: 'Mixing Tools',
-    price: 14.99,
-    rating: 4.6,
-    reviewCount: 720,
-    image: '/images/products/_pending.png',
-    description:
-      'Smaller sister to the Faithfull 120mm. The 100mm head fits a 10L bucket — the right size for grout, smaller adhesive batches, and self-levelling compound where you don\'t want too much air whipped into the mix. Pair the 100 + 120 and you\'ve got every domestic tiling mix covered.',
-    specs: {
-      'Head Size': '100mm',
-      Shaft: 'Standard chuck (10mm hex)',
-      Length: '~600mm overall',
-      'Suitable For': 'Grout, small adhesive batches, levelling compound',
-    },
-    pros: [
-      'Right size for 10L bucket — no splash-out',
-      'Less air introduced than 120mm on grout mixes',
-      'Same UK trade quality as the 120mm',
-      'Standard chuck — fits any drill or paddle mixer',
-    ],
-    cons: [
-      'Slow on a full 25kg adhesive bag — get the 120mm for that',
-      'Skip if you already have a 120mm and rarely mix grout in batches',
-    ],
-    affiliateUrl: affiliateLinks.faithfullPaddle100,
-    featured: false,
-  },
-  {
-    slug: 'ketoplastics-26l-flexi-tub-pack-of-5',
-    name: 'KetoPlastics 26L Heavy-Duty Flexi Tub (Pack of 5)',
-    shortName: 'KetoPlastics 26L Tub x5',
-    category: 'Mixing Buckets',
-    price: 27.99,
-    rating: 4.7,
-    reviewCount: 3100,
-    image: '/images/products/_pending.png',
-    description:
-      'Five buckets, fits in the van, no excuses for cross-contaminating the wrong adhesive into the wrong bucket. 26L is the right capacity for a full bag of adhesive plus mixing room. The flexible plastic lets you knock out cured residue cleanly when the bucket sets — no more chiselling.',
-    specs: {
-      Capacity: '26L per bucket',
-      'Pack Size': '5 buckets',
-      Material: 'Flexible LDPE',
-      Handles: 'Reinforced rope handles',
-    },
-    pros: [
-      'Cured adhesive pops out — no chisel needed',
-      '5 buckets cover separate adhesive / grout / clean water / waste / spare',
-      'Stackable empty — fits in any van',
-      'Cheaper per bucket than buying single 25L pails',
-    ],
-    cons: [
-      'Not heat-resistant — don\'t use for boiling water',
-      'Rope handles can fray after a year of daily use',
-    ],
-    badge: 'Best Value',
-    affiliateUrl: affiliateLinks.ketoFlexiTub26L5,
     featured: false,
   },
 ]
