@@ -1,0 +1,67 @@
+{
+  "asin": "B079NH3YCN",
+  "title": "DEWALT DCD240X2-GB XR Flexvolt Brushless Paddle Mixer, 54 V, Multi-Colour",
+  "brand": "DEWALT",
+  "price": {
+    "value": 532,
+    "currency": "£"
+  },
+  "listPrice": null,
+  "priceRange": null,
+  "stars": 4.4,
+  "reviewsCount": 43,
+  "description": null,
+  "features": [
+    "Ergonomic handle with critical dimensions and angles, reduces user fatigue",
+    "M14 threaded connector, which is st andard equipment",
+    "All heavy cycle metal gear",
+    "5 electronic speed control knobs (1 300 rpm, 2 450 rpm, 3 550 rpm, 4 650 rpm, 5 725 rpm)",
+    "Single speed mechanical gearbox with electronic variable speed (00 -725 rpm), with a 5-second updown ramp at all speeds to reduce material spread"
+  ],
+  "productOverview": [
+    {
+      "key": "Brand",
+      "value": "DEWALT"
+    },
+    {
+      "key": "Colour",
+      "value": "Multi-colour"
+    },
+    {
+      "key": "Product dimensions",
+      "value": "45D x 64W x 25H centimetres"
+    },
+    {
+      "key": "Material",
+      "value": "Metal"
+    },
+    {
+      "key": "Special feature",
+      "value": "Cordless"
+    },
+    {
+      "key": "Capacity",
+      "value": "25 litres"
+    },
+    {
+      "key": "Voltage",
+      "value": "54 Volts"
+    },
+    {
+      "key": "Wattage",
+      "value": "2000 watts"
+    },
+    {
+      "key": "Controls type",
+      "value": "Knob"
+    },
+    {
+      "key": "Item weight",
+      "value": "5 Kilograms"
+    }
+  ],
+  "manufacturerAttributes": [],
+  "breadCrumbs": "DIY & Tools > Power, Garden & Hand Tools > Power Tools > Concrete Tools",
+  "url": "https://www.amazon.co.uk/dp/B079NH3YCN",
+  "fetchedAt": "2026-05-09T08:55:31.398Z"
+}

@@ -149,6 +149,36 @@ async function fetchViaApify(slug, asin) {
   console.log(`  Title: ${item.title || '(no title)'}`)
   console.log(`  ASIN:  ${item.asin || asin}`)
   console.log(`  Image: ${fullSizeUrl}`)
+
+  // Save the full Amazon data alongside the image so the entry-generator
+  // can lift real title/price/description/features instead of guessing.
+  const sidecar = path.join(OUT_DIR, `${slug}.amazon.json`)
+  fs.writeFileSync(
+    sidecar,
+    JSON.stringify(
+      {
+        asin: item.asin,
+        title: item.title,
+        brand: item.brand,
+        price: item.price,
+        listPrice: item.listPrice,
+        priceRange: item.priceRange,
+        stars: item.stars,
+        reviewsCount: item.reviewsCount,
+        description: item.description,
+        features: item.features,
+        productOverview: item.productOverview,
+        manufacturerAttributes: item.manufacturerAttributes,
+        breadCrumbs: item.breadCrumbs,
+        url: item.url,
+        fetchedAt: new Date().toISOString(),
+      },
+      null,
+      2
+    )
+  )
+  console.log(`  Data:  ${sidecar}`)
+
   return downloadImage(slug, fullSizeUrl)
 }
 
