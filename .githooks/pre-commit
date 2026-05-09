@@ -42,5 +42,18 @@ if [ -n "$SCHEMA_FILES" ]; then
     echo "    node ~/Desktop/TileflowCEO/.claude/skills/tileflow-schema-validator/run.mjs <url>"
 fi
 
+# 3. Product image gate — when products.ts or product images change
+PRODUCT_FILES=$(echo "$STAGED" | grep -E '^(data/products\.ts|public/images/products/.+)$' || true)
+if [ -n "$PRODUCT_FILES" ]; then
+    echo "→ Running product image gate (products.ts or images changed)..."
+    if ! node scripts/products/check-images.mjs; then
+        echo ""
+        echo "✗ Pre-commit BLOCKED — product image gate failed."
+        echo "  Every product in data/products.ts must have a real image."
+        echo "  To bypass intentionally: git commit --no-verify"
+        exit 1
+    fi
+fi
+
 echo "✓ Pre-commit checks passed."
 exit 0
