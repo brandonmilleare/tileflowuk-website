@@ -46,20 +46,33 @@ jobs:
           #   --no-progress: cleaner CI logs
           #   --verbose: show what's being checked
           #   --include-fragments: catch #anchor breaks too
-          #   --exclude: skip Amazon affiliate URLs (Amazon blocks bots, false positives)
+          #   --base: resolve root-relative links (/shop/foo) against production URL
+          #   --timeout 30: some UK supplier sites are slow on first hit
+          #   --max-redirects 5: follow normal redirect chains (Pinterest etc.)
+          #   --accept 200..=299,403,429: 403/429 = bot-blocking, not broken
+          #   --exclude: Amazon, social platforms, mailto/tel, template-literal placeholders
+          #
+          # Scope: only MDX (editorial content — where links matter to readers).
+          # We deliberately DO NOT scan app/**/*.tsx or data/**/*.ts because
+          # they contain template-literal URL strings (`${slug}`, `${WHATSAPP_NUMBER}`)
+          # that produce permanent false positives — those routes are validated
+          # at build-time by Next.js + tested via the sitemap separately.
           args: >-
             --cache
             --max-cache-age 1d
             --no-progress
             --verbose
             --include-fragments
+            --base 'https://tileflowuk.com'
+            --timeout 30
+            --max-redirects 5
+            --accept '200..=299,403,429'
             --exclude '^https?://(www\.)?(amazon\.|amzn\.)'
             --exclude '^https?://(www\.)?(linkedin\.|x\.com|twitter\.)'
             --exclude '^mailto:'
             --exclude '^tel:'
+            --exclude '^https?://localhost'
             './content/**/*.mdx'
-            './app/**/*.tsx'
-            './data/**/*.ts'
           fail: true
           format: markdown
           output: ./lychee/out.md
