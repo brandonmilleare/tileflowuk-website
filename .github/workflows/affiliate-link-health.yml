@@ -57,7 +57,7 @@ jobs:
 
       - name: Open issue if failures detected
         if: steps.read.outputs.has_failures == 'true'
-        uses: peter-evans/create-issue-from-file@v5
+        uses: peter-evans/create-issue-from-file@v6
         with:
           title: 'Affiliate link health: weekly report — issues found'
           content-filepath: /tmp/affiliate-health.md

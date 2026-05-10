@@ -61,7 +61,7 @@ jobs:
 
       - name: Open issue on failure
         if: steps.lhci.outputs.lhci_failed == 'true'
-        uses: peter-evans/create-issue-from-file@v5
+        uses: peter-evans/create-issue-from-file@v6
         with:
           title: 'Lighthouse: budget breached on nightly run'
           content-filepath: /tmp/lhci-report.md
