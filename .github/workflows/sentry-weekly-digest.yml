@@ -43,7 +43,7 @@ jobs:
         run: node scripts/monitoring/sentry-weekly-digest.mjs
 
       - name: File digest as GitHub issue
-        uses: peter-evans/create-issue-from-file@v5
+        uses: peter-evans/create-issue-from-file@v6
         with:
           title: "Sentry weekly digest — ${{ github.run_number }}"
           content-filepath: /tmp/sentry-digest.md
