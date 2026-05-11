@@ -1,0 +1,69 @@
+{
+  "asin": "B009217AHY",
+  "title": "Vitrex PT S001 Super Sponge",
+  "brand": "Vitrex",
+  "price": {
+    "value": 2.72,
+    "currency": "£"
+  },
+  "listPrice": {
+    "value": 4.67,
+    "currency": "£"
+  },
+  "priceRange": null,
+  "stars": 4.4,
+  "reviewsCount": 206,
+  "description": "Super Sponge",
+  "features": [
+    "Professional heavy-duty extra large sponge.",
+    "Super Sponge",
+    "Unique hydrophilic design holds up to 4 times more liquid than standard sponges.",
+    "The package weight is 0.034 kilograms"
+  ],
+  "productOverview": [
+    {
+      "key": "Brand",
+      "value": "Vitrex"
+    },
+    {
+      "key": "Material",
+      "value": "Sponge"
+    },
+    {
+      "key": "Recommended uses for product",
+      "value": "Cleaning stone surfaces"
+    },
+    {
+      "key": "Surface recommendation",
+      "value": "Ceramic, glass, stainless steel"
+    },
+    {
+      "key": "Colour",
+      "value": "Yellow"
+    },
+    {
+      "key": "Special feature",
+      "value": "Lightweight"
+    },
+    {
+      "key": "Item package quantity",
+      "value": "1"
+    },
+    {
+      "key": "Included components",
+      "value": "Super Sponge"
+    },
+    {
+      "key": "Model name",
+      "value": "Super Sponge"
+    },
+    {
+      "key": "Item weight",
+      "value": "0.02 Kilograms"
+    }
+  ],
+  "manufacturerAttributes": [],
+  "breadCrumbs": "Grocery > Home Care & Cleaning > Cleaning Tools > Scourers & Sponges",
+  "url": "https://www.amazon.co.uk/dp/B009217AHY",
+  "fetchedAt": "2026-05-11T19:42:59.171Z"
+}

@@ -110,6 +110,24 @@ export const affiliateLinks = {
   faithfullPaddle80:  'https://www.amazon.co.uk/dp/B0001IWP9U?tag=tileflowuk-21', // Faithfull FAIMP80 Paddle 80mm
   sdsPaddle120x600:   'https://www.amazon.co.uk/dp/B0F7XSF7Z6?tag=tileflowuk-21', // SDS+ Mixing Paddle 120x600mm
   ketoFlexiTub26L5:   'https://www.amazon.co.uk/dp/B002GCRQH0?tag=tileflowuk-21', // KetoPlastics 26L Flexi Tub Pack 5
+
+  // ── Pending Review — added 2026-05-11 from best-sellers research, awaiting Brandon's categorisation
+  procutS600:           'https://www.amazon.co.uk/dp/B0BMM9SRML?tag=tileflowuk-21', // ProCut S 600 600mm Tile Cutter (£124.68)
+  aiGearContourGauge:   'https://www.amazon.co.uk/dp/B084Y8NQWB?tag=tileflowuk-21', // AI Gear 10in Contour Gauge (£15.99)
+  amtechTileNipper:     'https://www.amazon.co.uk/dp/B008PQCLJE?tag=tileflowuk-21', // Amtech S4435 Tile Nipper (£7.97)
+  ezarc115mmDiscs:      'https://www.amazon.co.uk/dp/B09KNMBF5K?tag=tileflowuk-21', // EZARC 115mm Diamond Discs 2pk (£17.97)
+  zenoSpiritLevel3Set:  'https://www.amazon.co.uk/dp/B0DMT4BVSF?tag=tileflowuk-21', // ZENO Spirit Level 3 Set 300/600/1000mm (£21.95)
+  flintronic80pcLevel:  'https://www.amazon.co.uk/dp/B0CY8F8VLJ?tag=tileflowuk-21', // Flintronic 80pc Tile Levelling System (£8.49)
+  shafferPro4mmLevel:   'https://www.amazon.co.uk/dp/B0CWY1GL15?tag=tileflowuk-21', // SHAFFER PRO 4mm Levelling 200+100 (£35.89)
+  levellingSys400pc3mm: 'https://www.amazon.co.uk/dp/B0D25JMW2Z?tag=tileflowuk-21', // 400pc 3mm Tile Levelling System (£20.95)
+  amtechGroutFloat:     'https://www.amazon.co.uk/dp/B0096AWHKG?tag=tileflowuk-21', // Amtech Tile Grout Float 24x10cm (£8.95)
+  siliconeRemover5in1:  'https://www.amazon.co.uk/dp/B09716NPDG?tag=tileflowuk-21', // 5-in-1 Silicone Remover & Finishing Tool (£5.99)
+  ob1ClearSealant290:   'https://www.amazon.co.uk/dp/B08DD3LHFB?tag=tileflowuk-21', // OB1 Clear Sealant 290ml (£8.13)
+  rubi5mmWedges250pk:   'https://www.amazon.co.uk/dp/B00IMPRSK0?tag=tileflowuk-21', // RUBI 5mm Tile Wedges 250pk (price TBD — Playwright queued)
+  bluePaintersTape4r:   'https://www.amazon.co.uk/dp/B0CYBM99N7?tag=tileflowuk-21', // 4 Rolls Blue Masking Tape 50m x 24mm (£7.99)
+  frogtapeGreenMulti:   'https://www.amazon.co.uk/dp/B0FVFTR77B?tag=tileflowuk-21', // Frog Tape Green Multi Surface 36mm x 55m (£6.84)
+  vitrexTileWashFloat:  'https://www.amazon.co.uk/dp/B000C74YBM?tag=tileflowuk-21', // Vitrex 10 2915 Tile Wash Float (£8.00)
+  vitrexSuperSponge:    'https://www.amazon.co.uk/dp/B009217AHY?tag=tileflowuk-21', // Vitrex PT S001 Super Sponge (£2.72)
 } as const
 
 export type AffiliateKey = keyof typeof affiliateLinks
