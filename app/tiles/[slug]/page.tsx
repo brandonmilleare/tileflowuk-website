@@ -57,14 +57,26 @@ export default async function TileDetailPage({ params }: PageProps) {
 
   const related = getRelatedTiles(slug, 3)
 
+  const sizeMatch = tile.size.match(/(\d+)\s*[×x]\s*(\d+)/i)
+  const widthMm = sizeMatch ? parseInt(sizeMatch[1], 10) : undefined
+  const heightMm = sizeMatch ? parseInt(sizeMatch[2], 10) : undefined
+
   const productSchema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: tile.name,
     description: tile.description,
     image: tile.images.map(i => `https://tileflowuk.com${i}`),
+    sku: tile.slug,
+    material: 'Porcelain',
     brand: { '@type': 'Brand', name: tile.range },
     category: tile.style,
+    ...(widthMm && heightMm
+      ? {
+          width: { '@type': 'QuantitativeValue', value: widthMm, unitCode: 'MMT' },
+          height: { '@type': 'QuantitativeValue', value: heightMm, unitCode: 'MMT' },
+        }
+      : {}),
     offers: {
       '@type': 'Offer',
       priceCurrency: 'GBP',

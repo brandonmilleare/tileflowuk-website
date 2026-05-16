@@ -63,7 +63,22 @@ export default function TilesPage() {
         '@type': 'ListItem',
         position: i + 1,
         url: `https://tileflowuk.com/tiles/${t.slug}`,
-        name: t.name,
+        name: `${t.name} — ${t.style} (${t.size})`,
+        item: {
+          '@type': 'Product',
+          name: t.name,
+          description: t.description,
+          image: `https://tileflowuk.com${t.images[0]}`,
+          brand: { '@type': 'Brand', name: t.range },
+          category: t.style,
+          url: `https://tileflowuk.com/tiles/${t.slug}`,
+          offers: {
+            '@type': 'Offer',
+            priceCurrency: 'GBP',
+            price: t.priceNumeric,
+            availability: 'https://schema.org/InStock',
+          },
+        },
       })),
     },
   }
