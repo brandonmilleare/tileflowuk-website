@@ -13,6 +13,7 @@ export default function TileCard({ tile, priority = false }: TileCardProps) {
     <article className="group bg-white rounded-2xl border border-stone-200 overflow-hidden hover:shadow-xl hover:border-transparent transition-all duration-300 flex flex-col">
       <Link
         href={`/tiles/${tile.slug}`}
+        aria-label={`${tile.name} — ${tile.style}, ${tile.size}, ${tile.price}. View full details and order.`}
         className="relative block aspect-[4/3] bg-stone-50 overflow-hidden"
       >
         <Image
@@ -47,6 +48,7 @@ export default function TileCard({ tile, priority = false }: TileCardProps) {
           <span className="text-base font-bold text-[var(--tf-primary)]">{tile.price}</span>
           <Link
             href={`/tiles/${tile.slug}`}
+            aria-label={`Buy or enquire about ${tile.name} ${tile.style} ${tile.size}`}
             className="inline-flex items-center gap-1 px-3.5 py-1.5 bg-[var(--tf-primary)] text-white text-xs font-semibold rounded-full hover:bg-[var(--tf-primary-hover)] transition-colors"
           >
             Buy / Enquire
