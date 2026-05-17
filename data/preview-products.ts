@@ -4,7 +4,7 @@
  *
  * Source: 23 ASINs in scripts/products/preview-batch-2026-05-16.csv
  * Data:   Apify sidecar JSONs in public/images/products/<slug>.amazon.json
- * Built:  2026-05-16T09:58:37.068Z
+ * Built:  2026-05-17T09:19:07.037Z
  */
 
 export type PreviewCategory = 'Prep' | 'Adhesives' | 'Application Tools'
@@ -173,7 +173,7 @@ export const previewProducts: PreviewProduct[] = [
       "Internal and External use on walls and floor",
       "For Use With: Ceramic, Mosaic, Natural Stone, Porcelain"
     ],
-    "image": "",
+    "image": "/images/products/mapeker-rapid-flex-adhesive.jpg",
     "affiliateUrl": "https://www.amazon.co.uk/dp/B01N0RBDHE?tag=tileflowuk-21"
   },
   {
