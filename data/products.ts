@@ -1,4 +1,5 @@
 import { affiliateLinks } from './affiliateLinks'
+import { previewShopProducts } from './preview-shop-products'
 
 export type ProductCategory =
   | 'Tile Cutters'
@@ -14,6 +15,9 @@ export type ProductCategory =
   | 'Tile Cleaners'
   | 'Mixing Tools'
   | 'Mixing Buckets'
+  | 'Prep'
+  | 'Adhesives'
+  | 'Application Tools'
 
 export interface Product {
   slug: string
@@ -34,7 +38,7 @@ export interface Product {
   featured: boolean
 }
 
-export const products: Product[] = [
+const handCuratedProducts: Product[] = [
   {
     slug: 'sigma-4bu-70cm',
     name: 'Sigma Tile Cutter Art. 4BU 70cm',
@@ -958,6 +962,8 @@ export const products: Product[] = [
     featured: false,
   },
 ]
+
+export const products: Product[] = [...handCuratedProducts, ...previewShopProducts]
 
 export const featuredProducts = products.filter((p) => p.featured)
 export const categories = [...new Set(products.map((p) => p.category))] as ProductCategory[]

@@ -95,6 +95,14 @@ const nextConfig: NextConfig = {
         destination: '/deluxe-flooring/:path*',
         permanent: true,
       },
+      {
+        // Sigma 4DN was referenced in 3 MDX files but never had a product page.
+        // Send visitors to the /shop listing where they can pick the 4BU (smaller)
+        // or 4EN (larger) instead. Stops 3 lychee 404s on each crawl.
+        source: '/shop/sigma-4dn-95cm',
+        destination: '/shop',
+        permanent: true,
+      },
     ]
   },
 }
