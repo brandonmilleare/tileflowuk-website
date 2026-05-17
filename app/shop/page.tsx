@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import ShopClient from './ShopClient'
+import AffiliateDisclosure from '@/components/affiliate/AffiliateDisclosure'
 
 export const metadata: Metadata = {
   title: 'Shop — Tiling Tools',
@@ -21,6 +22,10 @@ export default function ShopPage() {
             Every tool reviewed by a working UK tiler. Click any category to filter.
           </p>
         </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <AffiliateDisclosure mode="banner" />
       </div>
 
       <Suspense fallback={<ShopSkeleton />}>

@@ -3,7 +3,6 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Affiliate Disclosure',
   description: 'TileFlow UK affiliate disclosure — how this site earns money and how that affects our content.',
-  robots: { index: false },
 }
 
 export default function DisclosurePage() {
@@ -37,7 +36,7 @@ export default function DisclosurePage() {
             If you have any questions about this disclosure, please{' '}
             <a href="/contact">get in touch</a>.
           </p>
-          <p className="text-sm text-stone-400">Last updated: June 2025</p>
+          <p className="text-sm text-stone-400">Last updated: May 2026</p>
         </div>
       </div>
     </div>

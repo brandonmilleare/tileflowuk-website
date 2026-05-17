@@ -61,7 +61,9 @@ export default async function ProductPage({ params }: PageProps) {
     '@type': 'Product',
     name: product.name,
     description: product.description,
-    image: `https://tileflowuk.com${product.image}`,
+    image: product.image.startsWith('http')
+      ? product.image
+      : `https://tileflowuk.com${product.image}`,
     brand: { '@type': 'Brand', name: product.name.split(' ')[0] },
     ...(product.price > 0
       ? {
