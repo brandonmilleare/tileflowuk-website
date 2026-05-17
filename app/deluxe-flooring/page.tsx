@@ -11,6 +11,7 @@ import {
   type DeluxeCategory,
 } from '@/data/deluxe-flooring'
 import AffiliateLink from '@/components/affiliate/AffiliateLink'
+import AffiliateDisclosure from '@/components/affiliate/AffiliateDisclosure'
 
 export const metadata: Metadata = {
   title: 'Wood Flooring UK — Engineered Oak, Herringbone, LVT & Laminate',
@@ -156,6 +157,11 @@ export default function DeluxeFlooringPage() {
           </div>
         </div>
       </section>
+
+      {/* Affiliate disclosure — above-the-fold, before first affiliate link */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-2 pb-4">
+        <AffiliateDisclosure mode="banner" />
+      </div>
 
       {/* Category nav */}
       <nav className="sticky top-16 z-30 bg-white/90 backdrop-blur border-y border-stone-200">
