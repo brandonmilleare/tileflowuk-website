@@ -28,13 +28,18 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      # Restore cache so we don't re-check every URL every run
+      # Per-commit, per-run cache key — every push gets a fresh cache window.
+      # Stops stale 404s persisting after a redirect/rename ships (root cause
+      # of the recurring false-positive failures in May 2026). The restore-key
+      # fallback still lets long-lived caches accelerate scheduled runs.
       - name: Restore lychee cache
         uses: actions/cache@v5
         with:
           path: .lycheecache
-          key: cache-lychee-${{ github.sha }}
-          restore-keys: cache-lychee-
+          key: cache-lychee-${{ github.sha }}-${{ github.run_id }}
+          restore-keys: |
+            cache-lychee-${{ github.sha }}-
+            cache-lychee-
 
       - name: Run Lychee
         id: lychee
@@ -42,14 +47,17 @@ jobs:
         with:
           # Config:
           #   --cache: re-use prior responses (much faster)
-          #   --max-cache-age 1d: refresh dailier-than that
+          #   --max-cache-age 12h: refresh twice-daily (was 1d, cut for faster
+          #     drift detection + paired with per-commit cache key above)
           #   --no-progress: cleaner CI logs
           #   --verbose: show what's being checked
           #   --include-fragments: catch #anchor breaks too
           #   --base: resolve root-relative links (/shop/foo) against production URL
           #   --timeout 30: some UK supplier sites are slow on first hit
           #   --max-redirects 5: follow normal redirect chains (Pinterest etc.)
-          #   --accept 200..=299,403,429: 403/429 = bot-blocking, not broken
+          #   --accept 200..=299,308,403,429: 308 = permanent redirect, accepted
+          #     so next.config.ts redirects pass without forcing a follow chain;
+          #     403/429 = bot-blocking, not broken
           #   --exclude: Amazon, social platforms, mailto/tel, template-literal placeholders
           #
           # Scope: only MDX (editorial content — where links matter to readers).
@@ -59,14 +67,14 @@ jobs:
           # at build-time by Next.js + tested via the sitemap separately.
           args: >-
             --cache
-            --max-cache-age 1d
+            --max-cache-age 12h
             --no-progress
             --verbose
             --include-fragments
             --base 'https://tileflowuk.com'
             --timeout 30
             --max-redirects 5
-            --accept '200..=299,403,429'
+            --accept '200..=299,308,403,429'
             --exclude '^https?://(www\.)?(amazon\.|amzn\.)'
             --exclude '^https?://(www\.)?(linkedin\.|x\.com|twitter\.)'
             --exclude '^mailto:'
