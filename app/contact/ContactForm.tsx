@@ -6,6 +6,7 @@ import { Send, CheckCircle2 } from 'lucide-react'
 export default function ContactForm() {
   const [state, setState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm(f => ({ ...f, [e.target.name]: e.target.value }))
@@ -14,9 +15,28 @@ export default function ContactForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setState('loading')
-    // TODO: Wire up to Resend / FormSpree / Netlify Forms
-    await new Promise(r => setTimeout(r, 800))
-    setState('success')
+    setErrorMessage('')
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (res.ok && data?.ok) {
+        setState('success')
+      } else {
+        setErrorMessage(
+          typeof data?.error === 'string'
+            ? data.error
+            : 'Something went wrong sending your message.',
+        )
+        setState('error')
+      }
+    } catch {
+      setErrorMessage('Network error — please try again or email hello@tileflowuk.com directly.')
+      setState('error')
+    }
   }
 
   if (state === 'success') {
@@ -95,6 +115,15 @@ export default function ContactForm() {
           className="w-full px-4 py-2.5 border border-stone-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--tf-primary)] focus:border-transparent resize-none"
         />
       </div>
+
+      {state === 'error' && errorMessage && (
+        <div
+          role="alert"
+          className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800"
+        >
+          {errorMessage}
+        </div>
+      )}
 
       <button
         type="submit"
