@@ -4,14 +4,18 @@ import { useEffect, useRef, useState } from 'react'
 import { useInView } from 'motion/react'
 
 const stats = [
-  { value: 10, suffix: '+', label: 'Years on the Tools' },
+  { value: 15, suffix: '+', label: 'Years on the Tools' },
   { value: 17, suffix: '', label: 'Tools Reviewed' },
   { value: 18, suffix: '', label: 'Portfolio Projects' },
   { value: 5, suffix: '★', label: 'Star Rated by Clients' },
 ]
 
 function CountUp({ target, suffix }: { target: number; suffix: string }) {
-  const [count, setCount] = useState(0)
+  // Initialise to the real target so the server-rendered HTML shows the true
+  // number (15, 17, 18, 5) — not 0. Google + AI crawlers read the SSR output,
+  // and "0 years on the tools" was an E-E-A-T own-goal. On the client we reset
+  // to 0 and animate up when the bar scrolls into view (progressive enhancement).
+  const [count, setCount] = useState(target)
   const ref = useRef<HTMLSpanElement>(null)
   const inView = useInView(ref, { once: true })
 

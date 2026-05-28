@@ -59,6 +59,5 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: 'https://tileflowuk.com/sitemap.xml',
-    host: 'https://tileflowuk.com',
   }
 }
