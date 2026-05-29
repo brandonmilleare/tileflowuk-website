@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import type { WithContext, BlogPosting, BreadcrumbList, FAQPage } from 'schema-dts'
 
 /**
  * ISR: revalidate every 24 hours.
@@ -59,7 +60,7 @@ export default async function BlogPostPage(props: { params: Promise<{ slug: stri
 
   const related = getRelatedPosts(slug, post.category, 3)
 
-  const articleSchema = {
+  const articleSchema: WithContext<BlogPosting> = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: post.title,
@@ -83,7 +84,7 @@ export default async function BlogPostPage(props: { params: Promise<{ slug: stri
       : `https://tileflowuk.com/og/blog/${slug}`,
   }
 
-  const breadcrumbSchema = {
+  const breadcrumbSchema: WithContext<BreadcrumbList> = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
@@ -93,7 +94,7 @@ export default async function BlogPostPage(props: { params: Promise<{ slug: stri
     ],
   }
 
-  const faqSchema = post.faqs && post.faqs.length > 0
+  const faqSchema: WithContext<FAQPage> | null = post.faqs && post.faqs.length > 0
     ? {
         '@context': 'https://schema.org',
         '@type': 'FAQPage',

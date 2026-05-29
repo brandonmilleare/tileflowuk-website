@@ -1,0 +1,29 @@
+name: IndexNow auto-submit
+
+# Why this exists:
+# - Tells Bing / Yandex / Seznam about new + changed pages automatically, on a
+#   schedule — so indexing happens even when content publishes via Vercel without
+#   a local git push (the old manual post-push hook only fired on local pushes).
+# - Reads the live sitemap and submits only URLs whose `lastmod` changed in the
+#   last day, so it's not spamming the whole sitemap daily.
+# - The IndexNow key is public by design (served at /<key>.txt), but kept in a
+#   GitHub secret (INDEXNOW_KEY) per the action's own convention.
+# - Google is handled separately by the existing Indexing-API hook; this is the
+#   Bing/Yandex side.
+
+on:
+  schedule:
+    - cron: '0 4 * * *' # daily 04:00 UTC
+  workflow_dispatch:
+
+jobs:
+  indexnow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Submit changed URLs to IndexNow
+        uses: bojieyang/indexnow-action@v3.0.0
+        with:
+          sitemap-location: 'https://tileflowuk.com/sitemap.xml'
+          key: ${{ secrets.INDEXNOW_KEY }}
+          since: '1'
+          since-unit: 'day'
