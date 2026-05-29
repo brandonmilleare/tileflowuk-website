@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import Script from 'next/script'
-import { Mail, CheckCircle2, ChevronLeft, MessageCircle } from 'lucide-react'
+import { CheckCircle2, ChevronLeft } from 'lucide-react'
 import {
   getTileBySlug,
   getRelatedTiles,
@@ -14,6 +14,7 @@ import {
   PHONE_DISPLAY,
 } from '@/data/tiles'
 import TileCard from '@/components/tiles/TileCard'
+import TileEnquiryButtons from '@/components/tiles/TileEnquiryButtons'
 
 type PageProps = {
   params: Promise<{ slug: string }>
@@ -188,24 +189,11 @@ export default async function TileDetailPage({ params }: PageProps) {
               <p className="text-3xl font-bold text-[var(--tf-fg)] mb-1">{tile.price}</p>
               <p className="text-sm text-stone-500 mb-4">{tile.size} porcelain tile</p>
 
-              <div className="flex flex-col sm:flex-row gap-2.5">
-                <a
-                  href={enquiryMailto(tile.name)}
-                  className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-[var(--tf-primary)] text-white font-bold rounded-full hover:bg-[var(--tf-primary-hover)] transition-colors text-sm shadow-md flex-1"
-                >
-                  <Mail className="w-4 h-4" />
-                  Email to order
-                </a>
-                <a
-                  href={whatsappLink(tile.name)}
-                  target="_blank"
-                  rel="noopener"
-                  className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#25D366] text-white font-bold rounded-full hover:bg-[#1ea850] transition-colors text-sm shadow-md flex-1"
-                >
-                  <MessageCircle className="w-4 h-4" />
-                  WhatsApp
-                </a>
-              </div>
+              <TileEnquiryButtons
+                tileName={tile.name}
+                mailto={enquiryMailto(tile.name)}
+                whatsapp={whatsappLink(tile.name)}
+              />
               <p className="text-xs text-stone-500 mt-3 leading-relaxed">
                 Email <a href={`mailto:${ENQUIRY_EMAIL}`} className="underline hover:text-[var(--tf-primary)]">{ENQUIRY_EMAIL}</a> or
                 WhatsApp/text <a href={whatsappLink(tile.name)} target="_blank" rel="noopener" className="underline hover:text-[var(--tf-primary)]">{PHONE_DISPLAY}</a> to order or ask about delivery.
