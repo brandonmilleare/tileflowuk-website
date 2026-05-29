@@ -1,0 +1,29 @@
+name: Unlighthouse site-wide audit
+
+# Why this exists:
+# - The existing lighthouse-ci checks a few hand-picked URLs. Unlighthouse crawls
+#   the WHOLE site from the sitemap and runs Lighthouse on every page (SEO + a11y +
+#   performance + best-practice) — so a new blog/shop page gets audited automatically
+#   without anyone adding it to a list.
+# - Weekly. Produces a static HTML report uploaded as a build artifact (download it
+#   from the Actions run). No --budget gate on purpose: this is a monitor/report, not
+#   a deploy blocker, so it shouldn't fail-and-email over a single slow page.
+
+on:
+  schedule:
+    - cron: '0 5 * * 1' # Mondays 05:00 UTC
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Unlighthouse against the live site
+        run: npx unlighthouse-ci@latest --site https://tileflowuk.com --build-static
+      - name: Upload report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unlighthouse-report
+          path: .unlighthouse/
+          retention-days: 30
