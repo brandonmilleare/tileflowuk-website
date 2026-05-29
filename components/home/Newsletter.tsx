@@ -11,9 +11,23 @@ export default function Newsletter() {
     e.preventDefault()
     if (!email) return
     setState('loading')
-    // TODO: Wire up to Mailchimp / ConvertKit / Klaviyo
-    await new Promise(r => setTimeout(r, 800))
-    setState('success')
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+      if (!res.ok) throw new Error('signup failed')
+      // GA4 conversion event (parity with affiliate_click via GTM dataLayer)
+      if (typeof window !== 'undefined') {
+        const w = window as unknown as { dataLayer?: unknown[] }
+        w.dataLayer = w.dataLayer || []
+        w.dataLayer.push({ event: 'newsletter_signup' })
+      }
+      setState('success')
+    } catch {
+      setState('error')
+    }
   }
 
   return (
@@ -51,6 +65,12 @@ export default function Newsletter() {
               )}
             </button>
           </form>
+        )}
+
+        {state === 'error' && (
+          <p className="mt-4 text-sm text-red-600">
+            Something went wrong — please try again, or email us directly.
+          </p>
         )}
 
         <p className="mt-4 text-xs text-stone-400">
