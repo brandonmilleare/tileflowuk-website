@@ -46,7 +46,6 @@ const personSchema = {
     '@type': 'Occupation',
     name: 'Tiler',
     occupationLocation: { '@type': 'Country', name: 'United Kingdom' },
-    estimatedSalary: { '@type': 'MonetaryAmountDistribution', name: 'UK tiler' },
   },
   worksFor: { '@id': 'https://tileflowuk.com#organization' },
   founder: { '@id': 'https://tileflowuk.com#organization' },
