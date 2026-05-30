@@ -1,0 +1,11 @@
+extends: existence
+message: "'%s' is a banned AI-tell opener. Start with something real — see memory/brand.md Section 3."
+level: error
+ignorecase: true
+nonword: true
+tokens:
+  - 'In the world of'
+  - 'When it comes to'
+  - "In today's fast-paced"
+  - 'Whether you''re a professional or DIYer'
+  - 'industry-leading'

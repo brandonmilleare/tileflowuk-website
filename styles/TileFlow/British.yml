@@ -1,0 +1,30 @@
+extends: substitution
+message: "Use British spelling: '%s' → '%s'."
+level: warning
+ignorecase: true
+# American → British. Word-boundary matched.
+swap:
+  color: colour
+  colors: colours
+  colored: coloured
+  favorite: favourite
+  favorites: favourites
+  organize: organise
+  organized: organised
+  organizing: organising
+  optimize: optimise
+  optimized: optimised
+  optimizing: optimising
+  fulfill: fulfil
+  center: centre
+  centered: centred
+  meter: metre
+  meters: metres
+  fiber: fibre
+  aluminum: aluminium
+  recognize: recognise
+  recognized: recognised
+  analyze: analyse
+  analyzed: analysed
+  gray: grey
+  mold: mould

@@ -1,0 +1,17 @@
+extends: existence
+message: "'%s' is a TileFlow banned word (corporate/AI filler). Rewrite it — see memory/brand.md Section 3."
+level: error
+ignorecase: true
+tokens:
+  - leverage
+  - unlock
+  - synergy
+  - seamless
+  - delve
+  - holistic
+  - game-changer
+  - ecosystem
+  - cutting-edge
+  - revolutionary
+  - next-level
+  - world-class
