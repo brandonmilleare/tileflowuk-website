@@ -22,7 +22,7 @@ jobs:
         run: npx unlighthouse-ci@latest --site https://tileflowuk.com --build-static
       - name: Upload report artifact
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: unlighthouse-report
           path: .unlighthouse/
