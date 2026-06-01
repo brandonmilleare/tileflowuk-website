@@ -1,0 +1,40 @@
+name: Vale prose lint
+
+# Enforces TileFlow brand voice (banned words, AI-tell openers, British spelling)
+# on blog/guide/best-of MDX content. Banned words = error (fails the check);
+# British spelling + openers = warning (flagged, doesn't block).
+
+on:
+  push:
+    paths:
+      - 'content/**/*.md'
+      - 'content/**/*.mdx'
+      - '.vale.ini'
+      - 'styles/**'
+  pull_request:
+    paths:
+      - 'content/**/*.md'
+      - 'content/**/*.mdx'
+      - '.vale.ini'
+      - 'styles/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  vale:
+    name: Lint content prose
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Vale
+        uses: errata-ai/vale-action@reviewdog
+        with:
+          files: content
+          fail_on_error: true
+          version: 3.14.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
