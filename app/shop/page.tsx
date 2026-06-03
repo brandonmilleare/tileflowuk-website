@@ -1,17 +1,37 @@
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
+import Script from 'next/script'
 import ShopClient from './ShopClient'
 import AffiliateDisclosure from '@/components/affiliate/AffiliateDisclosure'
+import { products } from '@/data/products'
 
 export const metadata: Metadata = {
   title: 'Shop — Tiling Tools',
   description:
     'Browse all professional tiling tools reviewed by TileFlow UK — tile cutters, angle grinders, laser levels, wet saws, spirit levels, and drill bits.',
+  alternates: { canonical: 'https://tileflowuk.com/shop' },
+}
+
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Professional Tiling Tools',
+  itemListElement: products.map((p, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    url: `https://tileflowuk.com/shop/${p.slug}`,
+    name: p.name,
+  })),
 }
 
 export default function ShopPage() {
   return (
     <div className="min-h-screen pt-16">
+      <Script
+        id="shop-itemlist-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+      />
       {/* Page header */}
       <div className="bg-stone-50 border-b border-stone-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">

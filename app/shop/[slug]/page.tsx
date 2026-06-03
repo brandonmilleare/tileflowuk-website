@@ -31,6 +31,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: product.name,
     description: product.description,
+    alternates: { canonical: `https://tileflowuk.com/shop/${slug}` },
     openGraph: {
       images: [{ url: product.image, width: 1200, height: 630, alt: product.name }],
     },
