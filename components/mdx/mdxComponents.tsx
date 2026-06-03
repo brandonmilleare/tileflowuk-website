@@ -1,5 +1,6 @@
 import type { MDXRemoteProps } from 'next-mdx-remote/rsc'
 import SmartAnchor from './SmartAnchor'
+import ToolsUsed from './ToolsUsed'
 
 /**
  * Shared MDX component map for blog/guides/best-of MDX rendering.
@@ -14,4 +15,5 @@ import SmartAnchor from './SmartAnchor'
  */
 export const mdxComponents: NonNullable<MDXRemoteProps['components']> = {
   a: SmartAnchor,
+  ToolsUsed,
 }
