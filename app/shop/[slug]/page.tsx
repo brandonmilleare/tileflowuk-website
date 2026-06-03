@@ -13,7 +13,7 @@ import { Badge } from '@/components/ui/badge'
 import ProductCard from '@/components/product/ProductCard'
 import AffiliateLink from '@/components/affiliate/AffiliateLink'
 import AffiliateDisclosure from '@/components/affiliate/AffiliateDisclosure'
-import { formatGBP } from '@/lib/utils'
+import { formatGBP, toMetaDescription } from '@/lib/utils'
 
 // Next.js 16: params must be awaited
 type PageProps = {
@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!product) return {}
   return {
     title: product.name,
-    description: product.description,
+    description: toMetaDescription(product.description),
     alternates: { canonical: `https://tileflowuk.com/shop/${slug}` },
     openGraph: {
       images: [{ url: product.image, width: 1200, height: 630, alt: product.name }],

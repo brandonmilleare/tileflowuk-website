@@ -11,6 +11,8 @@ export interface MdxDoc {
   slug: string
   title: string
   excerpt: string
+  /** Optional SEO meta description (≤155 chars). Falls back to excerpt if unset. */
+  metaDescription?: string
   date: string
   readTime: string
   category: string
@@ -51,6 +53,7 @@ function readDoc(dir: string, slug: string): MdxDoc | null {
     slug,
     title: data.title ?? '',
     excerpt: data.excerpt ?? '',
+    metaDescription: data.metaDescription,
     date: data.date ?? '',
     readTime: data.readTime ?? '8 min',
     category: data.category ?? 'Guide',
