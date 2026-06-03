@@ -13,6 +13,8 @@ export interface BlogPost {
   slug: string
   title: string
   excerpt: string
+  /** Optional SEO meta description (≤155 chars). Falls back to excerpt if unset. */
+  metaDescription?: string
   date: string
   readTime: string
   category: string
@@ -82,6 +84,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
     slug,
     title: data.title ?? '',
     excerpt: data.excerpt ?? '',
+    metaDescription: data.metaDescription,
     date: data.date ?? '',
     readTime: data.readTime ?? '5 min',
     category: data.category ?? 'Guide',

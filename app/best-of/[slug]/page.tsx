@@ -23,13 +23,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const doc = getBestOfDoc(slug)
   if (!doc) return {}
   const image = doc.heroImage ?? `/og/best-of/${slug}`
+  const description = doc.metaDescription ?? doc.excerpt
   return {
     title: doc.title,
-    description: doc.excerpt,
+    description,
     alternates: { canonical: `/best-of/${slug}` },
     openGraph: {
       title: doc.title,
-      description: doc.excerpt,
+      description,
       type: 'article',
       url: `/best-of/${slug}`,
       publishedTime: doc.date,
@@ -38,7 +39,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     twitter: {
       card: 'summary_large_image',
       title: doc.title,
-      description: doc.excerpt,
+      description,
       images: [image],
     },
   }
