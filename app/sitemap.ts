@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/tiles`, lastModified: now, changeFrequency: 'weekly', priority: 0.95 },
     { url: `${BASE}/deluxe-flooring`, lastModified: now, changeFrequency: 'weekly', priority: 0.95 },
     { url: `${BASE}/shop`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${BASE}/tile-calculator`, lastModified: now, changeFrequency: 'monthly', priority: 0.85 },
     { url: `${BASE}/blog`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${BASE}/best-of`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/guides`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
