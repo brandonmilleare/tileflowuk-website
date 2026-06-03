@@ -6,7 +6,8 @@ import { getAllPosts } from '@/lib/blog'
 export const metadata: Metadata = {
   title: 'Blog — Tiling Tips & Trade Advice',
   description:
-    'Practical tiling tips, trade secrets, and honest product knowledge from a UK professional tiler with 15+ years experience.',
+    'Practical tiling tips, trade secrets, and honest product knowledge from a UK professional tiler with 15 years experience.',
+  alternates: { canonical: 'https://tileflowuk.com/blog' },
 }
 
 export default function BlogPage() {
