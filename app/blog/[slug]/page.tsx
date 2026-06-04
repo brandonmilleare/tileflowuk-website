@@ -189,7 +189,7 @@ export default async function BlogPostPage(props: { params: Promise<{ slug: stri
                     <Link href={`/blog/${p.slug}`}>{p.title}</Link>
                   </h3>
                   <p className="text-stone-500 text-sm leading-relaxed line-clamp-2 mb-3">{p.excerpt}</p>
-                  <Link href={`/blog/${p.slug}`} className="inline-flex items-center gap-1 text-sm font-semibold text-[var(--tf-primary)]">
+                  <Link href={`/blog/${p.slug}`} aria-label={`Read more: ${p.title}`} className="inline-flex items-center gap-1 text-sm font-semibold text-[var(--tf-primary)]">
                     Read more <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </article>
