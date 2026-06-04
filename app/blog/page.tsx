@@ -61,10 +61,9 @@ export default function BlogPage() {
 
                 <Link
                   href={`/blog/${post.slug}`}
-                  aria-label={`Read more: ${post.title}`}
                   className="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--tf-primary)] hover:gap-3 transition-all"
                 >
-                  Read more <ArrowRight className="w-3.5 h-3.5" />
+                  Read more<span className="sr-only"> about {post.title}</span> <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </article>
             ))}
