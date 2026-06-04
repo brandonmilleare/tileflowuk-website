@@ -92,7 +92,7 @@ export default function Footer() {
 
         {/* Shop */}
         <div>
-          <h3 className="text-xs font-semibold uppercase tracking-widest text-stone-500 mb-4">Shop by Category</h3>
+          <h3 className="text-xs font-semibold uppercase tracking-widest text-stone-400 mb-4">Shop by Category</h3>
           <ul className="space-y-2.5">
             {shopLinks.map(({ href, label }) => (
               <li key={href}>
@@ -106,7 +106,7 @@ export default function Footer() {
 
         {/* Content */}
         <div>
-          <h3 className="text-xs font-semibold uppercase tracking-widest text-stone-500 mb-4">Content</h3>
+          <h3 className="text-xs font-semibold uppercase tracking-widest text-stone-400 mb-4">Content</h3>
           <ul className="space-y-2.5">
             {contentLinks.map(({ href, label }) => (
               <li key={href}>
@@ -120,7 +120,7 @@ export default function Footer() {
 
         {/* Company */}
         <div>
-          <h3 className="text-xs font-semibold uppercase tracking-widest text-stone-500 mb-4">Company</h3>
+          <h3 className="text-xs font-semibold uppercase tracking-widest text-stone-400 mb-4">Company</h3>
           <ul className="space-y-2.5">
             {companyLinks.map(({ href, label }) => (
               <li key={href}>
@@ -136,10 +136,10 @@ export default function Footer() {
       {/* Affiliate disclosure bar */}
       <div className="border-t border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-stone-500 text-center sm:text-left">
+          <p className="text-xs text-stone-400 text-center sm:text-left">
             © {new Date().getFullYear()} TileFlow UK. All rights reserved.
           </p>
-          <p className="text-xs text-stone-600 text-center sm:text-right max-w-md">
+          <p className="text-xs text-stone-400 text-center sm:text-right max-w-md">
             As an Amazon Associate I earn from qualifying purchases.{' '}
             <Link href="/disclosure" className="underline hover:text-stone-400 transition-colors">
               Full disclosure
