@@ -51,7 +51,7 @@ export default function StatsBar() {
               <dt className="text-4xl font-bold font-display mb-1">
                 <CountUp target={value} suffix={suffix} />
               </dt>
-              <dd className="text-sm text-blue-100 font-medium">{label}</dd>
+              <dd className="text-sm text-white font-medium">{label}</dd>
             </div>
           ))}
         </dl>

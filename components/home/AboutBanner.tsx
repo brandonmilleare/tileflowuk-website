@@ -16,7 +16,7 @@ export default function AboutBanner() {
           <span className="inline-block text-xs font-semibold uppercase tracking-widest text-blue-400 mb-4">
             About TileFlow UK
           </span>
-          <h2 className="font-display text-3xl lg:text-4xl font-bold mb-5 leading-tight">
+          <h2 className="font-display text-3xl lg:text-4xl font-bold mb-5 leading-tight text-white">
             Advice From Someone Who&apos;s Actually Used the Kit
           </h2>
           <p className="text-stone-400 leading-relaxed mb-8">
