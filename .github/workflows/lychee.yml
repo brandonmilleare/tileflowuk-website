@@ -8,30 +8,41 @@ name: Broken-link monitor (Lychee)
 # - Free, fast, runs in 30s for the whole site.
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'content/**/*.mdx'
-      - 'app/**/*.tsx'
-      - 'data/**'
+  # Run AFTER Vercel finishes deploying — NOT on push.
+  #
+  # ROOT CAUSE of the recurring false-positive failures: the old `push` trigger
+  # ran Lychee ~10s after merge, checking links against the LIVE site before
+  # Vercel had deployed the new pages (deploys take 1-3 min). Any push that
+  # added a new page another file linked to would 404 transiently — a race
+  # between the link-checker and the deploy, not a real broken link.
+  #
+  # `deployment_status` fires once Vercel reports the deploy succeeded, so the
+  # live site is guaranteed up to date when Lychee runs. The race cannot happen.
+  deployment_status:
   schedule:
-    # Sundays 03:00 UTC — quiet time, weekly cadence catches drift
+    # Sundays 03:00 UTC — weekly catch-all for external link rot
     - cron: '0 3 * * 0'
   # Manual run from Actions tab when needed
   workflow_dispatch:
 
 jobs:
   link-check:
+    # Only run for a SUCCESSFUL PRODUCTION deploy (the live site is now updated),
+    # or on the weekly schedule / manual dispatch. Skips preview deploys and the
+    # pending/in-progress/failed deployment statuses Vercel also emits.
+    if: >-
+      github.event_name != 'deployment_status' ||
+      (github.event.deployment_status.state == 'success' &&
+       github.event.deployment_status.environment == 'Production')
     runs-on: ubuntu-latest
     permissions:
       issues: write
     steps:
       - uses: actions/checkout@v6
 
-      # Per-commit, per-run cache key — every push gets a fresh cache window.
-      # Stops stale 404s persisting after a redirect/rename ships (root cause
-      # of the recurring false-positive failures in May 2026). The restore-key
-      # fallback still lets long-lived caches accelerate scheduled runs.
+      # Per-commit, per-run cache key — every run gets a fresh cache window.
+      # Stops stale 404s persisting after a redirect/rename ships. The
+      # restore-key fallback still lets long-lived caches accelerate runs.
       - name: Restore lychee cache
         uses: actions/cache@v5
         with:
@@ -86,11 +97,14 @@ jobs:
           output: ./lychee/out.md
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      # When run on schedule, file an issue automatically with the report
+      # File an issue when a REAL broken link is found — either post-deploy
+      # (a link that broke in freshly-shipped content) or on the weekly run
+      # (external link rot). Skipped on manual dispatch to avoid noise while
+      # testing. Now that the deploy race is gone, a failure here is genuine.
       - name: Create issue from broken-link report
-        if: env.lychee_exit_code != '0' && github.event_name == 'schedule'
+        if: failure() && github.event_name != 'workflow_dispatch'
         uses: peter-evans/create-issue-from-file@v6
         with:
-          title: 'Broken-link monitor: weekly report'
+          title: 'Broken-link monitor: report'
           content-filepath: ./lychee/out.md
           labels: broken-links, automated
