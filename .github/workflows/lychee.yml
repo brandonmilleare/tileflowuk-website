@@ -44,7 +44,7 @@ jobs:
       # Stops stale 404s persisting after a redirect/rename ships. The
       # restore-key fallback still lets long-lived caches accelerate runs.
       - name: Restore lychee cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: .lycheecache
           key: cache-lychee-${{ github.sha }}-${{ github.run_id }}
